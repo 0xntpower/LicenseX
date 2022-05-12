@@ -4,7 +4,6 @@ import dev.licensex.server.system.request.RequestException;
 import dev.licensex.server.system.request.RequestsManager;
 import dev.licensex.server.utils.StringUtil;
 import dev.licensex.server.utils.log.LogUtil;
-import lombok.extern.java.Log;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
