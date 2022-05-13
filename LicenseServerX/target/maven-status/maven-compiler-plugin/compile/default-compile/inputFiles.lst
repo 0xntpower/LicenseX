@@ -1,6 +1,22 @@
-/Users/nort/All my files/Java projects/LicenseX/LicenseServerX/src/main/java/dev/licensex/server/system/YamlStorage.java
-/Users/nort/All my files/Java projects/LicenseX/LicenseServerX/src/main/java/dev/licensex/server/system/files/ConfigFile.java
-/Users/nort/All my files/Java projects/LicenseX/LicenseServerX/src/main/java/dev/licensex/server/system/files/LicenseFile.java
-/Users/nort/All my files/Java projects/LicenseX/LicenseServerX/src/main/java/dev/licensex/server/LicenseServerX.java
-/Users/nort/All my files/Java projects/LicenseX/LicenseServerX/src/main/java/dev/licensex/server/Launcher.java
-/Users/nort/All my files/Java projects/LicenseX/LicenseServerX/src/main/java/dev/licensex/server/SocketHandler.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\Launcher.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\crypto\AES.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\request\RequestExecutor.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\request\RequestsManager.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\request\RequestException.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\StringUtil.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\data\SimpleDate.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\request\requests\ExampleRequest1.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\yaml\files\LicenseFile.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\style\LetterBlock.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\LicenseServerX.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\request\requests\ExampleRequest2.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\ClientHandler.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\SetupUtil.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\style\AsciiUtil.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\yaml\files\ConfigFile.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\system\yaml\YamlStorage.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\FilenameUtils.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\style\AABanner.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\crypto\HashUtil.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\crypto\SSLUtil.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\IOUtil.java
