@@ -6,8 +6,9 @@ import dev.licensex.server.system.request.requests.ExampleRequest1;
 import dev.licensex.server.system.request.requests.ExampleRequest2;
 import dev.licensex.server.system.yaml.files.ConfigFile;
 import dev.licensex.server.system.yaml.files.LicenseFile;
-import dev.licensex.server.utils.SSLUtil;
+import dev.licensex.server.utils.crypto.SSLUtil;
 import dev.licensex.server.utils.log.LogUtil;
+import dev.licensex.server.utils.style.AsciiUtil;
 import lombok.Getter;
 
 import javax.net.ssl.SSLServerSocket;
@@ -18,14 +19,16 @@ public class LicenseServerX {
     private static final int LISTENING_PORT = 1234;
 
     final LicenseFile licenseFile;
-    final ConfigFile configFile;
-    @Getter final RequestsManager requestsManager;
+    ConfigFile configFile;
+    @Getter RequestsManager requestsManager;
 
     public LicenseServerX() {
+        AsciiUtil.printBanner("SERVERX");
+
         licenseFile = new LicenseFile();
         configFile = new ConfigFile();
-        requestsManager = new RequestsManager();
 
+        requestsManager = new RequestsManager();
         requestsManager.registerRequestExecutor("contains", new ExampleRequest1());
         requestsManager.registerRequestExecutor("add", new ExampleRequest2());
 
