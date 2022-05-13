@@ -1,4 +1,4 @@
-package dev.licensex.server.utils;
+package dev.licensex.server.utils.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

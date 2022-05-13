@@ -1,8 +1,6 @@
 package dev.licensex.server.utils.style;
 
 public class LetterBlock {
-
-	
 	int len;
 	char[][] myArray;
 	
@@ -30,6 +28,4 @@ public class LetterBlock {
 				myArray[n][i] = s.charAt(i);
 		}
 	}
-	
-	
 }

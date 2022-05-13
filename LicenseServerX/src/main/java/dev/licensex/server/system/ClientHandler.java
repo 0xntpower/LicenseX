@@ -3,7 +3,7 @@ package dev.licensex.server.system;
 import dev.licensex.server.system.request.RequestException;
 import dev.licensex.server.system.request.RequestsManager;
 import dev.licensex.server.utils.StringUtil;
-import dev.licensex.server.utils.log.LogUtil;
+import dev.licensex.server.utils.IOUtil;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -25,7 +25,7 @@ public class ClientHandler extends Thread {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));;
             output = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
-            LogUtil.logErr("Error creating streams: " + e.getMessage());
+            IOUtil.logErr("Error creating streams: " + e.getMessage());
         }
     }
 
