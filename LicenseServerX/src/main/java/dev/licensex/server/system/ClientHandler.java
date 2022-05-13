@@ -39,8 +39,8 @@ public class ClientHandler extends Thread {
 
             // process the request according to its origin
             switch (request[0]) {
-                case "Manager" -> processManagerRequest(request);
-                case "Client" -> processClientRequest(request);
+                case "Manager" -> processManagerRequest(StringUtil.removeFirst(request));
+                case "Client" -> processClientRequest(StringUtil.removeFirst(request));
                 default -> throw new RequestException("Cannot sort un-flagged request, aborting. content:[" + requestStr + "]");
             }
 
@@ -50,14 +50,14 @@ public class ClientHandler extends Thread {
     }
 
     private void processManagerRequest(String[] request) throws RequestException {
-        if (requestsManager.doesRequestExist(request[1]))
-            requestsManager.getRequestExecutor(request[1]).onRequest(request);
+        if (requestsManager.doesRequestExist(request[0]))
+            requestsManager.getRequestExecutor(request[0]).onRequest(StringUtil.removeFirst(request));
         else throw new RequestException("The received manager request does not exist, aborting. content: [" + request[1] + "]");
     }
 
     private void processClientRequest(String[] request) throws RequestException {
-        if (requestsManager.doesRequestExist(request[1]))
-            requestsManager.getRequestExecutor(request[1]).onRequest(request);
+        if (requestsManager.doesRequestExist(request[0]))
+            requestsManager.getRequestExecutor(request[0]).onRequest(StringUtil.removeFirst(request));
         else throw new RequestException("The received client request does not exist, aborting. content: [" + request[1] + "]");
     }
 }

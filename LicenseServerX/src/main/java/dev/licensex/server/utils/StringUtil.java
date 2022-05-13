@@ -29,4 +29,10 @@ public class StringUtil {
 
         return arr;
     }
+
+    public static String[] removeFirst(String... arr) {
+        if (arr.length - 1 >= 0) System.arraycopy(arr, 1, arr, 0, arr.length - 1);
+        arr[arr.length - 1] = null;
+        return arr;
+    }
 }

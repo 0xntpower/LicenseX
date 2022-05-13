@@ -7,6 +7,7 @@ import dev.licensex.server.system.request.requests.ExampleRequest2;
 import dev.licensex.server.system.yaml.files.ConfigFile;
 import dev.licensex.server.system.yaml.files.LicenseFile;
 import dev.licensex.server.utils.SSLUtil;
+import dev.licensex.server.utils.log.LogUtil;
 import lombok.Getter;
 
 import javax.net.ssl.SSLServerSocket;
@@ -37,12 +38,11 @@ public class LicenseServerX {
 
     private void startSocketServer() throws Exception {
         SSLServerSocket sslServerSocket = SSLUtil.getSSLServerSocket(LISTENING_PORT);
-
+        LogUtil.logInfo("listening to secure connections . . .");
         while (true) {
             SSLSocket sslsocket = (SSLSocket) sslServerSocket.accept();
             ClientHandler clientHandler = new ClientHandler(sslsocket, requestsManager);
             clientHandler.start();
         }
     }
-
 }
