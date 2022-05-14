@@ -1,8 +1,8 @@
-package dev.licensex.server.system.yaml.files;
+package dev.licensex.server.yaml.files;
 
-import dev.licensex.server.system.yaml.YamlStorage;
+import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.yaml.YamlStorage;
 import dev.licensex.server.utils.FilenameUtils;
-import dev.licensex.server.utils.SetupUtil;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -20,10 +20,8 @@ public class LicenseFile {
 
         if (!configFile.exists()) {
             licenseYaml = new YamlStorage("license", path);
-            licenseYaml.set("license", "none");
+            promptLicenseInput(this);
             licenseYaml.save();
-
-            SetupUtil.promptLicenseInput(this);
         } else {
             licenseYaml = new YamlStorage("license", path);
         }
@@ -46,5 +44,14 @@ public class LicenseFile {
             e.printStackTrace();
         }
         return path;
+    }
+
+    private void promptLicenseInput(LicenseFile licenseFile) {
+        IOUtil.logInfo("Activation required, please insert your LicenseX product license.");
+        String license = "";
+        while (license.length() < 5) {
+            license = IOUtil.promptMasked("license: ");
+        }
+        licenseFile.set("license", license);
     }
 }

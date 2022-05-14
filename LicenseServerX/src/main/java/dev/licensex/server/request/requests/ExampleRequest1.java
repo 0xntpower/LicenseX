@@ -1,6 +1,6 @@
-package dev.licensex.server.system.request.requests;
+package dev.licensex.server.request.requests;
 
-import dev.licensex.server.system.request.RequestExecutor;
+import dev.licensex.server.request.RequestExecutor;
 
 public class ExampleRequest1 implements RequestExecutor {
     @Override

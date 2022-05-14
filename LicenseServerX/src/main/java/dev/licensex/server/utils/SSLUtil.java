@@ -1,10 +1,11 @@
-package dev.licensex.server.utils.crypto;
+package dev.licensex.server.utils;
 
 import lombok.experimental.UtilityClass;
 
 import javax.net.ssl.*;
 import java.io.File;
 import java.security.KeyStore;
+import java.util.Objects;
 
 @UtilityClass
 public class SSLUtil {
@@ -29,7 +30,8 @@ public class SSLUtil {
     public static SSLServerSocketFactory getServerFactory() throws Exception {
         // Get the server's keystore
         String serverCertPassword = "HBTHDgsDSN3uwjFr5";
-        File serverKeystoreFile = new File(ClassLoader.getSystemClassLoader().getResource("serverCertificate.jks").toURI());
+        // ToDo fix code not finding certificate file when building the jar
+        File serverKeystoreFile = new File(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("serverCertificate.jks")).toURI());
         KeyStore serverKeyStore = KeyStore.getInstance(serverKeystoreFile, serverCertPassword.toCharArray());
 
         // a testing certificates to see how it reacts when we use a fake certificate
@@ -39,7 +41,7 @@ public class SSLUtil {
 
         // Get the client's keystore
         String clientCertPassword = "fJpo3hC5N7DntUnv3";
-        File clientKeystoreFile = new File(ClassLoader.getSystemClassLoader().getResource("clientCertificate.jks").toURI());
+        File clientKeystoreFile = new File(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource("clientCertificate.jks")).toURI());
         KeyStore clientKeyStore = KeyStore.getInstance(clientKeystoreFile, clientCertPassword.toCharArray());
 
         // Whitelist the client's certificate on the generated servers

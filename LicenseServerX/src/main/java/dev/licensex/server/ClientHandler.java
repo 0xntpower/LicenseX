@@ -1,7 +1,7 @@
-package dev.licensex.server.system;
+package dev.licensex.server;
 
-import dev.licensex.server.system.request.RequestException;
-import dev.licensex.server.system.request.RequestsManager;
+import dev.licensex.server.request.RequestException;
+import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.utils.StringUtil;
 import dev.licensex.server.utils.IOUtil;
 

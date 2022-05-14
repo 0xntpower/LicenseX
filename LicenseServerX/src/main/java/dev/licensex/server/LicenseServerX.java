@@ -1,12 +1,12 @@
 package dev.licensex.server;
 
-import dev.licensex.server.system.ClientHandler;
-import dev.licensex.server.system.request.RequestsManager;
-import dev.licensex.server.system.request.requests.ExampleRequest1;
-import dev.licensex.server.system.request.requests.ExampleRequest2;
-import dev.licensex.server.system.yaml.files.ConfigFile;
-import dev.licensex.server.system.yaml.files.LicenseFile;
-import dev.licensex.server.utils.crypto.SSLUtil;
+import dev.licensex.server.database.MongoConnect;
+import dev.licensex.server.request.RequestsManager;
+import dev.licensex.server.request.requests.ExampleRequest1;
+import dev.licensex.server.request.requests.ExampleRequest2;
+import dev.licensex.server.yaml.files.ConfigFile;
+import dev.licensex.server.yaml.files.LicenseFile;
+import dev.licensex.server.utils.SSLUtil;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.style.AsciiUtil;
 import lombok.Getter;
@@ -14,23 +14,36 @@ import lombok.Getter;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
 
+@Getter
 public class LicenseServerX {
 
     private static final int LISTENING_PORT = 1234;
 
     final LicenseFile licenseFile;
     ConfigFile configFile;
-    @Getter RequestsManager requestsManager;
+    RequestsManager requestsManager;
+    MongoConnect mongoConnect;
 
     public LicenseServerX() {
         AsciiUtil.printBanner("SERVERX");
 
+        // setup / load license file
         licenseFile = new LicenseFile();
+
+        // ToDo verify product license validity here
+        System.out.println();
+        IOUtil.logInfo("Checking license . . .");
+        IOUtil.logInfo("License activated successfully!\n");
+
+        // setup / load config file
         configFile = new ConfigFile();
 
+        // construct requests handlers
         requestsManager = new RequestsManager();
         requestsManager.registerRequestExecutor("contains", new ExampleRequest1());
         requestsManager.registerRequestExecutor("add", new ExampleRequest2());
+
+        mongoConnect = new MongoConnect(configFile);
 
         try {
             startSocketServer();

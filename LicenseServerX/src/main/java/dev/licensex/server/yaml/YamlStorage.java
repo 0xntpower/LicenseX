@@ -1,4 +1,4 @@
-package dev.licensex.server.system.yaml;
+package dev.licensex.server.yaml;
 
 import lombok.Getter;
 import org.yaml.snakeyaml.DumperOptions;

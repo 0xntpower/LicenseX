@@ -1,4 +1,4 @@
-package dev.licensex.server.system.request;
+package dev.licensex.server.request;
 
 
 import lombok.Getter;

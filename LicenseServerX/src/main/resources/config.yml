@@ -1,0 +1,9 @@
+# this is just an example config
+
+MongoDB:
+  database_name: 'none'
+  mongo_string: 'none'
+  licenses_collection_name: 'licenses'
+
+Product_settings:
+  license_type: 'per-machine'
