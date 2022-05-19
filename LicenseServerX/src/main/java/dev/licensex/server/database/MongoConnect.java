@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.yaml.files.ConfigFile;
 import lombok.Getter;
+import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,6 @@ public class MongoConnect {
             // mongodb+srv://dbuser:Bu2ys8CPBG2ejtD7@testdb.l47li.mongodb.net/TestDB?retryWrites=true&w=majority
             MongoClientURI uri = new MongoClientURI(configFile.getString("MongoDB.mongo_string"));
 
-            IOUtil.logInfo("Attempting to connect to database.");
-
             client = new MongoClient(uri);
             database = client.getDatabase(databaseName);
 
@@ -38,7 +37,7 @@ public class MongoConnect {
         }
     }
 
-    public MongoCollection getMongoCollection(String name) {
+    public MongoCollection<Document> getMongoCollection(String name) {
         List<String> existingCollectionNames = database.listCollectionNames().into(new ArrayList<>());
 
         if (!existingCollectionNames.contains(name))

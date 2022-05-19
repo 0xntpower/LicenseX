@@ -55,7 +55,6 @@ public class SSLUtil {
         // Setup the server's keystore
         KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509", "SunJSSE");
         keyManagerFactory.init(serverKeyStore, serverCertPassword.toCharArray());
-        //keyManagerFactory.init(serverTestKeyStore, serverTestCertPassword.toCharArray());
         X509KeyManager x509KeyManager = null;
         for (KeyManager keyManager : keyManagerFactory.getKeyManagers()) {
             if (keyManager instanceof X509KeyManager) {

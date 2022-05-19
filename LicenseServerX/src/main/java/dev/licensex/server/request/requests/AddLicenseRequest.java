@@ -8,16 +8,14 @@ import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
-public class ContainsCheckRequest implements RequestExecutor {
+public class AddLicenseRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
         String product = args[0];
         String licenseId = args[2];
 
-        // ToDo change the reply to something better
-        String result = MongoUtil.containsLicense(product, licenseId) ? "Approved" : "Denied";
+        MongoUtil.addLicenseToDatabase(product, licenseId);
 
-        output.println(result);
-        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> " + result + " activation request for license - " + licenseId);
+        IOUtil.logInfo("License has been added to database");
     }
 }

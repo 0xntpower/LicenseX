@@ -2,9 +2,7 @@ package dev.licensex.server;
 
 import dev.licensex.server.database.MongoConnect;
 import dev.licensex.server.request.RequestsManager;
-import dev.licensex.server.request.requests.ContainsCheckRequest;
-import dev.licensex.server.request.requests.CreateCollectionRequest;
-import dev.licensex.server.request.requests.ExampleRequest1;
+import dev.licensex.server.request.requests.*;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.SSLUtil;
 import dev.licensex.server.utils.style.AsciiUtil;
@@ -41,10 +39,13 @@ public class LicenseServerX {
 
         // construct requests handlers
         requestsManager = new RequestsManager();
+        requestsManager.registerRequestExecutor("add", new AddLicenseRequest());
         requestsManager.registerRequestExecutor("contains", new ContainsCheckRequest());
+        requestsManager.registerRequestExecutor("remove", new RemoveLicenseRequest());
         requestsManager.registerRequestExecutor("create", new CreateCollectionRequest());
         requestsManager.registerRequestExecutor("example", new ExampleRequest1());
 
+        IOUtil.logInfo("Attempting to connect to database.");
         mongoConnect = new MongoConnect(configFile);
 
         try {

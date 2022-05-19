@@ -34,11 +34,13 @@ public class ClientHandler extends Thread {
         try {
             String requestStr = input.readLine();
 
-            // expected request array syntax [originFlag, product, rqName, arg, arg]
+            // expected request array syntax [originFlag, product, rqName, arg]
+            // example request               [client, godseye, contains, licenseId]
+            // example request after removed first [godseye, contains, licenseId]
             String[] request = StringUtil.split(requestStr, '|');
 
             // process the request according to its origin
-            switch (request[0]) {
+            switch (request[0].toLowerCase()) {
                 case "Manager" -> processManagerRequest(StringUtil.removeFirst(request));
                 case "Client" -> processClientRequest(StringUtil.removeFirst(request));
                 default -> throw new RequestException("Cannot sort un-flagged request, aborting. content:[" + requestStr + "]");

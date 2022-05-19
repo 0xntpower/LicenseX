@@ -2,6 +2,7 @@ dev\licensex\server\request\requests\CreateCollectionRequest.class
 dev\licensex\server\request\RequestException.class
 dev\licensex\server\request\RequestExecutor.class
 dev\licensex\server\request\requests\ExampleRequest1.class
+dev\licensex\server\request\requests\RemoveLicenseRequest.class
 dev\licensex\server\utils\style\LetterBlock.class
 dev\licensex\server\yaml\files\ConfigFile.class
 dev\licensex\server\utils\StringUtil.class
@@ -17,6 +18,7 @@ dev\licensex\server\utils\style\AsciiUtil.class
 dev\licensex\server\Launcher.class
 dev\licensex\server\request\requests\ContainsCheckRequest.class
 dev\licensex\server\LicenseServerX.class
+dev\licensex\server\request\requests\AddLicenseRequest.class
 dev\licensex\server\yaml\YamlStorage.class
 dev\licensex\server\ClientHandler.class
 dev\licensex\server\utils\crypto\AES.class
