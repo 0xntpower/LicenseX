@@ -34,7 +34,7 @@ public class ClientHandler extends Thread {
         try {
             String requestStr = input.readLine();
 
-            // expected request array syntax [originFlag, rqName, arg, arg]
+            // expected request array syntax [originFlag, product, rqName, arg, arg]
             String[] request = StringUtil.split(requestStr, '|');
 
             // process the request according to its origin
@@ -50,14 +50,14 @@ public class ClientHandler extends Thread {
     }
 
     private void processManagerRequest(String[] request) throws RequestException {
-        if (requestsManager.doesRequestExist(request[0]))
-            requestsManager.getRequestExecutor(request[0]).onRequest(StringUtil.removeFirst(request));
+        if (requestsManager.doesRequestExist(request[1]))
+            requestsManager.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
         else throw new RequestException("The received manager request does not exist, aborting. content: [" + request[1] + "]");
     }
 
     private void processClientRequest(String[] request) throws RequestException {
-        if (requestsManager.doesRequestExist(request[0]))
-            requestsManager.getRequestExecutor(request[0]).onRequest(StringUtil.removeFirst(request));
+        if (requestsManager.doesRequestExist(request[1]))
+            requestsManager.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
         else throw new RequestException("The received client request does not exist, aborting. content: [" + request[1] + "]");
     }
 }

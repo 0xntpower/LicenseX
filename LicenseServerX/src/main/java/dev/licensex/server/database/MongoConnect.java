@@ -16,7 +16,6 @@ public class MongoConnect {
 
     private MongoClient client;
     private MongoDatabase database;
-    private MongoCollection licenseCollection;
 
     public MongoConnect(ConfigFile configFile) {
         try {
@@ -33,15 +32,31 @@ public class MongoConnect {
 
             IOUtil.logInfo("Connected to database successfully.");
 
-            List<String> collectionsNames = database.listCollectionNames().into(new ArrayList<>());
-
-            if (!collectionsNames.contains(configFile.getString("MongoDB.licenses_collection_name")))
-                database.createCollection(configFile.getString("MongoDB.licenses_collection_name"));
-            licenseCollection = database.getCollection(configFile.getString("MongoDB.licenses_collection_name"));
-
         } catch (Exception e) {
             IOUtil.logErr("Disabling due to issues with connecting to database.");
             e.printStackTrace();
         }
+    }
+
+    public MongoCollection getMongoCollection(String name) {
+        List<String> existingCollectionNames = database.listCollectionNames().into(new ArrayList<>());
+
+        if (!existingCollectionNames.contains(name))
+            return null;
+
+        return database.getCollection(name);
+    }
+
+    /**
+     * Creates a new collection if it doesn't exist already
+     * @param name the name of the collection
+     */
+    public boolean createMongoCollection(String name) {
+        List<String> collectionsNames = database.listCollectionNames().into(new ArrayList<>());
+        if (!collectionsNames.contains(name)) {
+            database.createCollection(name);
+            return true;
+        }
+        return false;
     }
 }

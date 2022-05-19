@@ -2,8 +2,9 @@ package dev.licensex.server;
 
 import dev.licensex.server.database.MongoConnect;
 import dev.licensex.server.request.RequestsManager;
+import dev.licensex.server.request.requests.ContainsCheckRequest;
+import dev.licensex.server.request.requests.CreateCollectionRequest;
 import dev.licensex.server.request.requests.ExampleRequest1;
-import dev.licensex.server.request.requests.ExampleRequest2;
 import dev.licensex.server.yaml.files.ConfigFile;
 import dev.licensex.server.yaml.files.LicenseFile;
 import dev.licensex.server.utils.SSLUtil;
@@ -40,8 +41,9 @@ public class LicenseServerX {
 
         // construct requests handlers
         requestsManager = new RequestsManager();
-        requestsManager.registerRequestExecutor("contains", new ExampleRequest1());
-        requestsManager.registerRequestExecutor("add", new ExampleRequest2());
+        requestsManager.registerRequestExecutor("contains", new ContainsCheckRequest());
+        requestsManager.registerRequestExecutor("create", new CreateCollectionRequest());
+        requestsManager.registerRequestExecutor("example", new ExampleRequest1());
 
         mongoConnect = new MongoConnect(configFile);
 
