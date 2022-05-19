@@ -2,8 +2,8 @@ package dev.licensex.server;
 
 import dev.licensex.server.request.RequestException;
 import dev.licensex.server.request.RequestsManager;
-import dev.licensex.server.utils.StringUtil;
 import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.utils.StringUtil;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;

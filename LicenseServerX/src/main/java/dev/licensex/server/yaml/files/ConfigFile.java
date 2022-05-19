@@ -1,8 +1,8 @@
 package dev.licensex.server.yaml.files;
 
+import dev.licensex.server.utils.FilenameUtils;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.yaml.YamlStorage;
-import dev.licensex.server.utils.FilenameUtils;
 import lombok.Getter;
 
 import java.io.File;
@@ -103,7 +103,6 @@ public class ConfigFile {
 
         configFile.set("MongoDB.database_name", databaseName);
         configFile.set("MongoDB.mongo_string", mongoStr);
-        configFile.set("MongoDB.licenses_collection_name", "licenses"); // just setting it to default
         configFile.set("Product_settings.license_rule", licenseRule);
     }
 }

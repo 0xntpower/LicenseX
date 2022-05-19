@@ -5,11 +5,11 @@ import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.request.requests.ContainsCheckRequest;
 import dev.licensex.server.request.requests.CreateCollectionRequest;
 import dev.licensex.server.request.requests.ExampleRequest1;
+import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.utils.SSLUtil;
+import dev.licensex.server.utils.style.AsciiUtil;
 import dev.licensex.server.yaml.files.ConfigFile;
 import dev.licensex.server.yaml.files.LicenseFile;
-import dev.licensex.server.utils.SSLUtil;
-import dev.licensex.server.utils.IOUtil;
-import dev.licensex.server.utils.style.AsciiUtil;
 import lombok.Getter;
 
 import javax.net.ssl.SSLServerSocket;

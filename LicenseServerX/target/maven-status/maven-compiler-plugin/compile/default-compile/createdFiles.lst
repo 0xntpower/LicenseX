@@ -1,3 +1,4 @@
+dev\licensex\server\request\requests\CreateCollectionRequest.class
 dev\licensex\server\request\RequestException.class
 dev\licensex\server\request\RequestExecutor.class
 dev\licensex\server\request\requests\ExampleRequest1.class
@@ -14,10 +15,10 @@ dev\licensex\server\request\RequestsManager.class
 dev\licensex\server\utils\crypto\HashUtil.class
 dev\licensex\server\utils\style\AsciiUtil.class
 dev\licensex\server\Launcher.class
+dev\licensex\server\request\requests\ContainsCheckRequest.class
 dev\licensex\server\LicenseServerX.class
 dev\licensex\server\yaml\YamlStorage.class
 dev\licensex\server\ClientHandler.class
 dev\licensex\server\utils\crypto\AES.class
-dev\licensex\server\request\requests\ExampleRequest2.class
 dev\licensex\server\utils\FilenameUtils.class
 dev\licensex\server\utils\IOUtil.class

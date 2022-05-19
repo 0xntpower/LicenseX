@@ -2,14 +2,6 @@ package dev.licensex.server.utils.style;
 
 import lombok.experimental.UtilityClass;
 
-import java.awt.Font;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.Scanner;
-
 @UtilityClass
 public class AsciiUtil {
 

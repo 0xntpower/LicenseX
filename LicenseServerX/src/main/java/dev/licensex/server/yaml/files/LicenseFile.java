@@ -1,8 +1,8 @@
 package dev.licensex.server.yaml.files;
 
+import dev.licensex.server.utils.FilenameUtils;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.yaml.YamlStorage;
-import dev.licensex.server.utils.FilenameUtils;
 
 import java.io.File;
 import java.net.URISyntaxException;
