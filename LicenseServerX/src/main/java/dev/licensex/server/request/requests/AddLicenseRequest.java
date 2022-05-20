@@ -16,6 +16,6 @@ public class AddLicenseRequest implements RequestExecutor {
 
         MongoUtil.addLicenseToDatabase(product, licenseId);
 
-        IOUtil.logInfo("License has been added to database");
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been added to database");
     }
 }

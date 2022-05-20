@@ -1,6 +1,6 @@
 package dev.licensex.server.request.requests;
 
-import dev.licensex.server.database.MongoUtil;
+import dev.licensex.server.Launcher;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
 
@@ -8,14 +8,13 @@ import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
-public class RemoveLicenseRequest implements RequestExecutor {
+public class RemoveCollectionRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
         String product = args[0];
-        String licenseId = args[2];
 
-        MongoUtil.removeLicenseFromDatabase(product, licenseId);
+        Launcher.licenseServerX.getMongoConnect().getMongoCollection(product).drop();
 
-        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been removed from database");
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> MongoCollection " + product + " has been removed.");
     }
 }

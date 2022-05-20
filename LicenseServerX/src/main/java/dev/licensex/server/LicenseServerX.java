@@ -36,7 +36,9 @@ public class LicenseServerX {
 
         // setup / load config file
         configFile = new ConfigFile();
+    }
 
+    public void setUp() {
         // construct requests handlers
         requestsManager = new RequestsManager();
         requestsManager.registerRequestExecutor("add", new AddLicenseRequest());
