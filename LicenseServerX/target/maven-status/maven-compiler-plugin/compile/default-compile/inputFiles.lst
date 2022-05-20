@@ -13,6 +13,7 @@ C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\
 C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\crypto\HashUtil.java
 C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\SSLUtil.java
 C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\RemoveLicenseRequest.java
+C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\RemoveCollectionRequest.java
 C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\StringUtil.java
 C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\RequestException.java
 C:\fastfiles\workspaces\java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\ExampleRequest1.java

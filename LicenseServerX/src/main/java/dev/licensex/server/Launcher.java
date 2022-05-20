@@ -1,6 +1,6 @@
 package dev.licensex.server;
 
-public class Launcher {
+public final class Launcher {
 
     public static LicenseServerX licenseServerX;
 

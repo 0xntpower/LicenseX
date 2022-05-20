@@ -18,6 +18,7 @@ dev\licensex\server\utils\style\AsciiUtil.class
 dev\licensex\server\Launcher.class
 dev\licensex\server\request\requests\ContainsCheckRequest.class
 dev\licensex\server\LicenseServerX.class
+dev\licensex\server\request\requests\RemoveCollectionRequest.class
 dev\licensex\server\request\requests\AddLicenseRequest.class
 dev\licensex\server\yaml\YamlStorage.class
 dev\licensex\server\ClientHandler.class
