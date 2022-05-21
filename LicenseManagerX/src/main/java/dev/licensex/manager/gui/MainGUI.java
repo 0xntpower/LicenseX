@@ -21,15 +21,123 @@ public class MainGUI extends JFrame {
         setBounds(200, 200, 1100, 680);
         setLayout(new BorderLayout());
 
-        JMenuBar menuBar = utils.getMenuBar();
+        // ---- menu bar start
+        JMenuBar menuBar = new JMenuBar();
 
-        getContentPane().add(menuBar, BorderLayout.PAGE_START);
+        JMenu productMenu = new JMenu("Product");
+
+        JMenuItem newProductMenuItem = new JMenuItem("New product");
+        newProductMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        productMenu.add(newProductMenuItem);
+
+        JMenuItem newProductCategoryMenuItem = new JMenuItem("New product category");
+        newProductCategoryMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        productMenu.add(newProductCategoryMenuItem);
+
+        productMenu.add(new JSeparator());
+
+        JMenuItem refreshMenuItem = new JMenuItem("Refresh");
+        refreshMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        productMenu.add(refreshMenuItem);
+
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        productMenu.add(exitMenuItem);
+
+        menuBar.add(productMenu);
+
+        JMenu licenseMenu = new JMenu("License");
+
+        JMenuItem generateLicenseMenuItem = new JMenuItem("Generate New License");
+        generateLicenseMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        licenseMenu.add(generateLicenseMenuItem);
+
+        menuBar.add(licenseMenu);
+
+        JMenu ThemesMenu = new JMenu("Themes");
+
+        JMenuItem defaultModeMenuItem = new JMenuItem("Light");
+        defaultModeMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        ThemesMenu.add(defaultModeMenuItem);
+
+        ThemesMenu.add(new JSeparator());
+
+        JMenuItem darkModeMenuItem = new JMenuItem("Dark");
+        darkModeMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        ThemesMenu.add(darkModeMenuItem);
+
+        menuBar.add(ThemesMenu);
+
+        JMenu HelpMenu = new JMenu("Help");
+
+        JMenuItem checkForUpdatesMenuItem = new JMenuItem("Check For Updates");
+        checkForUpdatesMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        HelpMenu.add(checkForUpdatesMenuItem);
+
+        HelpMenu.add(new JSeparator());
+
+        JMenuItem aboutMenuItem = new JMenuItem("About");
+        aboutMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        HelpMenu.add(aboutMenuItem);
+
+        menuBar.add(HelpMenu);
+
+        setJMenuBar(menuBar);
+        getContentPane().add(new JLabel("No product selected", SwingConstants.CENTER));
+
+        //getContentPane().add(menuBar, BorderLayout.PAGE_START);
+        // --- menu bar end
 
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel label = new JLabel();
         label.setHorizontalAlignment(JLabel.LEFT);
         leftPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        leftPanel.setPreferredSize(new Dimension(getWidth() / 2, getHeight() - (menuBar.getHeight() + 65)));
+        leftPanel.setPreferredSize(new Dimension(getWidth() / 2, getHeight() - (menuBar.getHeight() + 80)));
         leftPanel.add(label);
 
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -38,7 +146,7 @@ public class MainGUI extends JFrame {
         bar.setOpaque(false);
         bar.setVisible(false);
         rightPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        rightPanel.setPreferredSize(new Dimension(getWidth() / 3, getHeight() - (menuBar.getHeight() + 65)));
+        rightPanel.setPreferredSize(new Dimension(getWidth() / 3, getHeight() - (menuBar.getHeight() + 80)));
         rightPanel.add(bar);
 
         JSplitPane spt = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel) {
@@ -60,96 +168,8 @@ public class MainGUI extends JFrame {
         };
 
         add(spt, BorderLayout.SOUTH);
-    }
 
-    static class utils {
-
-        public static JMenuBar getMenuBar() {
-            JMenuBar menuBar = new JMenuBar();
-
-            JMenu productMenu = new JMenu("Product");
-
-            JMenuItem newProductMenuItem = new JMenuItem("New product");
-            newProductMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            productMenu.add(newProductMenuItem);
-
-            JMenuItem newProductCategoryMenuItem = new JMenuItem("New product category");
-            newProductCategoryMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            productMenu.add(newProductCategoryMenuItem);
-
-            menuBar.add(productMenu);
-
-            JMenu licenseMenu = new JMenu("License");
-
-            JMenuItem generateLicenseMenuItem = new JMenuItem("Generate New License");
-            generateLicenseMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            licenseMenu.add(generateLicenseMenuItem);
-
-            menuBar.add(licenseMenu);
-
-            JMenu ThemesMenu = new JMenu("Themes");
-
-            JMenuItem defaultModeMenuItem = new JMenuItem("Light");
-            defaultModeMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            ThemesMenu.add(defaultModeMenuItem);
-
-            JMenuItem darkModeMenuItem = new JMenuItem("Dracula");
-            darkModeMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            ThemesMenu.add(darkModeMenuItem);
-
-            menuBar.add(ThemesMenu);
-
-            JMenu HelpMenu = new JMenu("Help");
-
-            JMenuItem checkForUpdatesMenuItem = new JMenuItem("Check For Updates");
-            checkForUpdatesMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            HelpMenu.add(checkForUpdatesMenuItem);
-
-            JMenuItem aboutMenuItem = new JMenuItem("About");
-            aboutMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String licenseType = "none";
-                    JOptionPane.showMessageDialog(null, "Version: 0.0.0\nLicense-type: " + licenseType + "\nAuthor: Nort721", "LicenseManagerX", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
-            HelpMenu.add(aboutMenuItem);
-
-            menuBar.add(HelpMenu);
-
-            return menuBar;
-        }
-
+        leftPanel.addMouseListener(new RightClickListener());
     }
 
 }
