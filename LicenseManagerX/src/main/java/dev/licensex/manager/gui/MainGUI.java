@@ -104,6 +104,15 @@ public class MainGUI extends JFrame {
 
             JMenu ThemesMenu = new JMenu("Themes");
 
+            JMenuItem defaultModeMenuItem = new JMenuItem("Light");
+            defaultModeMenuItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
+            ThemesMenu.add(defaultModeMenuItem);
+
             JMenuItem darkModeMenuItem = new JMenuItem("Dracula");
             darkModeMenuItem.addActionListener(new ActionListener() {
                 @Override
@@ -130,7 +139,8 @@ public class MainGUI extends JFrame {
             aboutMenuItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    String licenseType = "none";
+                    JOptionPane.showMessageDialog(null, "Version: 0.0.0\nLicense-type: " + licenseType + "\nAuthor: Nort721", "LicenseManagerX", JOptionPane.INFORMATION_MESSAGE);
                 }
             });
             HelpMenu.add(aboutMenuItem);
