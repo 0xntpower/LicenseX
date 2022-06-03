@@ -29,13 +29,13 @@ public class CheckForUpdatesGUI extends JFrame {
                 : "A new version of LicenseManagerX is available . . .";
 
         JLabel editionLabel = new JLabel(checkResult);
-        editionLabel.setBounds(25, 10, 350, 20);
+        editionLabel.setBounds(25, 10, 380, 20);
         editionLabel.setFont(new Font(editionLabel.getFont().getName(), Font.PLAIN, 15));
         editionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(editionLabel);
 
         JLabel versionLabel = new JLabel("Current version: 1.0.0 | Latest version: 1.0.0");
-        versionLabel.setBounds(63, 35, 260, 20);
+        versionLabel.setBounds(63, 35, 280, 20);
         versionLabel.setFont(new Font(versionLabel.getFont().getName(), Font.PLAIN, 13));
         versionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(versionLabel);
