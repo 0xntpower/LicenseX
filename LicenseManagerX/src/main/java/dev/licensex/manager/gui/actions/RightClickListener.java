@@ -1,4 +1,4 @@
-package dev.licensex.manager.gui;
+package dev.licensex.manager.gui.actions;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

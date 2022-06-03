@@ -1,4 +1,8 @@
-package dev.licensex.manager.gui;
+package dev.licensex.manager.gui.pages;
+
+import dev.licensex.manager.Launcher;
+import dev.licensex.manager.gui.actions.RightClickListener;
+import dev.licensex.manager.utils.ThemesUtil;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -20,6 +24,7 @@ public class MainGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(200, 200, 1100, 680);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
         // ---- menu bar start
         JMenuBar menuBar = new JMenuBar();
@@ -30,7 +35,7 @@ public class MainGUI extends JFrame {
         newProductMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new NewProductGUI();
             }
         });
         productMenu.add(newProductMenuItem);
@@ -39,7 +44,7 @@ public class MainGUI extends JFrame {
         newProductCategoryMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new NewProductCategoryGUI();
             }
         });
         productMenu.add(newProductCategoryMenuItem);
@@ -59,7 +64,8 @@ public class MainGUI extends JFrame {
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // ToDo save and close all connections here
+                System.exit(0);
             }
         });
         productMenu.add(exitMenuItem);
@@ -72,7 +78,7 @@ public class MainGUI extends JFrame {
         generateLicenseMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new GenerateLicenseGUI();
             }
         });
         licenseMenu.add(generateLicenseMenuItem);
@@ -85,7 +91,8 @@ public class MainGUI extends JFrame {
         defaultModeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ThemesUtil.setDefaultSystemLookAndFeel();
+                SwingUtilities.updateComponentTreeUI(Launcher.mainGUI);
             }
         });
         ThemesMenu.add(defaultModeMenuItem);
@@ -96,7 +103,8 @@ public class MainGUI extends JFrame {
         darkModeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ThemesUtil.setDarkMode();
+                SwingUtilities.updateComponentTreeUI(Launcher.mainGUI);
             }
         });
         ThemesMenu.add(darkModeMenuItem);
@@ -109,7 +117,7 @@ public class MainGUI extends JFrame {
         checkForUpdatesMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new CheckForUpdatesGUI();
             }
         });
         HelpMenu.add(checkForUpdatesMenuItem);
@@ -120,7 +128,7 @@ public class MainGUI extends JFrame {
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                new AboutGUI();
             }
         });
         HelpMenu.add(aboutMenuItem);
