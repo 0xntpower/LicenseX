@@ -9,8 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NewProductCategoryGUI extends JFrame {
+
+    private static final List<Integer> specialKeys = new LinkedList<>();
+
+    static {
+        specialKeys.add(KeyEvent.VK_CONTROL);
+        specialKeys.add(KeyEvent.VK_ALT);
+        specialKeys.add(KeyEvent.VK_SHIFT);
+        specialKeys.add(KeyEvent.VK_CAPS_LOCK);
+        specialKeys.add(KeyEvent.VK_TAB);
+        specialKeys.add(KeyEvent.VK_WINDOWS);
+    }
 
     public NewProductCategoryGUI() {
         buildWindow();
@@ -46,9 +59,9 @@ public class NewProductCategoryGUI extends JFrame {
         nameTextField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (nameTextField.getText().length() < 2 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE
-                        || e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isControlDown())
+                        || isInstantFullDelete(e))
                     idTextField.setText("");
-                else
+                else if (!specialKeys.contains(e.getKeyCode()))
                     idTextField.setText(StringUtils.generateString(6));
             }
         });
@@ -82,5 +95,11 @@ public class NewProductCategoryGUI extends JFrame {
         });
 
         setContentPane(panel);
+    }
+
+    private boolean isInstantFullDelete(KeyEvent e) {
+        if (System.getProperty("os.name").contains("Mac OS X"))
+            return e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isAltDown();
+        return e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isControlDown();
     }
 }

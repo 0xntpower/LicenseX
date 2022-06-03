@@ -26,7 +26,7 @@ public class AboutGUI extends JFrame {
         panel.setLayout(null);
 
         JLabel titleLabel = new JLabel("LicenseManagerX");
-        titleLabel.setBounds(85, 20, 200, 20);
+        titleLabel.setBounds(85, 20, 200, 23);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(titleLabel);
@@ -36,7 +36,7 @@ public class AboutGUI extends JFrame {
         panel.add(jSeparator1);
 
         JLabel editionLabel = new JLabel("Edition: Individual/Standard");
-        editionLabel.setBounds(15, 62, 180, 20);
+        editionLabel.setBounds(22, 62, 180, 20);
         editionLabel.setFont(new Font(editionLabel.getFont().getName(), Font.PLAIN, 13));
         editionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(editionLabel);
@@ -48,19 +48,19 @@ public class AboutGUI extends JFrame {
         panel.add(versionLabel);
 
         JLabel creditsLabel = new JLabel("Authors: Nort721");
-        creditsLabel.setBounds(6, 108, 140, 20);
+        creditsLabel.setBounds(9, 108, 140, 20);
         creditsLabel.setFont(new Font(creditsLabel.getFont().getName(), Font.PLAIN, 13));
         creditsLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(creditsLabel);
 
         JLabel descriptionLabel = new JLabel("Description: A powerful product licensing solution");
-        descriptionLabel.setBounds(-7, 131, 350, 20);
+        descriptionLabel.setBounds(7, 131, 350, 20);
         descriptionLabel.setFont(new Font(descriptionLabel.getFont().getName(), Font.PLAIN, 13));
         descriptionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(descriptionLabel);
 
         JLabel copyrightLabel = new JLabel("Copyright (c) 2022-2032 LicenseX");
-        copyrightLabel.setBounds(-7, 154, 260, 20);
+        copyrightLabel.setBounds(2, 154, 260, 20);
         copyrightLabel.setFont(new Font(copyrightLabel.getFont().getName(), Font.PLAIN, 13));
         copyrightLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(copyrightLabel);
