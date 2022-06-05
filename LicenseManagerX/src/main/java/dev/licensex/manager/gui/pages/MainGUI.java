@@ -19,7 +19,7 @@ public class MainGUI extends JFrame {
     }
 
     private void buildWindow() {
-        setResizable(true);
+        setResizable(false);
         setTitle("LicenseManagerX");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(200, 200, 1100, 680);

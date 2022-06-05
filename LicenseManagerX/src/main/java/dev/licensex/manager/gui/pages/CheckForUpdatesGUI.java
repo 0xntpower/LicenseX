@@ -26,22 +26,24 @@ public class CheckForUpdatesGUI extends JFrame {
         panel.setLayout(null);
 
         String checkResult = isUsingLatest() ? "You are using the latest version of LicenseManagerX"
-                : "A new version of LicenseManagerX is available . . .";
+                : "A new version of LicenseManagerX is available for install";
 
         JLabel editionLabel = new JLabel(checkResult);
-        editionLabel.setBounds(25, 10, 380, 20);
+        editionLabel.setBounds(13, 10, 380, 20);
         editionLabel.setFont(new Font(editionLabel.getFont().getName(), Font.PLAIN, 15));
         editionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(editionLabel);
 
+        String os = System.getProperty("os.name");
+
         JLabel versionLabel = new JLabel("Current version: 1.0.0 | Latest version: 1.0.0");
-        versionLabel.setBounds(63, 35, 280, 20);
+        versionLabel.setBounds(62, 35, os.contains("Mac OS X") ? 280 : 260, 20);
         versionLabel.setFont(new Font(versionLabel.getFont().getName(), Font.PLAIN, 13));
         versionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(versionLabel);
 
         JButton btnClose = new JButton("Close");
-        btnClose.setBounds(150, 60, 89, 23);
+        btnClose.setBounds(152, 60, 89, 23);
         panel.add(btnClose);
         btnClose.addActionListener(new ActionListener() {
 

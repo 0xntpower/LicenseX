@@ -35,8 +35,10 @@ public class AboutGUI extends JFrame {
         jSeparator1.setBounds(29, 50, 320, 20);
         panel.add(jSeparator1);
 
+        String os = System.getProperty("os.name");
+
         JLabel editionLabel = new JLabel("Edition: Individual/Standard");
-        editionLabel.setBounds(22, 62, 180, 20);
+        editionLabel.setBounds(os.contains("Mac OS X") ? 22 : 15, 62, 180, 20);
         editionLabel.setFont(new Font(editionLabel.getFont().getName(), Font.PLAIN, 13));
         editionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(editionLabel);
@@ -48,19 +50,19 @@ public class AboutGUI extends JFrame {
         panel.add(versionLabel);
 
         JLabel creditsLabel = new JLabel("Authors: Nort721");
-        creditsLabel.setBounds(9, 108, 140, 20);
+        creditsLabel.setBounds(os.contains("Mac OS X") ? 9 : 6, 108, 140, 20);
         creditsLabel.setFont(new Font(creditsLabel.getFont().getName(), Font.PLAIN, 13));
         creditsLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(creditsLabel);
 
         JLabel descriptionLabel = new JLabel("Description: A powerful product licensing solution");
-        descriptionLabel.setBounds(7, 131, 350, 20);
+        descriptionLabel.setBounds(os.contains("Mac OS X") ? 7 : -7, 131, 350, 20);
         descriptionLabel.setFont(new Font(descriptionLabel.getFont().getName(), Font.PLAIN, 13));
         descriptionLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(descriptionLabel);
 
         JLabel copyrightLabel = new JLabel("Copyright (c) 2022-2032 LicenseX");
-        copyrightLabel.setBounds(2, 154, 260, 20);
+        copyrightLabel.setBounds(os.contains("Mac OS X") ? 2 : -7, 154, 260, 20);
         copyrightLabel.setFont(new Font(copyrightLabel.getFont().getName(), Font.PLAIN, 13));
         copyrightLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(copyrightLabel);

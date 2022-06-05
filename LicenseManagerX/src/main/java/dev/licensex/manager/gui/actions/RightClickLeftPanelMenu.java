@@ -26,6 +26,7 @@ public class RightClickLeftPanelMenu extends JPopupMenu {
         });
 
         add(newProductMenuItem);
+        add(new JSeparator());
         add(newProductCategoryMenuItem);
     }
 }
