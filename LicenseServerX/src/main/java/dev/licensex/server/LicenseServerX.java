@@ -20,7 +20,8 @@ public class LicenseServerX {
 
     final LicenseFile licenseFile;
     ConfigFile configFile;
-    RequestsManager requestsManager;
+    RequestsManager managerRequests;
+    RequestsManager clientRequests;
     MongoConnect mongoConnect;
 
     public LicenseServerX() {
@@ -40,12 +41,14 @@ public class LicenseServerX {
 
     public void setUp() {
         // construct requests handlers
-        requestsManager = new RequestsManager();
-        requestsManager.registerRequestExecutor("add", new AddLicenseRequest());
-        requestsManager.registerRequestExecutor("contains", new ContainsCheckRequest());
-        requestsManager.registerRequestExecutor("remove", new RemoveLicenseRequest());
-        requestsManager.registerRequestExecutor("create", new CreateCollectionRequest());
-        requestsManager.registerRequestExecutor("example", new ExampleRequest1());
+        managerRequests = new RequestsManager();
+        managerRequests.registerRequestExecutor("add", new AddLicenseRequest());
+        managerRequests.registerRequestExecutor("contains", new ContainsCheckRequest());
+        managerRequests.registerRequestExecutor("remove", new RemoveLicenseRequest());
+        managerRequests.registerRequestExecutor("create", new CreateCollectionRequest());
+
+        clientRequests = new RequestsManager();
+        clientRequests.registerRequestExecutor("contains", new ContainsCheckRequest());
 
         IOUtil.logInfo("Attempting to connect to database.");
         mongoConnect = new MongoConnect(configFile);
@@ -62,7 +65,7 @@ public class LicenseServerX {
         IOUtil.logInfo("listening to secure connections . . .");
         while (true) {
             SSLSocket sslsocket = (SSLSocket) sslServerSocket.accept();
-            ClientHandler clientHandler = new ClientHandler(sslsocket, requestsManager);
+            ClientHandler clientHandler = new ClientHandler(sslsocket, managerRequests, clientRequests);
             clientHandler.start();
         }
     }

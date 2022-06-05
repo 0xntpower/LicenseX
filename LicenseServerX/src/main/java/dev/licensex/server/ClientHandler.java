@@ -14,13 +14,15 @@ import java.io.PrintWriter;
 public class ClientHandler extends Thread {
 
     final SSLSocket socket;
-    final RequestsManager requestsManager;
+    final RequestsManager managerRequests;
+    final RequestsManager clientRequests;
     BufferedReader input;
     PrintWriter output;
 
-    public ClientHandler(SSLSocket socket, RequestsManager requestsManager) {
+    public ClientHandler(SSLSocket socket, RequestsManager managerRequests, RequestsManager clientRequests) {
         this.socket = socket;
-        this.requestsManager = requestsManager;
+        this.managerRequests = managerRequests;
+        this.clientRequests = clientRequests;
         try {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));;
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -52,14 +54,14 @@ public class ClientHandler extends Thread {
     }
 
     private void processManagerRequest(String[] request) throws RequestException {
-        if (requestsManager.doesRequestExist(request[1]))
-            requestsManager.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
+        if (managerRequests.doesRequestExist(request[1]))
+            managerRequests.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
         else throw new RequestException("The received manager request does not exist, aborting. content: [" + request[1] + "]");
     }
 
     private void processClientRequest(String[] request) throws RequestException {
-        if (requestsManager.doesRequestExist(request[1]))
-            requestsManager.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
+        if (clientRequests.doesRequestExist(request[1]))
+            clientRequests.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
         else throw new RequestException("The received client request does not exist, aborting. content: [" + request[1] + "]");
     }
 }
