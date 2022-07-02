@@ -1,7 +1,7 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
-import dev.licensex.manager.utils.StringUtils;
+import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +62,7 @@ public class NewProductCategoryGUI extends JFrame {
                         || isInstantFullDelete(e))
                     idTextField.setText("");
                 else if (!specialKeys.contains(e.getKeyCode()))
-                    idTextField.setText(StringUtils.generateString(6));
+                    idTextField.setText(StringUtil.generateString(6));
             }
         });
 
@@ -84,7 +84,7 @@ public class NewProductCategoryGUI extends JFrame {
         });
 
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(90, 83, 180, 20);
+        btnCancel.setBounds(90, 86, 180, 20);
         panel.add(btnCancel);
         btnCancel.addActionListener(new ActionListener() {
 

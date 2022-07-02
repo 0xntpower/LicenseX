@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public final class StringUtils {
+public final class StringUtil {
 
     private static final char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
 

@@ -1,11 +1,8 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
-import dev.licensex.manager.utils.StringUtils;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class NewProductGUI extends JFrame {
 
