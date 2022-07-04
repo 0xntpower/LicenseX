@@ -140,7 +140,9 @@ public class GenerateLicenseGUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                MainGUI.saveLicenseToProduct(idTextField.getText());
+                MainGUI.printLicenses();
+                dispose();
             }
         });
 

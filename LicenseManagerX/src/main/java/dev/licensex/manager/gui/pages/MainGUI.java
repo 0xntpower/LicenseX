@@ -16,16 +16,40 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
 public class MainGUI extends JFrame {
 
+    public static JPanel leftPanel;
     public static JTree tree;
     public static DefaultMutableTreeNode selectedNode;
     public static DefaultMutableTreeNode rootNode;
 
+    public static DefaultListModel<String> licensesList;
+    public static Map<String, List<String>> productsLicensesData = new HashMap<>();
+
     public MainGUI() {
         buildWindow();
         show();
+    }
+
+    public static void saveLicenseToProduct(String license) {
+        if (!productsLicensesData.containsKey(selectedNode.toString())) {
+            productsLicensesData.put(selectedNode.toString(), List.of(license));
+        } else {
+            List<String> list = new LinkedList<>(productsLicensesData.get(selectedNode.toString()));
+            list.add(license);
+            productsLicensesData.replace(selectedNode.toString(), list);
+        }
+    }
+
+    public static void printLicenses() {
+        licensesList.clear();
+        if (productsLicensesData.containsKey(selectedNode.toString())) {
+            for (String license : productsLicensesData.get(selectedNode.toString()))
+                licensesList.addElement(license);
+        }
     }
 
     private void buildWindow() {
@@ -151,7 +175,7 @@ public class MainGUI extends JFrame {
         //getContentPane().add(menuBar, BorderLayout.PAGE_START);
         // --- menu bar end
 
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel label = new JLabel();
         label.setHorizontalAlignment(JLabel.LEFT);
         leftPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -167,21 +191,17 @@ public class MainGUI extends JFrame {
         rightPanel.setPreferredSize(new Dimension(getWidth() / 3, getHeight() - (menuBar.getHeight() + 80)));
         rightPanel.add(bar);
 
-        //String array to store weekdays
-        String[] week = { "Monday","Tuesday","Wednesday",
-                "Thursday","Friday","Saturday","Sunday"};
-
         //create list
-        JList<String> list = new JList<>(week);
+        licensesList = new DefaultListModel<>();
+        JList<String> list = new JList<>(licensesList);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
-        list.setVisibleRowCount(3);
         JScrollPane listScrollPane = new JScrollPane(list);
         leftPanel.add(listScrollPane);
 
         list.setBackground(leftPanel.getBackground());
         DefaultListCellRenderer listRenderer = (DefaultListCellRenderer) list.getCellRenderer();
-        listRenderer.setBackground(leftPanel.getBackground());
+        listRenderer.setBackground(leftPanel.getBackground().darker());
 
         //add list to panel
         rightPanel.add(list);
@@ -226,6 +246,7 @@ public class MainGUI extends JFrame {
 
                 if (e.getButton() == 3) {
 
+                    if (selectedNode == null) return;
                     if (selectedNode.toString().equals("Database")) {
                         // the database has been right-clicked
                         RightClickDatabaseMenu menu = new RightClickDatabaseMenu();
@@ -248,10 +269,7 @@ public class MainGUI extends JFrame {
                     if (selectedNode.getParent().getParent() != null
                             && selectedNode.getParent().getParent().toString().equals("Database")) {
                         // a product has been left-clicked
-
-                        System.out.println("test");
-
-                        // ToDo load product data on right panel list
+                        printLicenses();
                     }
 
                 }
