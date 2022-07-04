@@ -112,8 +112,10 @@ public class MainGUI extends JFrame {
         generateLicenseMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedNode.getParent() == null) return;
-                if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
+                if (MainGUI.selectedNode == null
+                        || MainGUI.selectedNode.equals(MainGUI.rootNode)
+                        || selectedNode.getParent() != null
+                        && selectedNode.getParent().toString().equals("Database")) {
                     JOptionPane.showMessageDialog(null, "No product selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
