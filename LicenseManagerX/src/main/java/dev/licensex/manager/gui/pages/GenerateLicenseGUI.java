@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 public class GenerateLicenseGUI extends JFrame {
 
     private JComboBox<String> idTypeComboBox;
+    private JComboBox<String> licenseTypeComboBox;
+    private JComboBox<String> noneComboBox;
 
     public GenerateLicenseGUI() {
         buildWindow();
@@ -18,10 +20,12 @@ public class GenerateLicenseGUI extends JFrame {
     }
 
     private void buildWindow() {
+        String os = System.getProperty("os.name");
+
         setResizable(false);
         setTitle("Generate new license");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(400, 280, 400, 200);
+        setBounds(400, 280, os.contains("Mac OS X") ? 400 : 420, os.contains("Mac OS X") ? 200 : 210);
         setLocationRelativeTo(Launcher.mainGUI);
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -29,9 +33,38 @@ public class GenerateLicenseGUI extends JFrame {
         String[] IdTypeChoices = { "Groups", "Noise" };
         idTypeComboBox = new JComboBox<>(IdTypeChoices);
         idTypeComboBox.setSelectedItem("Groups");
-        idTypeComboBox.setBounds(20, 85, 100, 25);
+        idTypeComboBox.setBounds(os.contains("Mac OS X") ? 5 : 12, 60, 100, 25);
         idTypeComboBox.setVisible(true);
         panel.add(idTypeComboBox);
+
+        String[] licenseTypeChoices = { "Per-machine", "Live-sessions" };
+        licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
+        licenseTypeComboBox.setSelectedItem("Per-machine");
+        licenseTypeComboBox.setBounds(os.contains("Mac OS X") ? 145 : 152, 60, 100, 25);
+        licenseTypeComboBox.setVisible(true);
+        panel.add(licenseTypeComboBox);
+
+        JTextField limitTextField = new JTextField();
+        limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
+        limitTextField.setColumns(4);
+        panel.add(limitTextField);
+
+        JLabel limitLabel = new JLabel("Limit: ");
+        limitLabel.setBounds(os.contains("Mac OS X") ? 136 : 129, 90, 80, 20);
+        limitLabel.setFont(new Font(limitLabel.getFont().getName(), Font.PLAIN, 12));
+        limitLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(limitLabel);
+
+        String[] noneChoices = { "placeholder1", "placeholder2" };
+        noneComboBox = new JComboBox<>(noneChoices);
+        noneComboBox.setSelectedItem("placeholder1");
+        noneComboBox.setBounds(os.contains("Mac OS X") ? 285 : 292, 60, 100, 25);
+        noneComboBox.setVisible(true);
+        panel.add(noneComboBox);
+
+        JCheckBox placeholderCheckBox = new JCheckBox("Placeholder");
+        placeholderCheckBox.setBounds(os.contains("Mac OS X") ? 285 : 289, 90, 135, 20);
+        panel.add(placeholderCheckBox);
 
         JLabel licenseIdLabel = new JLabel("License-id: ");
         licenseIdLabel.setBounds(-50, 10, 220, 20);
@@ -57,9 +90,8 @@ public class GenerateLicenseGUI extends JFrame {
         panel.add(userNameTextField);
 
         JCheckBox nameInLicenseCheckBox = new JCheckBox("Name in license");
-        nameInLicenseCheckBox.setBounds(20, 60, 135, 20);
+        nameInLicenseCheckBox.setBounds(os.contains("Mac OS X") ? 5 : 9, 90, 135, 20);
         panel.add(nameInLicenseCheckBox);
-
         nameInLicenseCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,7 +109,7 @@ public class GenerateLicenseGUI extends JFrame {
         });
 
         JButton btnGenerate = new JButton("generate");
-        btnGenerate.setBounds(320, 10, 70, 19);
+        btnGenerate.setBounds(320, 10, os.contains("Mac OS X") ? 70 : 80, 19);
         panel.add(btnGenerate);
         btnGenerate.addActionListener(new ActionListener() {
 
@@ -89,6 +121,17 @@ public class GenerateLicenseGUI extends JFrame {
                     idTextField.setText(generateLicenseString());
             }
         });
+
+        idTypeComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nameInLicenseCheckBox.isSelected() && userNameTextField.getText().length() > 0)
+                    idTextField.setText(generateLicenseString() + '-' + userNameTextField.getText());
+                else
+                    idTextField.setText(generateLicenseString());
+            }
+        });
+
 
         JButton btnSave = new JButton("Save");
         btnSave.setBounds(110, 120, 180, 20);
