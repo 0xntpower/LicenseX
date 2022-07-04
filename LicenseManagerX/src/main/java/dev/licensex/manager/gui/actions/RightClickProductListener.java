@@ -3,7 +3,8 @@ package dev.licensex.manager.gui.actions;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RightClickListenerRightPanel extends MouseAdapter {
+public class RightClickProductListener extends MouseAdapter {
+
     public void mousePressed(MouseEvent e) {
         if (e.isPopupTrigger())
             doPop(e);
@@ -15,7 +16,7 @@ public class RightClickListenerRightPanel extends MouseAdapter {
     }
 
     private void doPop(MouseEvent e) {
-        RightClickProductPanelMenu menu = new RightClickProductPanelMenu();
+        RightClickProductMenu menu = new RightClickProductMenu();
         menu.show(e.getComponent(), e.getX(), e.getY());
     }
 }

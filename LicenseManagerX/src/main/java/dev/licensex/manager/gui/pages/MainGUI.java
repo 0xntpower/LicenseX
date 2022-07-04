@@ -1,18 +1,27 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
-import dev.licensex.manager.gui.actions.RightClickListenerLeftPanel;
-import dev.licensex.manager.gui.actions.RightClickListenerRightPanel;
+import dev.licensex.manager.gui.actions.RightClickCategoryMenu;
+import dev.licensex.manager.gui.actions.RightClickDatabaseMenu;
+import dev.licensex.manager.gui.actions.RightClickProductListener;
+import dev.licensex.manager.gui.actions.RightClickProductMenu;
 import dev.licensex.manager.utils.ThemesUtil;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.JMenuBar;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class MainGUI extends JFrame {
+
+    public static JTree tree;
+    public static DefaultMutableTreeNode selectedNode;
+    public static DefaultMutableTreeNode rootNode;
 
     public MainGUI() {
         buildWindow();
@@ -149,7 +158,7 @@ public class MainGUI extends JFrame {
         leftPanel.setPreferredSize(new Dimension(getWidth() / 2, getHeight() - (menuBar.getHeight() + 80)));
         leftPanel.add(label);
 
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel rightPanel = new JPanel(new BorderLayout(0, 0));
         JProgressBar bar = new JProgressBar();
         bar.setStringPainted(true);
         bar.setOpaque(false);
@@ -157,6 +166,25 @@ public class MainGUI extends JFrame {
         rightPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
         rightPanel.setPreferredSize(new Dimension(getWidth() / 3, getHeight() - (menuBar.getHeight() + 80)));
         rightPanel.add(bar);
+
+        //String array to store weekdays
+        String[] week = { "Monday","Tuesday","Wednesday",
+                "Thursday","Friday","Saturday","Sunday"};
+
+        //create list
+        JList<String> list = new JList<>(week);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        list.setVisibleRowCount(3);
+        JScrollPane listScrollPane = new JScrollPane(list);
+        leftPanel.add(listScrollPane);
+
+        list.setBackground(leftPanel.getBackground());
+        DefaultListCellRenderer listRenderer = (DefaultListCellRenderer) list.getCellRenderer();
+        listRenderer.setBackground(leftPanel.getBackground());
+
+        //add list to panel
+        rightPanel.add(list);
 
         JSplitPane spt = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel) {
             private final int location = 250;
@@ -178,8 +206,66 @@ public class MainGUI extends JFrame {
 
         add(spt, BorderLayout.SOUTH);
 
-        leftPanel.addMouseListener(new RightClickListenerLeftPanel());
-        rightPanel.addMouseListener(new RightClickListenerRightPanel());
-    }
+        rightPanel.addMouseListener(new RightClickProductListener());
 
+        rootNode = new DefaultMutableTreeNode("Database", true);
+        selectedNode = rootNode;
+
+        tree = new JTree(rootNode);
+
+        tree.addTreeSelectionListener(new TreeSelectionListener() {
+
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+                selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+            }
+        });
+
+        MouseListener ml = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+
+                if (e.getButton() == 3) {
+
+                    if (selectedNode.toString().equals("Database")) {
+                        // the database has been right-clicked
+                        RightClickDatabaseMenu menu = new RightClickDatabaseMenu();
+                        menu.show(e.getComponent(), e.getX(), e.getY());
+                    } else {
+                        if (selectedNode.getParent().toString().equals("Database")) {
+                            // a category has been right-clicked
+                            RightClickCategoryMenu menu = new RightClickCategoryMenu();
+                            menu.show(e.getComponent(), e.getX(), e.getY());
+                        } else if (selectedNode.getParent().getParent().toString().equals("Database")) {
+                            // a product has been right-clicked
+                            RightClickProductMenu menu = new RightClickProductMenu();
+                            menu.show(e.getComponent(), e.getX(), e.getY());
+                        }
+                    }
+
+                } else if (e.getButton() == 1) {
+
+                    if (selectedNode.getParent() == null) return;
+                    if (selectedNode.getParent().getParent() != null
+                            && selectedNode.getParent().getParent().toString().equals("Database")) {
+                        // a product has been left-clicked
+
+                        System.out.println("test");
+
+                        // ToDo load product data on right panel list
+                    }
+
+                }
+            }
+        };
+        tree.addMouseListener(ml);
+
+        // change background color of items
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        renderer.setBackgroundNonSelectionColor(leftPanel.getBackground());
+
+        // change background color of all tree
+        tree.setBackground(leftPanel.getBackground());
+
+        leftPanel.add(tree);
+    }
 }

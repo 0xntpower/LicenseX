@@ -5,6 +5,9 @@ import dev.licensex.manager.Launcher;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -82,7 +85,21 @@ public class NewProductGUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
+                    JOptionPane.showMessageDialog(null, "You can create products only inside categories", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
+                // add node to tree
+                DefaultMutableTreeNode product = new DefaultMutableTreeNode(nameTextField.getText());
+                MainGUI.selectedNode.add(product);
+
+                // refresh and re-expand the tree
+                DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
+                ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+                MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
+
+                dispose();
             }
         });
 

@@ -4,6 +4,10 @@ import dev.licensex.manager.Launcher;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -81,7 +85,15 @@ public class NewProductCategoryGUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                DefaultMutableTreeNode category = new DefaultMutableTreeNode(nameTextField.getText(), true);
 
+                MainGUI.rootNode.add(category);
+
+                // refresh and re-expand the tree
+                ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+                MainGUI.tree.expandPath(new TreePath(MainGUI.rootNode.getPath()));
+
+                dispose();
             }
         });
 
