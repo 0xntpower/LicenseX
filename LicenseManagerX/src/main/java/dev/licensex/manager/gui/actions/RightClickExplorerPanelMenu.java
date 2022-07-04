@@ -7,8 +7,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RightClickLeftPanelMenu extends JPopupMenu {
-    public RightClickLeftPanelMenu() {
+public class RightClickExplorerPanelMenu extends JPopupMenu {
+    public RightClickExplorerPanelMenu() {
         JMenuItem newProductMenuItem = new JMenuItem("New product");
         newProductMenuItem.addActionListener(new ActionListener() {
             @Override

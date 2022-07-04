@@ -1,7 +1,8 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
-import dev.licensex.manager.gui.actions.RightClickListener;
+import dev.licensex.manager.gui.actions.RightClickListenerLeftPanel;
+import dev.licensex.manager.gui.actions.RightClickListenerRightPanel;
 import dev.licensex.manager.utils.ThemesUtil;
 
 import javax.swing.*;
@@ -177,7 +178,8 @@ public class MainGUI extends JFrame {
 
         add(spt, BorderLayout.SOUTH);
 
-        leftPanel.addMouseListener(new RightClickListener());
+        leftPanel.addMouseListener(new RightClickListenerLeftPanel());
+        rightPanel.addMouseListener(new RightClickListenerRightPanel());
     }
 
 }

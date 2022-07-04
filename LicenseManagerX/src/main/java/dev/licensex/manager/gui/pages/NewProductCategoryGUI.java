@@ -31,6 +31,8 @@ public class NewProductCategoryGUI extends JFrame {
     }
 
     private void buildWindow() {
+        String os = System.getProperty("os.name");
+
         setResizable(false);
         setTitle("New Product Category");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -84,7 +86,7 @@ public class NewProductCategoryGUI extends JFrame {
         });
 
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(90, 86, 180, 20);
+        btnCancel.setBounds(90, os.contains("Mac OS X") ? 86 : 83, 180, 20);
         panel.add(btnCancel);
         btnCancel.addActionListener(new ActionListener() {
 

@@ -1,10 +1,30 @@
 package dev.licensex.manager.gui.pages;
 
+import com.formdev.flatlaf.util.StringUtils;
 import dev.licensex.manager.Launcher;
+import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NewProductGUI extends JFrame {
+
+    private static final List<Integer> specialKeys = new LinkedList<>();
+
+    static {
+        specialKeys.add(KeyEvent.VK_CONTROL);
+        specialKeys.add(KeyEvent.VK_ALT);
+        specialKeys.add(KeyEvent.VK_SHIFT);
+        specialKeys.add(KeyEvent.VK_CAPS_LOCK);
+        specialKeys.add(KeyEvent.VK_TAB);
+        specialKeys.add(KeyEvent.VK_WINDOWS);
+    }
 
     public NewProductGUI() {
         buildWindow();
@@ -12,90 +32,77 @@ public class NewProductGUI extends JFrame {
     }
 
     private void buildWindow() {
+        String os = System.getProperty("os.name");
+
         setResizable(false);
         setTitle("New Product");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(400, 280, 380, 235);
+        setBounds(400, 280, 380, 147);
         setLocationRelativeTo(Launcher.mainGUI);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-//        JLabel productNameLabel = new JLabel("product name: ");
-//        productNameLabel.setBounds(-50, 19, 240, 20);
-//        productNameLabel.setFont(new Font(productNameLabel.getFont().getName(), Font.PLAIN, 12));
-//        productNameLabel.setHorizontalAlignment(JLabel.CENTER);
-//        panel.add(productNameLabel);
-//
-//        JTextField nameTextField = new JTextField();
-//        nameTextField.setBounds(115, 16, 200, 19);
-//        nameTextField.setColumns(10);
-//        panel.add(nameTextField);
-//
-//        JTextField idTextField = new JTextField();
-//        idTextField.setBounds(115, 37, 200, 19);
-//        idTextField.setColumns(10);
-//        panel.add(idTextField);
-//
-//        nameTextField.addKeyListener(new KeyAdapter() {
-//            public void keyPressed(KeyEvent e) {
-//                if (nameTextField.getText().length() < 2 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE
-//                        || e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isControlDown())
-//                    idTextField.setText("");
-//                else
-//                    idTextField.setText(StringUtils.generateString(8));
-//            }
-//        });
-//
-//        JLabel productIdLabel = new JLabel("product id: ");
-//        productIdLabel.setBounds(-50, 37, 240, 20);
-//        productIdLabel.setFont(new Font(productIdLabel.getFont().getName(), Font.PLAIN, 12));
-//        productIdLabel.setHorizontalAlignment(JLabel.CENTER);
-//        panel.add(productIdLabel);
-//
-//        JSeparator jSeparator1 = new JSeparator();
-//        jSeparator1.setBounds(25, 65, 310, 20);
-//        panel.add(jSeparator1);
-//
-//        JLabel licenseSizeLabel = new JLabel("license size: ");
-//        licenseSizeLabel.setBounds(0, 67, 120, 20);
-//        licenseSizeLabel.setFont(new Font(licenseSizeLabel.getFont().getName(), Font.PLAIN, 11));
-//        licenseSizeLabel.setHorizontalAlignment(JLabel.CENTER);
-//        panel.add(licenseSizeLabel);
-//
-//        String[] sizeOptions = { "Small", "Medium", "Large" };
-//        JComboBox<String> dropDownLicenseSize = new JComboBox<String>(sizeOptions);
-//        dropDownLicenseSize.setSelectedItem("Medium");
-//        dropDownLicenseSize.setBounds(27, 87, 80, 20);
-//        dropDownLicenseSize.setVisible(true);
-//        panel.add(dropDownLicenseSize);
-//
-//        JSeparator jSeparator2 = new JSeparator();
-//        jSeparator2.setBounds(25, 135, 310, 20);
-//        panel.add(jSeparator2);
-//
-//        JButton btnSave = new JButton("Save");
-//        btnSave.setBounds(90, 145, 180, 20);
-//        panel.add(btnSave);
-//        btnSave.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//            }
-//        });
-//
-//        JButton btnCancel = new JButton("Cancel");
-//        btnCancel.setBounds(90, 165, 180, 20);
-//        panel.add(btnCancel);
-//        btnCancel.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                dispose();
-//            }
-//        });
+        JLabel productNameLabel = new JLabel("product name: ");
+        productNameLabel.setBounds(-50, 10, 220, 20);
+        productNameLabel.setFont(new Font(productNameLabel.getFont().getName(), Font.PLAIN, 12));
+        productNameLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(productNameLabel);
+
+        JTextField nameTextField = new JTextField();
+        nameTextField.setBounds(115, 10, 200, 19);
+        nameTextField.setColumns(10);
+        panel.add(nameTextField);
+
+        JTextField idTextField = new JTextField();
+        idTextField.setBounds(115, 30, 200, 19);
+        idTextField.setColumns(10);
+        panel.add(idTextField);
+
+        nameTextField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (nameTextField.getText().length() < 2 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE
+                        || isInstantFullDelete(e))
+                    idTextField.setText("");
+                else if (!specialKeys.contains(e.getKeyCode()))
+                    idTextField.setText(StringUtil.generateString(6));
+            }
+        });
+
+        JLabel productIdLabel = new JLabel("product id: ");
+        productIdLabel.setBounds(-50, 30, 240, 20);
+        productIdLabel.setFont(new Font(productIdLabel.getFont().getName(), Font.PLAIN, 12));
+        productIdLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(productIdLabel);
+
+        JButton btnSave = new JButton("Save");
+        btnSave.setBounds(90, 63, 180, 20);
+        panel.add(btnSave);
+        btnSave.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        JButton btnCancel = new JButton("Cancel");
+        btnCancel.setBounds(90, os.contains("Mac OS X") ? 86 : 83, 180, 20);
+        panel.add(btnCancel);
+        btnCancel.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
         setContentPane(panel);
+    }
+
+    private boolean isInstantFullDelete(KeyEvent e) {
+        if (System.getProperty("os.name").contains("Mac OS X"))
+            return e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isAltDown();
+        return e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isControlDown();
     }
 }
