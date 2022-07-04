@@ -112,6 +112,11 @@ public class MainGUI extends JFrame {
         generateLicenseMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (selectedNode.getParent() == null) return;
+                if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
+                    JOptionPane.showMessageDialog(null, "No product selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 new GenerateLicenseGUI();
             }
         });
