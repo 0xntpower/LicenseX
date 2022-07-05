@@ -21,12 +21,18 @@ import java.util.List;
 
 public class MainGUI extends JFrame {
 
+    private static JLabel contentPaneTitle;
+
+    // explorer pane
     public static JPanel leftPanel;
+
+    // tree data
     public static JTree tree;
     public static DefaultMutableTreeNode selectedNode;
     public static DefaultMutableTreeNode rootNode;
 
-    public static DefaultListModel<String> licensesList;
+    public static DefaultListModel<String> visualLicensesList;
+    // temporary licenses data, will use database in the future
     public static Map<String, List<String>> productsLicensesData = new HashMap<>();
 
     public MainGUI() {
@@ -45,10 +51,11 @@ public class MainGUI extends JFrame {
     }
 
     public static void printLicenses() {
-        licensesList.clear();
+        contentPaneTitle.setText(selectedNode.toString());
+        visualLicensesList.clear();
         if (productsLicensesData.containsKey(selectedNode.toString())) {
             for (String license : productsLicensesData.get(selectedNode.toString()))
-                licensesList.addElement(license);
+                visualLicensesList.addElement(license);
         }
     }
 
@@ -177,7 +184,8 @@ public class MainGUI extends JFrame {
         menuBar.add(HelpMenu);
 
         setJMenuBar(menuBar);
-        getContentPane().add(new JLabel("No product selected", SwingConstants.CENTER));
+        contentPaneTitle = new JLabel("No product selected", SwingConstants.CENTER);
+        getContentPane().add(contentPaneTitle);
 
         //getContentPane().add(menuBar, BorderLayout.PAGE_START);
         // --- menu bar end
@@ -199,8 +207,8 @@ public class MainGUI extends JFrame {
         rightPanel.add(bar);
 
         //create list
-        licensesList = new DefaultListModel<>();
-        JList<String> list = new JList<>(licensesList);
+        visualLicensesList = new DefaultListModel<>();
+        JList<String> list = new JList<>(visualLicensesList);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -253,7 +261,11 @@ public class MainGUI extends JFrame {
 
                 if (e.getButton() == 3) {
 
-                    if (selectedNode == null) return;
+                    if (selectedNode == null) {
+                        contentPaneTitle.setText("No product selected");
+                        visualLicensesList.clear();
+                        return;
+                    }
                     if (selectedNode.toString().equals("Database")) {
                         // the database has been right-clicked
                         RightClickDatabaseMenu menu = new RightClickDatabaseMenu();
@@ -272,7 +284,11 @@ public class MainGUI extends JFrame {
 
                 } else if (e.getButton() == 1) {
 
-                    if (selectedNode.getParent() == null) return;
+                    if (selectedNode.getParent() == null) {
+                        contentPaneTitle.setText("No product selected");
+                        visualLicensesList.clear();
+                        return;
+                    }
                     if (selectedNode.getParent().getParent() != null
                             && selectedNode.getParent().getParent().toString().equals("Database")) {
                         // a product has been left-clicked

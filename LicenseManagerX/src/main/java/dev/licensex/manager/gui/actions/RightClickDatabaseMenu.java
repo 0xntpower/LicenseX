@@ -1,8 +1,12 @@
 package dev.licensex.manager.gui.actions;
 
+import dev.licensex.manager.gui.pages.MainGUI;
 import dev.licensex.manager.gui.pages.NewProductCategoryGUI;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +23,9 @@ public class RightClickDatabaseMenu extends JPopupMenu {
         refreshMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Todo insert refresh code here
+                DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
+                ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+                MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
             }
         });
         add(newProductCategoryMenuItem);

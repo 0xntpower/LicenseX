@@ -85,8 +85,20 @@ public class NewProductGUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (nameTextField.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
                     JOptionPane.showMessageDialog(null, "You can create products only inside categories", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (MainGUI.selectedNode.getParent() == null) return;
+                if (MainGUI.selectedNode.getParent().getParent() != null
+                        && MainGUI.selectedNode.getParent().getParent().toString().equals("Database")) {
+                    JOptionPane.showMessageDialog(null, "Invalid directory, can't create a product inside of a product", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 

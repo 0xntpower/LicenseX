@@ -85,6 +85,11 @@ public class NewProductCategoryGUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (nameTextField.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 DefaultMutableTreeNode category = new DefaultMutableTreeNode(nameTextField.getText(), true);
 
                 MainGUI.rootNode.add(category);
