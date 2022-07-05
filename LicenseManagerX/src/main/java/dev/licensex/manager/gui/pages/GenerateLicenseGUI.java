@@ -63,7 +63,7 @@ public class GenerateLicenseGUI extends JFrame {
         panel.add(noneComboBox);
 
         JCheckBox placeholderCheckBox = new JCheckBox("Placeholder");
-        placeholderCheckBox.setBounds(os.contains("Mac OS X") ? 289 : 289, 90, 135, 20);
+        placeholderCheckBox.setBounds(289, 90, 135, 20);
         panel.add(placeholderCheckBox);
 
         JLabel licenseIdLabel = new JLabel("License-id: ");
