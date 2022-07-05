@@ -90,11 +90,6 @@ public class NewProductGUI extends JFrame {
                     return;
                 }
 
-                if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
-                    JOptionPane.showMessageDialog(null, "You can create products only inside categories", "Process failed!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
                 if (MainGUI.selectedNode.getParent() == null) return;
                 if (MainGUI.selectedNode.getParent().getParent() != null
                         && MainGUI.selectedNode.getParent().getParent().toString().equals("Database")) {

@@ -33,14 +33,14 @@ public class GenerateLicenseGUI extends JFrame {
         String[] IdTypeChoices = { "Groups", "Noise" };
         idTypeComboBox = new JComboBox<>(IdTypeChoices);
         idTypeComboBox.setSelectedItem("Groups");
-        idTypeComboBox.setBounds(os.contains("Mac OS X") ? 5 : 12, 60, 100, 25);
+        idTypeComboBox.setBounds(os.contains("Mac OS X") ? 11 : 12, 60, 100, 25);
         idTypeComboBox.setVisible(true);
         panel.add(idTypeComboBox);
 
         String[] licenseTypeChoices = { "Per-machine", "Live-sessions" };
         licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
         licenseTypeComboBox.setSelectedItem("Per-machine");
-        licenseTypeComboBox.setBounds(os.contains("Mac OS X") ? 145 : 152, 60, 100, 25);
+        licenseTypeComboBox.setBounds(os.contains("Mac OS X") ? 151 : 152, 60, 100, 25);
         licenseTypeComboBox.setVisible(true);
         panel.add(licenseTypeComboBox);
 
@@ -50,7 +50,7 @@ public class GenerateLicenseGUI extends JFrame {
         panel.add(limitTextField);
 
         JLabel limitLabel = new JLabel("Limit: ");
-        limitLabel.setBounds(os.contains("Mac OS X") ? 136 : 129, 90, 80, 20);
+        limitLabel.setBounds(os.contains("Mac OS X") ? 134 : 129, 90, 80, 20);
         limitLabel.setFont(new Font(limitLabel.getFont().getName(), Font.PLAIN, 12));
         limitLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(limitLabel);
@@ -58,12 +58,12 @@ public class GenerateLicenseGUI extends JFrame {
         String[] noneChoices = { "placeholder1", "placeholder2" };
         noneComboBox = new JComboBox<>(noneChoices);
         noneComboBox.setSelectedItem("placeholder1");
-        noneComboBox.setBounds(os.contains("Mac OS X") ? 285 : 292, 60, 100, 25);
+        noneComboBox.setBounds(os.contains("Mac OS X") ? 291 : 292, 60, 100, 25);
         noneComboBox.setVisible(true);
         panel.add(noneComboBox);
 
         JCheckBox placeholderCheckBox = new JCheckBox("Placeholder");
-        placeholderCheckBox.setBounds(os.contains("Mac OS X") ? 285 : 289, 90, 135, 20);
+        placeholderCheckBox.setBounds(os.contains("Mac OS X") ? 289 : 289, 90, 135, 20);
         panel.add(placeholderCheckBox);
 
         JLabel licenseIdLabel = new JLabel("License-id: ");
@@ -90,7 +90,7 @@ public class GenerateLicenseGUI extends JFrame {
         panel.add(userNameTextField);
 
         JCheckBox nameInLicenseCheckBox = new JCheckBox("Name in license");
-        nameInLicenseCheckBox.setBounds(os.contains("Mac OS X") ? 5 : 9, 90, 135, 20);
+        nameInLicenseCheckBox.setBounds(9, 90, 135, 20);
         panel.add(nameInLicenseCheckBox);
         nameInLicenseCheckBox.addActionListener(new ActionListener() {
             @Override

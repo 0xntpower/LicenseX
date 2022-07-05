@@ -76,6 +76,10 @@ public class MainGUI extends JFrame {
         newProductMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
+                    JOptionPane.showMessageDialog(null, "No category selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 new NewProductGUI();
             }
         });
