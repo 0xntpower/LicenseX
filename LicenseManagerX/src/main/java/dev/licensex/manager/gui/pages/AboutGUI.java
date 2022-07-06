@@ -11,7 +11,7 @@ public class AboutGUI extends JFrame {
 
     public AboutGUI() {
         buildWindow();
-        show();
+        setVisible(true);
     }
 
     private void buildWindow() {

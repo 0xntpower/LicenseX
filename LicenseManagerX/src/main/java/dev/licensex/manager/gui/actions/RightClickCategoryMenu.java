@@ -19,7 +19,7 @@ public class RightClickCategoryMenu extends JPopupMenu {
         deleteMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // ToDo insert deletion code here
             }
         });
 

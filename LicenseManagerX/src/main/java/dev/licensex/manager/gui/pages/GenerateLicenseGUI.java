@@ -16,7 +16,7 @@ public class GenerateLicenseGUI extends JFrame {
 
     public GenerateLicenseGUI() {
         buildWindow();
-        show();
+        setVisible(true);
     }
 
     private void buildWindow() {

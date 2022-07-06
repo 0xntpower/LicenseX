@@ -24,14 +24,6 @@ public class RightClickProductMenu extends JPopupMenu {
             }
         });
 
-        JMenuItem refreshMenuItem = new JMenuItem("Refresh");
-        refreshMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Todo insert refresh code here
-            }
-        });
-
         JMenuItem deleteMenuItem = new JMenuItem("Delete");
         deleteMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -47,8 +39,6 @@ public class RightClickProductMenu extends JPopupMenu {
         });
 
         add(generateNewLicenseMenuItem);
-        add(new JSeparator());
-        add(refreshMenuItem);
         add(new JSeparator());
         add(deleteMenuItem);
     }

@@ -1,10 +1,7 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
-import dev.licensex.manager.gui.actions.RightClickCategoryMenu;
-import dev.licensex.manager.gui.actions.RightClickDatabaseMenu;
-import dev.licensex.manager.gui.actions.RightClickProductListener;
-import dev.licensex.manager.gui.actions.RightClickProductMenu;
+import dev.licensex.manager.gui.actions.*;
 import dev.licensex.manager.utils.ThemesUtil;
 
 import javax.swing.*;
@@ -14,6 +11,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -37,7 +36,7 @@ public class MainGUI extends JFrame {
 
     public MainGUI() {
         buildWindow();
-        show();
+        setVisible(true);
     }
 
     public static void saveLicenseToProduct(String license) {
@@ -100,7 +99,9 @@ public class MainGUI extends JFrame {
         refreshMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                DefaultMutableTreeNode lastSelectedNode = selectedNode;
+                ((DefaultTreeModel)tree.getModel()).nodeStructureChanged(rootNode);
+                tree.expandPath(new TreePath(lastSelectedNode.getPath()));
             }
         });
         productMenu.add(refreshMenuItem);
@@ -218,6 +219,17 @@ public class MainGUI extends JFrame {
         JScrollPane listScrollPane = new JScrollPane(list);
         leftPanel.add(listScrollPane);
 
+        MouseListener licenseRightClickListener = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == 3) {
+                    // license has been right clicked
+                    RightClickLicenseMenu menu = new RightClickLicenseMenu();
+                    menu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        };
+        list.addMouseListener(licenseRightClickListener);
+
         list.setBackground(leftPanel.getBackground());
         DefaultListCellRenderer listRenderer = (DefaultListCellRenderer) list.getCellRenderer();
         listRenderer.setBackground(leftPanel.getBackground().darker());
@@ -260,7 +272,7 @@ public class MainGUI extends JFrame {
             }
         });
 
-        MouseListener ml = new MouseAdapter() {
+        MouseListener treeMouseListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
 
                 if (e.getButton() == 3) {
@@ -302,7 +314,7 @@ public class MainGUI extends JFrame {
                 }
             }
         };
-        tree.addMouseListener(ml);
+        tree.addMouseListener(treeMouseListener);
 
         // change background color of items
         DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) tree.getCellRenderer();

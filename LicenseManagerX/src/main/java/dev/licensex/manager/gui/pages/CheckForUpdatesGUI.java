@@ -11,7 +11,7 @@ public class CheckForUpdatesGUI extends JFrame {
 
     public CheckForUpdatesGUI() {
         buildWindow();
-        show();
+        setVisible(true);
     }
 
     private void buildWindow() {
@@ -57,6 +57,7 @@ public class CheckForUpdatesGUI extends JFrame {
     }
 
     private boolean isUsingLatest() {
+        // ToDo insert version checking code here
         return true;
     }
 }

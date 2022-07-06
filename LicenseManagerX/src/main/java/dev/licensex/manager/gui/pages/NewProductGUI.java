@@ -31,7 +31,7 @@ public class NewProductGUI extends JFrame {
 
     public NewProductGUI() {
         buildWindow();
-        show();
+        setVisible(true);
     }
 
     private void buildWindow() {
