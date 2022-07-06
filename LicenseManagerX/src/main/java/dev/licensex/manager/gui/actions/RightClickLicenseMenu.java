@@ -1,5 +1,6 @@
 package dev.licensex.manager.gui.actions;
 
+import dev.licensex.manager.gui.pages.EditLicensePropertiesGUI;
 import dev.licensex.manager.gui.pages.MainGUI;
 import dev.licensex.manager.gui.pages.NewProductCategoryGUI;
 
@@ -40,16 +41,14 @@ public class RightClickLicenseMenu extends JPopupMenu {
         deleteMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
-                ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-                MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
+                // ToDo insert deletion code here
             }
         });
         JMenuItem propertiesMenuItem = new JMenuItem("Edit Properties");
         propertiesMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new NewProductCategoryGUI();
+                new EditLicensePropertiesGUI();
             }
         });
 
