@@ -23,7 +23,7 @@ public class GenerateLicenseGUI extends JFrame {
         String os = System.getProperty("os.name");
 
         setResizable(false);
-        setTitle("Generate new license");
+        setTitle("Generate New License");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(400, 280, os.contains("Mac OS X") ? 400 : 420, os.contains("Mac OS X") ? 200 : 210);
         setLocationRelativeTo(Launcher.mainGUI);
@@ -37,17 +37,12 @@ public class GenerateLicenseGUI extends JFrame {
         idTypeComboBox.setVisible(true);
         panel.add(idTypeComboBox);
 
-        String[] licenseTypeChoices = { "Per-machine", "Live-sessions" };
+        String[] licenseTypeChoices = { "Per-machine", "Live-sessions", "Unlimited" };
         licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
         licenseTypeComboBox.setSelectedItem("Per-machine");
         licenseTypeComboBox.setBounds(os.contains("Mac OS X") ? 151 : 152, 60, 100, 25);
         licenseTypeComboBox.setVisible(true);
         panel.add(licenseTypeComboBox);
-
-        JTextField limitTextField = new JTextField();
-        limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
-        limitTextField.setColumns(4);
-        panel.add(limitTextField);
 
         JLabel limitLabel = new JLabel("Limit: ");
         limitLabel.setBounds(os.contains("Mac OS X") ? 134 : 129, 90, 80, 20);
@@ -55,16 +50,52 @@ public class GenerateLicenseGUI extends JFrame {
         limitLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(limitLabel);
 
-        String[] noneChoices = { "placeholder1", "placeholder2" };
+        JTextField limitTextField = new JTextField();
+        limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
+        limitTextField.setColumns(4);
+        limitTextField.setText("1");
+        panel.add(limitTextField);
+
+        licenseTypeComboBox.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                if ((licenseTypeComboBox.getSelectedItem() + "").equalsIgnoreCase("Unlimited")) {
+                    limitTextField.setText("");
+                    limitTextField.setEditable(false);
+                } else {
+                    limitTextField.setEditable(true);
+                }
+            }
+        });
+
+        String[] noneChoices = { "Lifetime", "Expire" };
         noneComboBox = new JComboBox<>(noneChoices);
-        noneComboBox.setSelectedItem("placeholder1");
+        noneComboBox.setSelectedItem("lifetime");
         noneComboBox.setBounds(os.contains("Mac OS X") ? 291 : 292, 60, 100, 25);
         noneComboBox.setVisible(true);
         panel.add(noneComboBox);
 
-        JCheckBox placeholderCheckBox = new JCheckBox("Placeholder");
-        placeholderCheckBox.setBounds(289, 90, 135, 20);
-        panel.add(placeholderCheckBox);
+        JLabel dateLabel = new JLabel("Date: ");
+        dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 289, 90, 80, 20);
+        dateLabel.setFont(new Font(dateLabel.getFont().getName(), Font.PLAIN, 12));
+        dateLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(dateLabel);
+
+        JTextField dateTextField = new JTextField();
+        dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 335, 90, 65, 19);
+        dateTextField.setColumns(4);
+        dateTextField.setEditable(false);
+        panel.add(dateTextField);
+
+        noneComboBox.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                if ((noneComboBox.getSelectedItem() + "").equalsIgnoreCase("Lifetime")) {
+                    dateTextField.setText("");
+                    dateTextField.setEditable(false);
+                } else {
+                    dateTextField.setEditable(true);
+                }
+            }
+        });
 
         JLabel licenseIdLabel = new JLabel("License-id: ");
         licenseIdLabel.setBounds(-50, 10, 220, 20);
@@ -140,6 +171,12 @@ public class GenerateLicenseGUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!licenseTypeComboBox.getSelectedItem().toString().equals("Unlimited")
+                        && limitTextField.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Please enter a license limit", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 MainGUI.saveLicenseToProduct(idTextField.getText());
                 MainGUI.printLicenses();
                 dispose();

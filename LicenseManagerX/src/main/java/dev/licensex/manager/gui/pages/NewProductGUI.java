@@ -90,13 +90,6 @@ public class NewProductGUI extends JFrame {
                     return;
                 }
 
-                if (MainGUI.selectedNode.getParent() == null) return;
-                if (MainGUI.selectedNode.getParent().getParent() != null
-                        && MainGUI.selectedNode.getParent().getParent().toString().equals("Database")) {
-                    JOptionPane.showMessageDialog(null, "Invalid directory, can't create a product inside of a product", "Process failed!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
                 // add node to tree
                 DefaultMutableTreeNode product = new DefaultMutableTreeNode(nameTextField.getText());
                 MainGUI.selectedNode.add(product);

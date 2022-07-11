@@ -1,19 +1,14 @@
 package dev.licensex.manager.gui.actions;
 
 import dev.licensex.manager.gui.pages.EditLicensePropertiesGUI;
-import dev.licensex.manager.gui.pages.MainGUI;
-import dev.licensex.manager.gui.pages.NewProductCategoryGUI;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RightClickLicenseMenu extends JPopupMenu {
 
-    public RightClickLicenseMenu() {
+    public RightClickLicenseMenu(String licenseId) {
 
         // ToDo check if license is blocked here
         boolean isLicenseBlocked = false;
@@ -48,7 +43,7 @@ public class RightClickLicenseMenu extends JPopupMenu {
         propertiesMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditLicensePropertiesGUI();
+                new EditLicensePropertiesGUI(licenseId);
             }
         });
 

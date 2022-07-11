@@ -79,6 +79,12 @@ public class MainGUI extends JFrame {
                     JOptionPane.showMessageDialog(null, "No category selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+                if (MainGUI.selectedNode.getParent() == null) return;
+                if (MainGUI.selectedNode.getParent().getParent() != null
+                        && MainGUI.selectedNode.getParent().getParent().toString().equals("Database")) {
+                    JOptionPane.showMessageDialog(null, "Invalid directory, can't create a product inside of a product", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 new NewProductGUI();
             }
         });
@@ -223,7 +229,7 @@ public class MainGUI extends JFrame {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == 3) {
                     // license has been right clicked
-                    RightClickLicenseMenu menu = new RightClickLicenseMenu();
+                    RightClickLicenseMenu menu = new RightClickLicenseMenu(list.getSelectedValue());
                     menu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
