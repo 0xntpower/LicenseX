@@ -62,13 +62,13 @@ public class EditLicensePropertiesGUI extends JFrame {
         panel.add(noneComboBox);
 
         JLabel dateLabel = new JLabel("Date: ");
-        dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 289, 90, 80, 20);
+        dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 269, 90, 80, 20);
         dateLabel.setFont(new Font(dateLabel.getFont().getName(), Font.PLAIN, 12));
         dateLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(dateLabel);
 
         JTextField dateTextField = new JTextField();
-        dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 335, 90, 65, 19);
+        dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 327, 90, 65, 19);
         dateTextField.setColumns(4);
         dateTextField.setEditable(false);
         panel.add(dateTextField);
@@ -94,7 +94,6 @@ public class EditLicensePropertiesGUI extends JFrame {
         idTextField.setBounds(115, 10, 200, 19);
         idTextField.setColumns(10);
         panel.add(idTextField);
-        idTextField.setEditable(false);
         idTextField.setText(id);
 
         JLabel userNameLabel = new JLabel("Username: ");
@@ -102,10 +101,12 @@ public class EditLicensePropertiesGUI extends JFrame {
         userNameLabel.setFont(new Font(userNameLabel.getFont().getName(), Font.PLAIN, 12));
         userNameLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(userNameLabel);
+        userNameLabel.setEnabled(false);
 
         JTextField userNameTextField = new JTextField();
         userNameTextField.setBounds(115, 33, 200, 19);
         userNameTextField.setColumns(10);
+        userNameTextField.setEditable(false);
         panel.add(userNameTextField);
 
         JCheckBox nameInLicenseCheckBox = new JCheckBox("Name in license");

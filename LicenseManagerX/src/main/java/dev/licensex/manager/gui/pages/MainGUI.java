@@ -196,6 +196,17 @@ public class MainGUI extends JFrame {
 
         setJMenuBar(menuBar);
         contentPaneTitle = new JLabel("No product selected", SwingConstants.CENTER);
+
+        MouseListener licenseRightClickListenerContentPanel = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == 3 && !contentPaneTitle.getText().equals("No product selected")) {
+                    RightClickProductMenu menu = new RightClickProductMenu();
+                    menu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        };
+        contentPaneTitle.addMouseListener(licenseRightClickListenerContentPanel);
+
         getContentPane().add(contentPaneTitle);
 
         //getContentPane().add(menuBar, BorderLayout.PAGE_START);
@@ -227,7 +238,7 @@ public class MainGUI extends JFrame {
 
         MouseListener licenseRightClickListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == 3) {
+                if (e.getButton() == 3 && list.getSelectedValue() != null) {
                     // license has been right clicked
                     RightClickLicenseMenu menu = new RightClickLicenseMenu(list.getSelectedValue());
                     menu.show(e.getComponent(), e.getX(), e.getY());

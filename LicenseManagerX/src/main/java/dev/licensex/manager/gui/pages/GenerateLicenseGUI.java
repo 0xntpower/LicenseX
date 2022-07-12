@@ -75,13 +75,13 @@ public class GenerateLicenseGUI extends JFrame {
         panel.add(noneComboBox);
 
         JLabel dateLabel = new JLabel("Date: ");
-        dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 289, 90, 80, 20);
+        dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 269, 90, 80, 20);
         dateLabel.setFont(new Font(dateLabel.getFont().getName(), Font.PLAIN, 12));
         dateLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(dateLabel);
 
         JTextField dateTextField = new JTextField();
-        dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 335, 90, 65, 19);
+        dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 327, 90, 65, 19);
         dateTextField.setColumns(4);
         dateTextField.setEditable(false);
         panel.add(dateTextField);
