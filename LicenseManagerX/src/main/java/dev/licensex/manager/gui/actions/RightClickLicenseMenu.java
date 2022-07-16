@@ -1,6 +1,7 @@
 package dev.licensex.manager.gui.actions;
 
 import dev.licensex.manager.gui.pages.EditLicensePropertiesGUI;
+import dev.licensex.manager.gui.pages.MainGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,11 @@ public class RightClickLicenseMenu extends JPopupMenu {
         deleteMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // ToDo insert deletion code here
+                int answerId = JOptionPane.showConfirmDialog(null, "This action is irreversible, are you sure you want to delete this license?", "Action confirmation", JOptionPane.YES_NO_OPTION);
+                if (answerId == JOptionPane.YES_OPTION) {
+                    MainGUI.removeLicenseFromProduct(licenseId);
+                    MainGUI.printLicenses();
+                }
             }
         });
         JMenuItem propertiesMenuItem = new JMenuItem("Edit Properties");

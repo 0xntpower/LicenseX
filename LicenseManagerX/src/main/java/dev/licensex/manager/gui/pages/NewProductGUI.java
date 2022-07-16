@@ -1,6 +1,5 @@
 package dev.licensex.manager.gui.pages;
 
-import com.formdev.flatlaf.util.StringUtils;
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.utils.StringUtil;
 

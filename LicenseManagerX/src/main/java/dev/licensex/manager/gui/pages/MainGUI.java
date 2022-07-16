@@ -39,6 +39,57 @@ public class MainGUI extends JFrame {
         setVisible(true);
     }
 
+    public static void removeSelectedCategory() {
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
+
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        TreePath path = new TreePath(selectedNode.getPath());
+
+        // remove all the products that's under it
+
+        // remove the category from database
+
+        // remove the category visually
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+        model.removeNodeFromParent(node);
+
+        selectedNode = parent;
+
+        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+        MainGUI.tree.expandPath(new TreePath(selectedNode.getPath()));
+
+        printLicenses();
+    }
+
+    public static void removeSelectedProductFromCategory() {
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
+
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        TreePath path = new TreePath(selectedNode.getPath());
+
+        // delete product
+        productsLicensesData.remove(selectedNode.toString());
+
+        // remove the product visually
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+        model.removeNodeFromParent(node);
+
+        selectedNode = parent;
+
+        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+        MainGUI.tree.expandPath(new TreePath(selectedNode.getPath()));
+
+        printLicenses();
+    }
+
+    public static void removeLicenseFromProduct(String license) {
+        if (productsLicensesData.containsKey(selectedNode.toString())) {
+            List<String> list = new LinkedList<>(productsLicensesData.get(selectedNode.toString()));
+            list.remove(license);
+            productsLicensesData.replace(selectedNode.toString(), list);
+        }
+    }
+
     public static void saveLicenseToProduct(String license) {
         if (!productsLicensesData.containsKey(selectedNode.toString())) {
             productsLicensesData.put(selectedNode.toString(), List.of(license));
@@ -50,7 +101,11 @@ public class MainGUI extends JFrame {
     }
 
     public static void printLicenses() {
-        contentPaneTitle.setText(selectedNode.toString());
+        boolean isProduct = selectedNode != null && selectedNode.getParent() != null && selectedNode.getParent().getParent() != null && selectedNode.getParent().getParent().toString().equals("Database");
+        assert selectedNode != null;
+        String title = selectedNode.toString().equals("Database") || !isProduct ? "No product selected" : selectedNode.toString();
+
+        contentPaneTitle.setText(title);
         visualLicensesList.clear();
         if (productsLicensesData.containsKey(selectedNode.toString())) {
             for (String license : productsLicensesData.get(selectedNode.toString()))
@@ -317,6 +372,7 @@ public class MainGUI extends JFrame {
 
                 } else if (e.getButton() == 1) {
 
+                    if (selectedNode == null) return;
                     if (selectedNode.getParent() == null) {
                         contentPaneTitle.setText("No product selected");
                         visualLicensesList.clear();

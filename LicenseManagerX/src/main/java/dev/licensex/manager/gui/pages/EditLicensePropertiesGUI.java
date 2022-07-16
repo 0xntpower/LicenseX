@@ -33,7 +33,6 @@ public class EditLicensePropertiesGUI extends JFrame {
         idTypeComboBox.setBounds(os.contains("Mac OS X") ? 11 : 12, 60, 100, 25);
         idTypeComboBox.setVisible(true);
         panel.add(idTypeComboBox);
-        idTypeComboBox.setEnabled(false);
 
         String[] licenseTypeChoices = { "Per-machine", "Live-sessions", "Unlimited" };
         JComboBox<String> licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
@@ -45,7 +44,7 @@ public class EditLicensePropertiesGUI extends JFrame {
         JTextField limitTextField = new JTextField();
         limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
         limitTextField.setColumns(4);
-        limitTextField.setText("get data here");
+        limitTextField.setText("1");
         panel.add(limitTextField);
 
         JLabel limitLabel = new JLabel("Limit: ");
@@ -101,7 +100,6 @@ public class EditLicensePropertiesGUI extends JFrame {
         userNameLabel.setFont(new Font(userNameLabel.getFont().getName(), Font.PLAIN, 12));
         userNameLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(userNameLabel);
-        userNameLabel.setEnabled(false);
 
         JTextField userNameTextField = new JTextField();
         userNameTextField.setBounds(115, 33, 200, 19);
@@ -117,7 +115,6 @@ public class EditLicensePropertiesGUI extends JFrame {
         JButton btnGenerate = new JButton("generate");
         btnGenerate.setBounds(320, 10, os.contains("Mac OS X") ? 70 : 80, 19);
         panel.add(btnGenerate);
-        btnGenerate.setEnabled(false);
 
         JButton btnSave = new JButton("Save");
         btnSave.setBounds(110, 120, 180, 20);

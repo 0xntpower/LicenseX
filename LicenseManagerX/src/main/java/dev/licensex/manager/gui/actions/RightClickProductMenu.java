@@ -28,13 +28,9 @@ public class RightClickProductMenu extends JPopupMenu {
         deleteMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                TreeNode lastSelectedNode = MainGUI.selectedNode.getParent();
-//                MainGUI.tree.removeSelectionPath(new TreePath(MainGUI.selectedNode.getPath()));
-//
-//                // refresh and re-expand the tree
-//                ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-//                MainGUI.selectedNode = (DefaultMutableTreeNode) lastSelectedNode;
-//                MainGUI.tree.expandPath(new TreePath(MainGUI.selectedNode.getPath()));
+                int answerId = JOptionPane.showConfirmDialog(null, "This action is irreversible, are you sure you want to delete this product?", "Action confirmation", JOptionPane.YES_NO_OPTION);
+                if (answerId == JOptionPane.YES_OPTION)
+                    MainGUI.removeSelectedProductFromCategory();
             }
         });
 
