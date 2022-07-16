@@ -15,7 +15,8 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-public class NewProductGUI extends JFrame {
+public class NewProductGUI extends JFrameX {
+    private static boolean isRunning;
 
     private static final List<Integer> specialKeys = new LinkedList<>();
 
@@ -29,16 +30,17 @@ public class NewProductGUI extends JFrame {
     }
 
     public NewProductGUI() {
+        if (isRunning) return;
+        isRunning = true;
         buildWindow();
         setVisible(true);
     }
 
-    private void buildWindow() {
+    @Override
+    protected void buildWindow() {
         String os = System.getProperty("os.name");
 
-        setResizable(false);
         setTitle("New Product");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(400, 280, 380, 147);
         setLocationRelativeTo(Launcher.mainGUI);
 
@@ -120,5 +122,11 @@ public class NewProductGUI extends JFrame {
         if (System.getProperty("os.name").contains("Mac OS X"))
             return e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isAltDown();
         return e.getKeyCode() == KeyEvent.VK_BACK_SPACE && e.isControlDown();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        isRunning = false;
     }
 }

@@ -7,20 +7,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CheckForUpdatesGUI extends JFrame {
+public class CheckForUpdatesGUI extends JFrameX {
+    private static boolean isRunning;
 
     public CheckForUpdatesGUI() {
+        if (isRunning) return;
+        isRunning = true;
         buildWindow();
         setVisible(true);
     }
 
-    private void buildWindow() {
-        setResizable(false);
+    @Override
+    protected void buildWindow() {
         setTitle("Check For Updates");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(Launcher.mainGUI);
         setBounds(420, 150, 420, 130);
         setLayout(new BorderLayout());
-        setLocationRelativeTo(Launcher.mainGUI);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -59,5 +61,11 @@ public class CheckForUpdatesGUI extends JFrame {
     private boolean isUsingLatest() {
         // ToDo insert version checking code here
         return true;
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        isRunning = false;
     }
 }

@@ -1,6 +1,7 @@
 package dev.licensex.manager.gui.actions;
 
 import dev.licensex.manager.gui.pages.EditLicensePropertiesGUI;
+import dev.licensex.manager.gui.pages.LicenseInfoGUI;
 import dev.licensex.manager.gui.pages.MainGUI;
 
 import javax.swing.*;
@@ -52,10 +53,20 @@ public class RightClickLicenseMenu extends JPopupMenu {
             }
         });
 
+        JMenuItem infoMenuItem = new JMenuItem("Info");
+        propertiesMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LicenseInfoGUI();
+            }
+        });
+
         add(blockMenuItem);
         add(new JSeparator());
         add(deleteMenuItem);
         add(new JSeparator());
         add(propertiesMenuItem);
+        add(new JSeparator());
+        add(infoMenuItem);
     }
 }

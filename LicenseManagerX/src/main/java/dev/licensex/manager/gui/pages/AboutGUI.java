@@ -7,20 +7,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AboutGUI extends JFrame {
+public class AboutGUI extends JFrameX {
+    private static boolean isRunning;
 
     public AboutGUI() {
+        if (isRunning) return;
+        isRunning = true;
         buildWindow();
         setVisible(true);
     }
 
-    private void buildWindow() {
-        setResizable(false);
+    @Override
+    protected void buildWindow() {
         setTitle("About");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(Launcher.mainGUI);
         setBounds(400, 280, 400, 280);
         setLayout(new BorderLayout());
-        setLocationRelativeTo(Launcher.mainGUI);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -83,5 +85,11 @@ public class AboutGUI extends JFrame {
         });
 
         setContentPane(panel);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        isRunning = false;
     }
 }

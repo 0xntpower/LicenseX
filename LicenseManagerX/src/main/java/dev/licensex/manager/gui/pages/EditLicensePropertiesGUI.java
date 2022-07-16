@@ -7,21 +7,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditLicensePropertiesGUI extends JFrame {
+public class EditLicensePropertiesGUI extends JFrameX {
+    private static boolean isRunning;
 
     private JComboBox<String> noneComboBox;
 
+    private String id;
+
     public EditLicensePropertiesGUI(String id) {
-        buildWindow(id);
+        if (isRunning) return;
+        isRunning = true;
+
+        this.id = id;
+        buildWindow();
         setVisible(true);
     }
 
-    private void buildWindow(String id) {
+    @Override
+    protected void buildWindow() {
         String os = System.getProperty("os.name");
 
-        setResizable(false);
         setTitle("Edit License Properties");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(400, 280, os.contains("Mac OS X") ? 400 : 420, os.contains("Mac OS X") ? 200 : 210);
         setLocationRelativeTo(Launcher.mainGUI);
         JPanel panel = new JPanel();
@@ -140,5 +146,11 @@ public class EditLicensePropertiesGUI extends JFrame {
         });
 
         setContentPane(panel);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        isRunning = false;
     }
 }

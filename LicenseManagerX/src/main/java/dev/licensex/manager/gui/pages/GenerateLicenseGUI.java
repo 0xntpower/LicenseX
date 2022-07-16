@@ -8,23 +8,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GenerateLicenseGUI extends JFrame {
+public class GenerateLicenseGUI extends JFrameX {
+    private static boolean isRunning;
 
     private JComboBox<String> idTypeComboBox;
     private JComboBox<String> licenseTypeComboBox;
     private JComboBox<String> noneComboBox;
 
     public GenerateLicenseGUI() {
+        if (isRunning) return;
+        isRunning = true;
         buildWindow();
         setVisible(true);
     }
 
-    private void buildWindow() {
+    @Override
+    protected void buildWindow() {
         String os = System.getProperty("os.name");
 
-        setResizable(false);
         setTitle("Generate New License");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(400, 280, os.contains("Mac OS X") ? 400 : 420, os.contains("Mac OS X") ? 200 : 210);
         setLocationRelativeTo(Launcher.mainGUI);
         JPanel panel = new JPanel();
@@ -201,5 +203,11 @@ public class GenerateLicenseGUI extends JFrame {
         return (idTypeComboBox.getSelectedItem() + "").equals("Groups") ? StringUtil.generateString(4) + '-' +
                 StringUtil.generateString(4) + '-' + StringUtil.generateString(4) +
                 '-' + StringUtil.generateString(4) : StringUtil.generateString(19);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        isRunning = false;
     }
 }

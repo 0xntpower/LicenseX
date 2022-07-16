@@ -197,6 +197,15 @@ public class MainGUI extends JFrame {
         });
         licenseMenu.add(generateLicenseMenuItem);
 
+        JMenuItem searchMenuItem = new JMenuItem("Search");
+        generateLicenseMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // ToDo add option to search for a license
+            }
+        });
+        licenseMenu.add(searchMenuItem);
+
         menuBar.add(licenseMenu);
 
         JMenu ThemesMenu = new JMenu("Themes");
