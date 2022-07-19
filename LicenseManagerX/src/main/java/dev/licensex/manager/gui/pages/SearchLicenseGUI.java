@@ -5,10 +5,10 @@ import dev.licensex.manager.Launcher;
 import javax.swing.*;
 import java.awt.*;
 
-public class LicenseInfoGUI extends JFrameX {
+public class SearchLicenseGUI extends JFrameX {
     private static boolean isRunning;
 
-    public LicenseInfoGUI() {
+    public SearchLicenseGUI() {
         if (isRunning) return;
         isRunning = true;
         buildWindow();
@@ -17,8 +17,8 @@ public class LicenseInfoGUI extends JFrameX {
 
     @Override
     protected void buildWindow() {
-        setTitle("Info");
-        setBounds(420, 150, 420, 430);
+        setTitle("Search License");
+        setBounds(420, 150, 420, 130);
         setLocationRelativeTo(Launcher.mainGUI);
         setLayout(new BorderLayout());
 

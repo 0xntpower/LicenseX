@@ -1,6 +1,7 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
+import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 public class EditLicensePropertiesGUI extends JFrameX {
     private static boolean isRunning;
 
+    private JComboBox<String> idTypeComboBox;
+    private JComboBox<String> licenseTypeComboBox;
     private JComboBox<String> noneComboBox;
 
     private String id;
@@ -33,18 +36,24 @@ public class EditLicensePropertiesGUI extends JFrameX {
         panel.setLayout(null);
 
         String[] IdTypeChoices = { "Groups", "Noise" };
-        JComboBox<String> idTypeComboBox = new JComboBox<>(IdTypeChoices);
-        idTypeComboBox.setSelectedItem(id.contains("-") ? "Groups" : "Noise");
+        idTypeComboBox = new JComboBox<>(IdTypeChoices);
+        idTypeComboBox.setSelectedItem("Groups");
         idTypeComboBox.setBounds(os.contains("Mac OS X") ? 11 : 12, 60, 100, 25);
         idTypeComboBox.setVisible(true);
         panel.add(idTypeComboBox);
 
         String[] licenseTypeChoices = { "Per-machine", "Live-sessions", "Unlimited" };
-        JComboBox<String> licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
+        licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
         licenseTypeComboBox.setSelectedItem("Per-machine");
         licenseTypeComboBox.setBounds(os.contains("Mac OS X") ? 151 : 152, 60, 100, 25);
         licenseTypeComboBox.setVisible(true);
         panel.add(licenseTypeComboBox);
+
+        JLabel limitLabel = new JLabel("Limit: ");
+        limitLabel.setBounds(os.contains("Mac OS X") ? 134 : 129, 90, 80, 20);
+        limitLabel.setFont(new Font(limitLabel.getFont().getName(), Font.PLAIN, 12));
+        limitLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(limitLabel);
 
         JTextField limitTextField = new JTextField();
         limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
@@ -52,11 +61,16 @@ public class EditLicensePropertiesGUI extends JFrameX {
         limitTextField.setText("1");
         panel.add(limitTextField);
 
-        JLabel limitLabel = new JLabel("Limit: ");
-        limitLabel.setBounds(os.contains("Mac OS X") ? 134 : 129, 90, 80, 20);
-        limitLabel.setFont(new Font(limitLabel.getFont().getName(), Font.PLAIN, 12));
-        limitLabel.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(limitLabel);
+        licenseTypeComboBox.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                if ((licenseTypeComboBox.getSelectedItem() + "").equalsIgnoreCase("Unlimited")) {
+                    limitTextField.setText("");
+                    limitTextField.setEditable(false);
+                } else {
+                    limitTextField.setEditable(true);
+                }
+            }
+        });
 
         String[] noneChoices = { "Lifetime", "Expire" };
         noneComboBox = new JComboBox<>(noneChoices);
@@ -77,7 +91,7 @@ public class EditLicensePropertiesGUI extends JFrameX {
         dateTextField.setEditable(false);
         panel.add(dateTextField);
 
-        noneComboBox.addActionListener (new ActionListener() {
+        noneComboBox.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
                 if ((noneComboBox.getSelectedItem() + "").equalsIgnoreCase("Lifetime")) {
                     dateTextField.setText("");
@@ -109,17 +123,51 @@ public class EditLicensePropertiesGUI extends JFrameX {
         JTextField userNameTextField = new JTextField();
         userNameTextField.setBounds(115, 33, 200, 19);
         userNameTextField.setColumns(10);
-        userNameTextField.setEditable(false);
         panel.add(userNameTextField);
 
         JCheckBox nameInLicenseCheckBox = new JCheckBox("Name in license");
         nameInLicenseCheckBox.setBounds(9, 90, 135, 20);
         panel.add(nameInLicenseCheckBox);
-        nameInLicenseCheckBox.setEnabled(false);
+        nameInLicenseCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nameInLicenseCheckBox.isSelected()) {
+                    if (userNameTextField.getText().length() > 0
+                            && !idTextField.getText().contains(userNameTextField.getText()))
+                        idTextField.setText(idTextField.getText() + '-' + userNameTextField.getText());
+                } else {
+                    if (userNameTextField.getText().length() > 0
+                            && idTextField.getText().contains(userNameTextField.getText())) {
+                        idTextField.setText(generateLicenseString());
+                    }
+                }
+            }
+        });
 
         JButton btnGenerate = new JButton("generate");
         btnGenerate.setBounds(320, 10, os.contains("Mac OS X") ? 70 : 80, 19);
         panel.add(btnGenerate);
+        btnGenerate.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nameInLicenseCheckBox.isSelected() && userNameTextField.getText().length() > 0)
+                    idTextField.setText(generateLicenseString() + '-' + userNameTextField.getText());
+                else
+                    idTextField.setText(generateLicenseString());
+            }
+        });
+
+        idTypeComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nameInLicenseCheckBox.isSelected() && userNameTextField.getText().length() > 0)
+                    idTextField.setText(generateLicenseString() + '-' + userNameTextField.getText());
+                else
+                    idTextField.setText(generateLicenseString());
+            }
+        });
+
 
         JButton btnSave = new JButton("Save");
         btnSave.setBounds(110, 120, 180, 20);
@@ -128,7 +176,13 @@ public class EditLicensePropertiesGUI extends JFrameX {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainGUI.printLicenses();
+                if (!licenseTypeComboBox.getSelectedItem().toString().equals("Unlimited")
+                        && limitTextField.getText().length() == 0) {
+                    showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // ToDo update license here
                 dispose();
             }
         });
@@ -145,6 +199,12 @@ public class EditLicensePropertiesGUI extends JFrameX {
         });
 
         setContentPane(panel);
+    }
+
+    private String generateLicenseString() {
+        return (idTypeComboBox.getSelectedItem() + "").equals("Groups") ? StringUtil.generateString(4) + '-' +
+                StringUtil.generateString(4) + '-' + StringUtil.generateString(4) +
+                '-' + StringUtil.generateString(4) : StringUtil.generateString(19);
     }
 
     @Override
