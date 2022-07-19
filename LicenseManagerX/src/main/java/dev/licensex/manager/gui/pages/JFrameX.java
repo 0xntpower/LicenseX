@@ -12,4 +12,10 @@ public abstract class JFrameX extends JFrame {
 
     protected abstract void buildWindow();
 
+    protected void showDialog(String content, String title, int type) {
+        setAlwaysOnTop(false);
+        JOptionPane.showMessageDialog(null, content, title, type);
+        setAlwaysOnTop(true);
+    }
+
 }

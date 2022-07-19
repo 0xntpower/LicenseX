@@ -87,8 +87,8 @@ public class NewProductCategoryGUI extends JFrameX {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (nameTextField.getText().length() == 0) {
-                    JOptionPane.showMessageDialog(null, "Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                if (nameTextField.getText().length() == 0 || idTextField.getText().length() == 0) {
+                    showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 

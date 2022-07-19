@@ -17,7 +17,6 @@ public class EditLicensePropertiesGUI extends JFrameX {
     public EditLicensePropertiesGUI(String id) {
         if (isRunning) return;
         isRunning = true;
-
         this.id = id;
         buildWindow();
         setVisible(true);

@@ -175,7 +175,7 @@ public class GenerateLicenseGUI extends JFrameX {
             public void actionPerformed(ActionEvent e) {
                 if (!licenseTypeComboBox.getSelectedItem().toString().equals("Unlimited")
                         && limitTextField.getText().length() == 0) {
-                    JOptionPane.showMessageDialog(null, "Please enter a license limit", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 

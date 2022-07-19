@@ -16,9 +16,9 @@ public class LicenseXFile {
     private final List<String> content;
     private File file;
 
-    public LicenseXFile(String name, String path) {
-        this.path = path;
-        this.name = name;
+    public LicenseXFile(String name_, String path_) {
+        this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
+        this.path = (path_.endsWith(".lx") ? path_ : path_ + File.separator + name);
         this.content = new ArrayList<>();
 
         if (!path.endsWith(".lx")) {
@@ -37,9 +37,9 @@ public class LicenseXFile {
         readFile();
     }
 
-    public LicenseXFile(String name, String path, List<String> content) throws LicenseManagerXException {
-        this.path = path;
-        this.name = name;
+    public LicenseXFile(String name_, String path_, List<String> content) throws LicenseManagerXException {
+        this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
+        this.path = (path_.endsWith(".lx") ? path_ : path_ + File.separator + name);
         this.content = content;
 
         if (!path.endsWith(".lx")) {

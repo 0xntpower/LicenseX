@@ -45,6 +45,15 @@ public class RightClickLicenseMenu extends JPopupMenu {
                 }
             }
         });
+
+        JMenuItem infoMenuItem = new JMenuItem("Info");
+        infoMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LicenseInfoGUI();
+            }
+        });
+
         JMenuItem propertiesMenuItem = new JMenuItem("Edit Properties");
         propertiesMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -53,20 +62,12 @@ public class RightClickLicenseMenu extends JPopupMenu {
             }
         });
 
-        JMenuItem infoMenuItem = new JMenuItem("Info");
-        propertiesMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new LicenseInfoGUI();
-            }
-        });
-
         add(blockMenuItem);
         add(new JSeparator());
         add(deleteMenuItem);
         add(new JSeparator());
-        add(propertiesMenuItem);
-        add(new JSeparator());
         add(infoMenuItem);
+        add(new JSeparator());
+        add(propertiesMenuItem);
     }
 }

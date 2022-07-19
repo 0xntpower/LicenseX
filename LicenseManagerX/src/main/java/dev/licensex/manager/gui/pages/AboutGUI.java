@@ -20,8 +20,8 @@ public class AboutGUI extends JFrameX {
     @Override
     protected void buildWindow() {
         setTitle("About");
-        setLocationRelativeTo(Launcher.mainGUI);
         setBounds(400, 280, 400, 280);
+        setLocationRelativeTo(Launcher.mainGUI);
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();

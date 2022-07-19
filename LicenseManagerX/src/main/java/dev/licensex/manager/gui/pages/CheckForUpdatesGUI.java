@@ -20,8 +20,8 @@ public class CheckForUpdatesGUI extends JFrameX {
     @Override
     protected void buildWindow() {
         setTitle("Check For Updates");
-        setLocationRelativeTo(Launcher.mainGUI);
         setBounds(420, 150, 420, 130);
+        setLocationRelativeTo(Launcher.mainGUI);
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
