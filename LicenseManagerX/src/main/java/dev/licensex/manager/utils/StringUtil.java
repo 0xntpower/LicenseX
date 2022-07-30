@@ -31,4 +31,11 @@ public final class StringUtil {
                 index = i;
         return index;
     }
+
+    public static boolean isStringNumber(String str) {
+        for (char c : str.toCharArray())
+            if (!Character.isDigit(c))
+                return false;
+        return true;
+    }
 }

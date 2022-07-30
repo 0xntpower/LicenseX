@@ -1,6 +1,9 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
+import dev.licensex.manager.utils.LICENSE_ID_TYPE;
+import dev.licensex.manager.utils.LIMIT_TYPE;
+import dev.licensex.manager.utils.LicenseData;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
@@ -11,15 +14,53 @@ import java.awt.event.ActionListener;
 public class GenerateLicenseGUI extends JFrameX {
     private static boolean isRunning;
 
+    private static LicenseData lastLicenseData = new LicenseData();
+
     private JComboBox<String> idTypeComboBox;
     private JComboBox<String> licenseTypeComboBox;
-    private JComboBox<String> noneComboBox;
+    private JComboBox<String> expiresComboBox;
+    private JTextField limitTextField;
+    private JTextField idTextField;
+    private JTextField userNameTextField;
+    private JCheckBox nameInLicenseCheckBox;
+    private JTextField dateTextField;
 
     public GenerateLicenseGUI() {
         if (isRunning) return;
         isRunning = true;
         buildWindow();
+        loadLast();
         setVisible(true);
+    }
+
+    private void loadLast() {
+        if (lastLicenseData.getIdType() == LICENSE_ID_TYPE.GROUPS)
+            idTypeComboBox.setSelectedItem("Groups");
+        else
+            idTypeComboBox.setSelectedItem("Noise");
+
+        if (lastLicenseData.getLimitType() == LIMIT_TYPE.PER_MACHINE)
+            licenseTypeComboBox.setSelectedItem("Per-machine");
+        else if (lastLicenseData.getLimitType() == LIMIT_TYPE.LIVE_SESSIONS)
+            licenseTypeComboBox.setSelectedItem("Live-sessions");
+        else licenseTypeComboBox.setSelectedItem("Unlimited");
+
+        limitTextField.setText(lastLicenseData.getLimit() + "");
+
+        if (lastLicenseData.isExpires())
+            expiresComboBox.setSelectedItem("Expire");
+        else expiresComboBox.setSelectedItem("lifetime");
+
+        if (lastLicenseData.getId().length() == 0)
+            idTextField.setText(generateLicenseString());
+        else
+            idTextField.setText(lastLicenseData.getId());
+
+        userNameTextField.setText(lastLicenseData.getUsername());
+
+        nameInLicenseCheckBox.setSelected(lastLicenseData.isNameInLicense());
+
+        dateTextField.setText(lastLicenseData.getExpiration_date());
     }
 
     @Override
@@ -34,14 +75,12 @@ public class GenerateLicenseGUI extends JFrameX {
 
         String[] IdTypeChoices = { "Groups", "Noise" };
         idTypeComboBox = new JComboBox<>(IdTypeChoices);
-        idTypeComboBox.setSelectedItem("Groups");
         idTypeComboBox.setBounds(os.contains("Mac OS X") ? 11 : 12, 60, 100, 25);
         idTypeComboBox.setVisible(true);
         panel.add(idTypeComboBox);
 
         String[] licenseTypeChoices = { "Per-machine", "Live-sessions", "Unlimited" };
         licenseTypeComboBox = new JComboBox<>(licenseTypeChoices);
-        licenseTypeComboBox.setSelectedItem("Per-machine");
         licenseTypeComboBox.setBounds(os.contains("Mac OS X") ? 151 : 152, 60, 100, 25);
         licenseTypeComboBox.setVisible(true);
         panel.add(licenseTypeComboBox);
@@ -52,10 +91,9 @@ public class GenerateLicenseGUI extends JFrameX {
         limitLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(limitLabel);
 
-        JTextField limitTextField = new JTextField();
+        limitTextField = new JTextField();
         limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
         limitTextField.setColumns(4);
-        limitTextField.setText("1");
         panel.add(limitTextField);
 
         licenseTypeComboBox.addActionListener (new ActionListener () {
@@ -70,11 +108,10 @@ public class GenerateLicenseGUI extends JFrameX {
         });
 
         String[] noneChoices = { "Lifetime", "Expire" };
-        noneComboBox = new JComboBox<>(noneChoices);
-        noneComboBox.setSelectedItem("lifetime");
-        noneComboBox.setBounds(os.contains("Mac OS X") ? 291 : 292, 60, 100, 25);
-        noneComboBox.setVisible(true);
-        panel.add(noneComboBox);
+        expiresComboBox = new JComboBox<>(noneChoices);
+        expiresComboBox.setBounds(os.contains("Mac OS X") ? 291 : 292, 60, 100, 25);
+        expiresComboBox.setVisible(true);
+        panel.add(expiresComboBox);
 
         JLabel dateLabel = new JLabel("Date: ");
         dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 269, 90, 80, 20);
@@ -82,15 +119,15 @@ public class GenerateLicenseGUI extends JFrameX {
         dateLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(dateLabel);
 
-        JTextField dateTextField = new JTextField();
+        dateTextField = new JTextField();
         dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 327, 90, 65, 19);
         dateTextField.setColumns(4);
         dateTextField.setEditable(false);
         panel.add(dateTextField);
 
-        noneComboBox.addActionListener (new ActionListener () {
+        expiresComboBox.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
-                if ((noneComboBox.getSelectedItem() + "").equalsIgnoreCase("Lifetime")) {
+                if ((expiresComboBox.getSelectedItem() + "").equalsIgnoreCase("Lifetime")) {
                     dateTextField.setText("");
                     dateTextField.setEditable(false);
                 } else {
@@ -105,11 +142,10 @@ public class GenerateLicenseGUI extends JFrameX {
         licenseIdLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(licenseIdLabel);
 
-        JTextField idTextField = new JTextField();
+        idTextField = new JTextField();
         idTextField.setBounds(115, 10, 200, 19);
         idTextField.setColumns(10);
         panel.add(idTextField);
-        idTextField.setText(generateLicenseString());
 
         JLabel userNameLabel = new JLabel("Username: ");
         userNameLabel.setBounds(-50, 33, 220, 20);
@@ -117,12 +153,12 @@ public class GenerateLicenseGUI extends JFrameX {
         userNameLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(userNameLabel);
 
-        JTextField userNameTextField = new JTextField();
+        userNameTextField = new JTextField();
         userNameTextField.setBounds(115, 33, 200, 19);
         userNameTextField.setColumns(10);
         panel.add(userNameTextField);
 
-        JCheckBox nameInLicenseCheckBox = new JCheckBox("Name in license");
+        nameInLicenseCheckBox = new JCheckBox("Name in license");
         nameInLicenseCheckBox.setBounds(9, 90, 135, 20);
         panel.add(nameInLicenseCheckBox);
         nameInLicenseCheckBox.addActionListener(new ActionListener() {
@@ -178,6 +214,25 @@ public class GenerateLicenseGUI extends JFrameX {
                     showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+
+                LICENSE_ID_TYPE id_type = (idTypeComboBox.getSelectedItem() + "").equalsIgnoreCase("Groups") ? LICENSE_ID_TYPE.GROUPS : LICENSE_ID_TYPE.NOISE;
+
+                LIMIT_TYPE limit_type = LIMIT_TYPE.PER_MACHINE;
+                String selectedItemStr = licenseTypeComboBox.getSelectedItem() + "";
+                if (selectedItemStr.equalsIgnoreCase("Live-sessions"))
+                    limit_type = LIMIT_TYPE.LIVE_SESSIONS;
+                else if (selectedItemStr.equalsIgnoreCase("Unlimited"))
+                    limit_type = LIMIT_TYPE.UNLIMITED;
+
+                String limitNum = limitTextField.getText();
+                if (!StringUtil.isStringNumber(limitNum)) {
+                    showDialog("Limit most be a number", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                int limit = Integer.parseInt(limitNum);
+
+                lastLicenseData = new LicenseData(idTextField.getText(), userNameTextField.getText(), nameInLicenseCheckBox.isSelected(),
+                        id_type, limit_type, limit, (expiresComboBox.getSelectedItem() + "").equalsIgnoreCase("Expire"), dateTextField.getText());
 
                 MainGUI.saveLicenseToProduct(idTextField.getText());
                 MainGUI.printLicenses();
