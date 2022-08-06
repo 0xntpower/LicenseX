@@ -25,6 +25,9 @@ public class LicenseServerX {
     MongoConnect mongoConnect;
 
     public LicenseServerX() {
+        System.setProperty("DEBUG.MONGO", "false");
+        System.setProperty("DB.TRACE", "false");
+
         AsciiUtil.printBanner("SERVERX");
 
         // setup / load license file

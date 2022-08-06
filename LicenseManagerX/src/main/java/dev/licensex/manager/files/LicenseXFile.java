@@ -11,10 +11,10 @@ import java.util.List;
 
 @Getter
 public class LicenseXFile {
-    private final String path;
-    private final String name;
-    private final List<String> content;
-    private File file;
+    protected final String path;
+    protected final String name;
+    protected final List<String> content;
+    protected File file;
 
     public LicenseXFile(String name_, String path_) {
         this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
@@ -93,27 +93,31 @@ public class LicenseXFile {
         List<String> decompressedContent = decompressContent(decryptedContent);
 
         content.addAll(decompressedContent);
-
-        for (String line : content)
-            System.out.println(line);
     }
 
     private List<String> encryptContent(List<String> content) {
         List<String> encryptedList = new ArrayList<>();
         String encKey = generateEncryptionKey();
         for (String line : content)
-            encryptedList.add(AES.encrypt(line, encKey));
+            if (line.length() != 0)
+                encryptedList.add(AES.encrypt(line, encKey));
         return encryptedList;
     }
 
     @jnic
     private String generateEncryptionKey() {
-        // ToDo complete this method and make it more complicated
+        // ToDo improve this method, use more data to make the enc key
         StringBuilder encKey = new StringBuilder();
         for (int i = 0; i < (64 / 8); i++) {
-            encKey.append(i % 2 == 0 ? Character.toUpperCase(name.charAt(0)) : name.charAt(0));
+            encKey.append(i % 2 == 0 ? Character.toUpperCase(getNameChar(name, i)) : getNameChar(name, i));
         }
         return encKey.toString();
+    }
+
+    private char getNameChar(String name, int index) {
+        if (index >= name.length())
+            return name.charAt(0);
+        return name.charAt(index);
     }
 
     private List<String> compressContent() {
@@ -121,10 +125,15 @@ public class LicenseXFile {
         return content;
     }
 
+    protected void updatePhysicalFile() {
+        writeFile();
+    }
+
     private void writeFile() {
         List<String> processedContent = encryptContent(compressContent());
 
         File file = new File(path);
+        file.delete();
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
