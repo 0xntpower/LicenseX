@@ -86,5 +86,7 @@ public class ActivationGUI extends JFrameX {
     public void dispose() {
         super.dispose();
         isRunning = false;
+        if (!mainGUI.isEnabled())
+            mainGUI.dispose();
     }
 }
