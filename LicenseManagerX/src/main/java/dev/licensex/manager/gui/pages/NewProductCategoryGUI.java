@@ -1,6 +1,7 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
+import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
@@ -92,8 +93,12 @@ public class NewProductCategoryGUI extends JFrameX {
                     return;
                 }
 
-                DefaultMutableTreeNode category = new DefaultMutableTreeNode(nameTextField.getText(), true);
+//                if (!EventConnector.onCategoryCreate(nameTextField.getText())) {
+//                    showDialog("Failed to create database collection", "Process failed!", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
 
+                DefaultMutableTreeNode category = new DefaultMutableTreeNode(nameTextField.getText(), true);
                 MainGUI.rootNode.add(category);
 
                 // refresh and re-expand the tree

@@ -7,6 +7,9 @@ import dev.licensex.server.Launcher;
 import lombok.experimental.UtilityClass;
 import org.bson.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @UtilityClass
 public class MongoUtil {
 
@@ -56,5 +59,10 @@ public class MongoUtil {
             collection.deleteOne(document);
         }
 
+    }
+
+    public static boolean doesCollectionExist(String name) {
+        List<String> existingCollectionNames = Launcher.licenseServerX.getMongoConnect().getDatabase().listCollectionNames().into(new ArrayList<>());
+        return existingCollectionNames.contains(name);
     }
 }

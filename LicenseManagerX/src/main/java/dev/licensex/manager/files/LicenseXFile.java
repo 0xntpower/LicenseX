@@ -1,7 +1,7 @@
 package dev.licensex.manager.files;
 
 import dev.licensex.manager.exceptions.LicenseManagerXException;
-import dev.licensex.manager.utils.AES;
+import dev.licensex.manager.utils.crypto.AES;
 import dev.licensex.manager.utils.jnic;
 import lombok.Getter;
 

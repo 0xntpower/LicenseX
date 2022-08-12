@@ -49,6 +49,7 @@ public class LicenseServerX {
         managerRequests.registerRequestExecutor("contains", new ContainsCheckRequest());
         managerRequests.registerRequestExecutor("remove", new RemoveLicenseRequest());
         managerRequests.registerRequestExecutor("create", new CreateCollectionRequest());
+        managerRequests.registerRequestExecutor("createproduct", new CreateProductRequest());
 
         clientRequests = new RequestsManager();
         clientRequests.registerRequestExecutor("contains", new ContainsCheckRequest());

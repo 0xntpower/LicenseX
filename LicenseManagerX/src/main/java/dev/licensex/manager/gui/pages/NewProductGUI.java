@@ -1,6 +1,7 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
+import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
@@ -90,6 +91,11 @@ public class NewProductGUI extends JFrameX {
                     showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+
+//                if (!EventConnector.onProductCreate(nameTextField.getText())) {
+//                    showDialog("Failed to create database document", "Process failed!", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
 
                 // add node to tree
                 DefaultMutableTreeNode product = new DefaultMutableTreeNode(nameTextField.getText());

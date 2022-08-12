@@ -15,11 +15,15 @@ public class CreateCollectionRequest implements RequestExecutor {
 
         boolean createdCollection = Launcher.licenseServerX.getMongoConnect().createMongoCollection(product);
 
-        String msg = socket.getInetAddress().getHostAddress() + " -> Created new product collection named: " + product + ".";
+        String reply = "failed";
+        String msg = socket.getInetAddress().getHostAddress() + " -> Product collection " + product + " already exists, aborting request.";
 
-        if (!createdCollection)
-            msg = socket.getInetAddress().getHostAddress() + " -> Product collection " + product + " already exists, aborting request.";
+        if (createdCollection) {
+            reply = "success";
+            msg = socket.getInetAddress().getHostAddress() + " -> Created new product collection named: " + product + ".";
+        }
 
+        output.println(reply);
         IOUtil.logInfo(msg);
     }
 }

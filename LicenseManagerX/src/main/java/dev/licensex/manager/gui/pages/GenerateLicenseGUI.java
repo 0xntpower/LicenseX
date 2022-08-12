@@ -1,8 +1,8 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
-import dev.licensex.manager.utils.LICENSE_ID_TYPE;
-import dev.licensex.manager.utils.LIMIT_TYPE;
+import dev.licensex.manager.utils.enums.LICENSE_ID_TYPE;
+import dev.licensex.manager.utils.enums.LIMIT_TYPE;
 import dev.licensex.manager.utils.LicenseData;
 import dev.licensex.manager.utils.StringUtil;
 

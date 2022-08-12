@@ -1,5 +1,7 @@
 package dev.licensex.manager.utils;
 
+import dev.licensex.manager.utils.enums.LICENSE_ID_TYPE;
+import dev.licensex.manager.utils.enums.LIMIT_TYPE;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

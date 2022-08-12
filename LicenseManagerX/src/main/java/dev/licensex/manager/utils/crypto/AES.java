@@ -1,4 +1,4 @@
-package dev.licensex.manager.utils;
+package dev.licensex.manager.utils.crypto;
 
 import lombok.experimental.UtilityClass;
 
