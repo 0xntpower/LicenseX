@@ -48,6 +48,7 @@ public class LicenseServerX {
         managerRequests.registerRequestExecutor("add", new AddLicenseRequest());
         managerRequests.registerRequestExecutor("contains", new ContainsCheckRequest());
         managerRequests.registerRequestExecutor("remove", new RemoveLicenseRequest());
+        managerRequests.registerRequestExecutor("removeproduct", new RemoveProductRequest());
         managerRequests.registerRequestExecutor("create", new CreateCollectionRequest());
         managerRequests.registerRequestExecutor("createproduct", new CreateProductRequest());
 

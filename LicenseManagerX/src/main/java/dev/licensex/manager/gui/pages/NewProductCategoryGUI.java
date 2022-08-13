@@ -31,6 +31,8 @@ public class NewProductCategoryGUI extends JFrameX {
         specialKeys.add(KeyEvent.VK_WINDOWS);
     }
 
+    private DefaultMutableTreeNode lastCategoryCreated;
+
     public NewProductCategoryGUI() {
         if (isRunning) return;
         isRunning = true;
@@ -93,13 +95,22 @@ public class NewProductCategoryGUI extends JFrameX {
                     return;
                 }
 
-//                if (!EventConnector.onCategoryCreate(nameTextField.getText())) {
-//                    showDialog("Failed to create database collection", "Process failed!", JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                }
+                new Thread(new Runnable() {
+                    public void run() {
+                        if (!EventConnector.onCategoryCreate(nameTextField.getText())) {
+                            showDialog("Failed to create database collection", "Process failed!", JOptionPane.ERROR_MESSAGE);
 
-                DefaultMutableTreeNode category = new DefaultMutableTreeNode(nameTextField.getText(), true);
-                MainGUI.rootNode.add(category);
+                            MainGUI.removeCategory(lastCategoryCreated);
+
+                            DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
+                            ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+                            MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
+                        }
+                    }
+                }).start();
+
+                lastCategoryCreated = new DefaultMutableTreeNode(nameTextField.getText(), true);
+                MainGUI.rootNode.add(lastCategoryCreated);
 
                 // refresh and re-expand the tree
                 ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);

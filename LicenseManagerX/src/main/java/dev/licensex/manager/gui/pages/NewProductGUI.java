@@ -30,6 +30,8 @@ public class NewProductGUI extends JFrameX {
         specialKeys.add(KeyEvent.VK_WINDOWS);
     }
 
+    private DefaultMutableTreeNode lastProductCreated;
+
     public NewProductGUI() {
         if (isRunning) return;
         isRunning = true;
@@ -92,14 +94,24 @@ public class NewProductGUI extends JFrameX {
                     return;
                 }
 
-//                if (!EventConnector.onProductCreate(nameTextField.getText())) {
-//                    showDialog("Failed to create database document", "Process failed!", JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                }
+                final String selectedName = MainGUI.selectedNode.toString();
+                new Thread(new Runnable() {
+                    public void run() {
+                        if (!EventConnector.onProductCreate(selectedName, nameTextField.getText(), idTextField.getText())) {
+                            showDialog("Failed to create database document", "Process failed!", JOptionPane.ERROR_MESSAGE);
+
+                            MainGUI.removeProductFromCategory(lastProductCreated);
+
+                            DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
+                            ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+                            MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
+                        }
+                    }
+                }).start();
 
                 // add node to tree
-                DefaultMutableTreeNode product = new DefaultMutableTreeNode(nameTextField.getText());
-                MainGUI.selectedNode.add(product);
+                lastProductCreated = new DefaultMutableTreeNode(nameTextField.getText());
+                MainGUI.selectedNode.add(lastProductCreated);
 
                 // refresh and re-expand the tree
                 DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;

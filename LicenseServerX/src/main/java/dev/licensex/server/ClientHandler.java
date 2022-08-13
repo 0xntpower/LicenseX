@@ -54,14 +54,14 @@ public class ClientHandler extends Thread {
     }
 
     private void processManagerRequest(String[] request) throws RequestException {
-        if (managerRequests.doesRequestExist(request[1]))
-            managerRequests.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
+        if (managerRequests.doesRequestExist(request[0]))
+            managerRequests.getRequestExecutor(request[0]).onRequest(socket, input, output, StringUtil.removeFirst(request));
         else throw new RequestException("The received manager request does not exist, aborting. content: [" + request[1] + "]");
     }
 
     private void processClientRequest(String[] request) throws RequestException {
-        if (clientRequests.doesRequestExist(request[1]))
-            clientRequests.getRequestExecutor(request[1]).onRequest(socket, input, output, request);
+        if (clientRequests.doesRequestExist(request[0]))
+            clientRequests.getRequestExecutor(request[0]).onRequest(socket, input, output, StringUtil.removeFirst(request));
         else throw new RequestException("The received client request does not exist, aborting. content: [" + request[1] + "]");
     }
 }

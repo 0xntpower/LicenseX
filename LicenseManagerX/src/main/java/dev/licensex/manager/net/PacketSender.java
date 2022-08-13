@@ -25,8 +25,8 @@ public class PacketSender {
             sslsocket.startHandshake();
 
             // What parameters were established?
-            System.out.printf("Negotiated Session: %s%n", sslsocket.getSession().getProtocol());
-            System.out.printf("Cipher Suite: %s%n", sslsocket.getSession().getCipherSuite());
+//            System.out.printf("Negotiated Session: %s%n", sslsocket.getSession().getProtocol());
+//            System.out.printf("Cipher Suite: %s%n", sslsocket.getSession().getCipherSuite());
 
             BufferedReader input = new BufferedReader(new InputStreamReader(sslsocket.getInputStream()));;
             PrintWriter output = new PrintWriter(sslsocket.getOutputStream(), true);
@@ -34,7 +34,7 @@ public class PacketSender {
             output.println(msg);
 
             responseStr = input.readLine();
-            System.out.println("server -> " + responseStr);
+//            System.out.println("server -> " + responseStr);
 
             output.close();
             input.close();
@@ -56,8 +56,8 @@ public class PacketSender {
             sslsocket.startHandshake();
 
             // What parameters were established?
-            System.out.printf("Negotiated Session: %s%n", sslsocket.getSession().getProtocol());
-            System.out.printf("Cipher Suite: %s%n", sslsocket.getSession().getCipherSuite());
+//            System.out.printf("Negotiated Session: %s%n", sslsocket.getSession().getProtocol());
+//            System.out.printf("Cipher Suite: %s%n", sslsocket.getSession().getCipherSuite());
 
             BufferedReader input = new BufferedReader(new InputStreamReader(sslsocket.getInputStream()));;
             PrintWriter output = new PrintWriter(sslsocket.getOutputStream(), true);

@@ -61,6 +61,28 @@ public class MainGUI extends JFrame {
         printLicenses();
     }
 
+    public static void removeCategory(DefaultMutableTreeNode toDelete) {
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) toDelete.getParent();
+
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        TreePath path = new TreePath(toDelete.getPath());
+
+        // remove all the products that's under it
+
+        // remove the category from database
+
+        // remove the category visually
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+        model.removeNodeFromParent(node);
+
+        selectedNode = parent;
+
+        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+        MainGUI.tree.expandPath(new TreePath(toDelete.getPath()));
+
+        printLicenses();
+    }
+
     public static void removeSelectedProductFromCategory() {
         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
 
@@ -78,6 +100,27 @@ public class MainGUI extends JFrame {
 
         ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
         MainGUI.tree.expandPath(new TreePath(selectedNode.getPath()));
+
+        printLicenses();
+    }
+
+    public static void removeProductFromCategory(DefaultMutableTreeNode toDelete) {
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) toDelete.getParent();
+
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        TreePath path = new TreePath(toDelete.getPath());
+
+        // delete product
+        productsLicensesData.remove(toDelete.toString());
+
+        // remove the product visually
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+        model.removeNodeFromParent(node);
+
+        selectedNode = parent;
+
+        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+        MainGUI.tree.expandPath(new TreePath(toDelete.getPath()));
 
         printLicenses();
     }
