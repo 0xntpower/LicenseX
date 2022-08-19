@@ -1,25 +1,26 @@
 package dev.licensex.server;
 
 import dev.licensex.server.database.MongoConnect;
+import dev.licensex.server.filesys.LXConfig;
 import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.request.requests.*;
+import dev.licensex.server.utils.FilenameUtils;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.SSLUtil;
 import dev.licensex.server.utils.style.AsciiUtil;
-import dev.licensex.server.yaml.files.ConfigFile;
-import dev.licensex.server.yaml.files.LicenseFile;
 import lombok.Getter;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
+import java.net.URISyntaxException;
 
 @Getter
 public class LicenseServerX {
 
     private static final int LISTENING_PORT = 1234;
 
-    final LicenseFile licenseFile;
-    ConfigFile configFile;
+    final LXConfig licenseFile;
+    LXConfig configFile;
     RequestsManager managerRequests;
     RequestsManager clientRequests;
     MongoConnect mongoConnect;
@@ -31,7 +32,10 @@ public class LicenseServerX {
         AsciiUtil.printBanner("SERVERX");
 
         // setup / load license file
-        licenseFile = new LicenseFile();
+        licenseFile = new LXConfig(getSelfPath() + "license.lx");
+        System.out.println("newLicenseFile: " + licenseFile.isNewFile());
+        if (licenseFile.isNewFile())
+            IOUtil.promptLicenseInput(licenseFile);
 
         // ToDo verify product license validity here
         System.out.println();
@@ -39,7 +43,10 @@ public class LicenseServerX {
         IOUtil.logInfo("License activated successfully!\n");
 
         // setup / load config file
-        configFile = new ConfigFile();
+        configFile = new LXConfig(getSelfPath() + "config.lx");
+        if (configFile.isNewFile())
+            IOUtil.promptSetupInput(configFile);
+
     }
 
     public void setUp() {
@@ -73,5 +80,15 @@ public class LicenseServerX {
             ClientHandler clientHandler = new ClientHandler(sslsocket, managerRequests, clientRequests);
             clientHandler.start();
         }
+    }
+
+    private String getSelfPath() {
+        String path = null;
+        try {
+            path = FilenameUtils.getPath(LXConfig.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return path;
     }
 }

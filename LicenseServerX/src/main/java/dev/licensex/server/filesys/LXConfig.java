@@ -46,6 +46,10 @@ public class LXConfig extends LicenseXFile {
         return null;
     }
 
+    public String getString(String key) {
+        return get(key) + "";
+    }
+
     private void setValueForKey(String key, Object value) {
         int index = -999;
 

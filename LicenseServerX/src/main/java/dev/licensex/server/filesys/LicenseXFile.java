@@ -15,6 +15,7 @@ public class LicenseXFile {
     protected final String name;
     protected final List<String> content;
     protected File file;
+    protected boolean newFile = false;
 
     public LicenseXFile(String name_, String path_) {
         this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
@@ -28,7 +29,7 @@ public class LicenseXFile {
         file = new File(path);
         if (!file.exists()) {
             try {
-                file.createNewFile();
+                newFile = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -49,7 +50,7 @@ public class LicenseXFile {
         file = new File(path);
         if (!file.exists()) {
             try {
-                file.createNewFile();
+                newFile = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -4,8 +4,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import dev.licensex.server.filesys.LXConfig;
 import dev.licensex.server.utils.IOUtil;
-import dev.licensex.server.yaml.files.ConfigFile;
 import lombok.Getter;
 import org.bson.Document;
 
@@ -18,7 +18,7 @@ public class MongoConnect {
     private MongoClient client;
     private MongoDatabase database;
 
-    public MongoConnect(ConfigFile configFile) {
+    public MongoConnect(LXConfig configFile) {
         try {
 
             String databaseName = configFile.getString("MongoDB.database_name");
