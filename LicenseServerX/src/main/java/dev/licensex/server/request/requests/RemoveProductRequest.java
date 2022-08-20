@@ -10,6 +10,7 @@ import org.bson.Document;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 public class RemoveProductRequest implements RequestExecutor {
@@ -38,5 +39,14 @@ public class RemoveProductRequest implements RequestExecutor {
         }
 
         IOUtil.logInfo(msg);
+
+        try {
+            output.close();
+            input.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

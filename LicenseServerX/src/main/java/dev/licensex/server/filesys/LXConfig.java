@@ -11,12 +11,16 @@ public class LXConfig extends LicenseXFile {
         super(FilenameUtils.getName(path), FilenameUtils.getFullPathNoEndSeparator(path));
     }
 
-    public LXConfig(String name_, String path_) {
-        super(name_, path_);
+    public LXConfig(String path, boolean encrypt) {
+        super(FilenameUtils.getName(path), FilenameUtils.getFullPathNoEndSeparator(path), encrypt);
     }
 
     public LXConfig(String path, List<String> content) throws LicenseServerXException {
         super(FilenameUtils.getName(path), FilenameUtils.getPath(path), content);
+    }
+
+    public LXConfig(String path, List<String> content, boolean encrypt) throws LicenseServerXException {
+        super(FilenameUtils.getName(path), FilenameUtils.getPath(path), content, encrypt);
     }
 
     public void set(String key, Object val) {

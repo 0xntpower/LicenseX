@@ -64,9 +64,9 @@ public class PacketSender {
 
             output.println(msg);
 
-            output.close();
-            input.close();
-            sslsocket.close();
+//            output.close();
+//            input.close();
+//            sslsocket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

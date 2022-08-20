@@ -29,11 +29,11 @@ public class MongoUtil {
      * Add a license to database
      * @param license the license
      */
-    public static void addLicenseToDatabase(String product, String license) {
-        MongoCollection<Document> collection = Launcher.licenseServerX.getMongoConnect().getMongoCollection(product);
+    public static void addLicenseToDatabase(String category, String product, String license) {
+        MongoCollection<Document> collection = Launcher.licenseServerX.getMongoConnect().getMongoCollection(category);
 
         // if license is not already in database, will add it
-        if (collection.find(Filters.eq("license", license)).first() == null) {
+        if (collection.find(Filters.eq("product_name", product)).first() == null) {
             // Create a new document and insert the value
             Document document = new Document();
             document.put("license", license);

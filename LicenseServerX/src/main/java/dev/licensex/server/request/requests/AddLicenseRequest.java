@@ -11,10 +11,11 @@ import java.io.PrintWriter;
 public class AddLicenseRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
-        String product = args[0];
+        String category = args[0];
+        String product = args[1];
         String licenseId = args[2];
 
-        MongoUtil.addLicenseToDatabase(product, licenseId);
+        MongoUtil.addLicenseToDatabase(category, product, licenseId);
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been added to database");
     }

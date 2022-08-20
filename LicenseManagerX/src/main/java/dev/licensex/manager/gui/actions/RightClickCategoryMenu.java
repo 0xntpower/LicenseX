@@ -1,5 +1,6 @@
 package dev.licensex.manager.gui.actions;
 
+import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.gui.pages.MainGUI;
 import dev.licensex.manager.gui.pages.NewProductGUI;
 
@@ -22,8 +23,10 @@ public class RightClickCategoryMenu extends JPopupMenu {
             public void actionPerformed(ActionEvent e) {
                 int answerId = JOptionPane.showConfirmDialog(null, "This action is irreversible, are you sure you want to delete this category and all the products that's under it?",
                         "Action confirmation", JOptionPane.YES_NO_OPTION);
-                if (answerId == JOptionPane.YES_OPTION)
+                if (answerId == JOptionPane.YES_OPTION) {
+                    EventConnector.onCategoryDelete(MainGUI.selectedNode.toString(), "");
                     MainGUI.removeSelectedCategory();
+                }
             }
         });
 

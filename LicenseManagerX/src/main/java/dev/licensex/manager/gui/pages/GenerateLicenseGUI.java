@@ -1,12 +1,16 @@
 package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
+import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.utils.enums.LICENSE_ID_TYPE;
 import dev.licensex.manager.utils.enums.LIMIT_TYPE;
 import dev.licensex.manager.utils.LicenseData;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -233,6 +237,18 @@ public class GenerateLicenseGUI extends JFrameX {
 
                 lastLicenseData = new LicenseData(idTextField.getText(), userNameTextField.getText(), nameInLicenseCheckBox.isSelected(),
                         id_type, limit_type, limit, (expiresComboBox.getSelectedItem() + "").equalsIgnoreCase("Expire"), dateTextField.getText());
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        if (!EventConnector.onLicenseAdd(MainGUI.selectedNode.getParent().toString(),
+                                MainGUI.selectedNode.toString(), "", idTextField.getText())) {
+                            showDialog("Failed to add license", "Process failed!", JOptionPane.ERROR_MESSAGE);
+
+                            MainGUI.removeLicenseFromProduct(idTextField.getText());
+                            MainGUI.printLicenses();
+                        }
+                    }
+                }).start();
 
                 MainGUI.saveLicenseToProduct(idTextField.getText());
                 MainGUI.printLicenses();

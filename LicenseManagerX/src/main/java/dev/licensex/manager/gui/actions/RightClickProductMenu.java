@@ -31,7 +31,7 @@ public class RightClickProductMenu extends JPopupMenu {
             public void actionPerformed(ActionEvent e) {
                 int answerId = JOptionPane.showConfirmDialog(null, "This action is irreversible, are you sure you want to delete this product?", "Action confirmation", JOptionPane.YES_NO_OPTION);
                 if (answerId == JOptionPane.YES_OPTION) {
-                    //EventConnector.onProductDelete(MainGUI.selectedNode.getParent().toString(), MainGUI.selectedNode.toString(), ""); // ToDo fix this!
+                    EventConnector.onProductDelete(MainGUI.selectedNode.getParent().toString(), MainGUI.selectedNode.toString(), "");
                     MainGUI.removeSelectedProductFromCategory();
                 }
             }

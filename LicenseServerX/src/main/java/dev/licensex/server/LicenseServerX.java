@@ -33,17 +33,19 @@ public class LicenseServerX {
 
         // setup / load license file
         licenseFile = new LXConfig(getSelfPath() + "license.lx");
-        System.out.println("newLicenseFile: " + licenseFile.isNewFile());
         if (licenseFile.isNewFile())
             IOUtil.promptLicenseInput(licenseFile);
 
-        // ToDo verify product license validity here
+        if (licenseFile.getString("license").length() < 3) {
+            IOUtil.logErr("Invalid license.");
+            return;
+        }
         System.out.println();
         IOUtil.logInfo("Checking license . . .");
         IOUtil.logInfo("License activated successfully!\n");
 
         // setup / load config file
-        configFile = new LXConfig(getSelfPath() + "config.lx");
+        configFile = new LXConfig(getSelfPath() + "config.lx", false);
         if (configFile.isNewFile())
             IOUtil.promptSetupInput(configFile);
 
@@ -52,15 +54,18 @@ public class LicenseServerX {
     public void setUp() {
         // construct requests handlers
         managerRequests = new RequestsManager();
-        managerRequests.registerRequestExecutor("add", new AddLicenseRequest());
-        managerRequests.registerRequestExecutor("contains", new ContainsCheckRequest());
-        managerRequests.registerRequestExecutor("remove", new RemoveLicenseRequest());
+        managerRequests.registerRequestExecutor("addlicense", new AddLicenseRequest());
+        managerRequests.registerRequestExecutor("containslicense", new ContainsCheckRequest());
+
+        managerRequests.registerRequestExecutor("removelicense", new RemoveLicenseRequest());
         managerRequests.registerRequestExecutor("removeproduct", new RemoveProductRequest());
-        managerRequests.registerRequestExecutor("create", new CreateCollectionRequest());
+        managerRequests.registerRequestExecutor("removecategory", new RemoveCollectionRequest());
+
+        managerRequests.registerRequestExecutor("createcategory", new CreateCollectionRequest());
         managerRequests.registerRequestExecutor("createproduct", new CreateProductRequest());
 
         clientRequests = new RequestsManager();
-        clientRequests.registerRequestExecutor("contains", new ContainsCheckRequest());
+        clientRequests.registerRequestExecutor("containslicense", new ContainsCheckRequest());
 
         IOUtil.logInfo("Attempting to connect to database.");
         mongoConnect = new MongoConnect(configFile);
