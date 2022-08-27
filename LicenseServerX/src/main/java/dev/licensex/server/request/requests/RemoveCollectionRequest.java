@@ -13,7 +13,7 @@ public class RemoveCollectionRequest implements RequestExecutor {
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
         String product = args[0];
 
-        Launcher.licenseServerX.getMongoConnect().getMongoCollection(product).drop();
+        //Launcher.licenseServerX.getMongoConnect().getMongoCollection(product).drop();
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> MongoCollection " + product + " has been removed.");
     }

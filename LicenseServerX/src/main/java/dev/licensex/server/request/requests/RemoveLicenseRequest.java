@@ -1,6 +1,5 @@
 package dev.licensex.server.request.requests;
 
-import dev.licensex.server.database.MongoUtil;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
 
@@ -11,10 +10,12 @@ import java.io.PrintWriter;
 public class RemoveLicenseRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
-        String product = args[0];
-        String licenseId = args[2];
+        String category = args[0];
+        String productName = args[1];
+        String productId = args[2];
+        String licenseId = args[3];
 
-        MongoUtil.removeLicenseFromDatabase(product, licenseId);
+        //MongoUtil.removeLicenseFromDatabase(category, productName, productId, licenseId);
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been removed from database");
     }

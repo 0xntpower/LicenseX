@@ -1,6 +1,5 @@
 package dev.licensex.server;
 
-import dev.licensex.server.database.MongoConnect;
 import dev.licensex.server.filesys.LXConfig;
 import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.request.requests.*;
