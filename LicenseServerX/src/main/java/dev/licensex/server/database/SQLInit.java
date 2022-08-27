@@ -1,5 +1,7 @@
 package dev.licensex.server.database;
 
+import dev.licensex.server.filesys.LXConfig;
+
 public class SQLInit {
 
     // ToDo change those to only create the tables only if they do not exist yet
@@ -22,7 +24,7 @@ public class SQLInit {
             "HWID VARCHAR(200)" +
             ")";
 
-    public SQLInit() {
+    public SQLInit(LXConfig config) {
         connect();
     }
 

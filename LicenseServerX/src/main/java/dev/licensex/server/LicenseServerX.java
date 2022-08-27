@@ -1,5 +1,6 @@
 package dev.licensex.server;
 
+import dev.licensex.server.database.SQLInit;
 import dev.licensex.server.filesys.LXConfig;
 import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.request.requests.*;
@@ -22,7 +23,7 @@ public class LicenseServerX {
     LXConfig configFile;
     RequestsManager managerRequests;
     RequestsManager clientRequests;
-    MongoConnect mongoConnect;
+    SQLInit sqlInit;
 
     public LicenseServerX() {
         System.setProperty("DEBUG.MONGO", "false");
@@ -67,7 +68,7 @@ public class LicenseServerX {
         clientRequests.registerRequestExecutor("containslicense", new ContainsCheckRequest());
 
         IOUtil.logInfo("Attempting to connect to database.");
-        mongoConnect = new MongoConnect(configFile);
+        sqlInit = new SQLInit(configFile);
 
         try {
             startSocketServer();
