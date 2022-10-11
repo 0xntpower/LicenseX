@@ -2,15 +2,12 @@ package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.gui.EventConnector;
-import dev.licensex.manager.utils.enums.LICENSE_ID_TYPE;
-import dev.licensex.manager.utils.enums.LIMIT_TYPE;
 import dev.licensex.manager.utils.LicenseData;
 import dev.licensex.manager.utils.StringUtil;
+import dev.licensex.manager.utils.enums.LICENSE_ID_TYPE;
+import dev.licensex.manager.utils.enums.LIMIT_TYPE;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

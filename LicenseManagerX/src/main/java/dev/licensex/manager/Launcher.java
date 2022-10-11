@@ -3,11 +3,8 @@ package dev.licensex.manager;
 import dev.licensex.manager.files.LXConfig;
 import dev.licensex.manager.gui.pages.ActivationGUI;
 import dev.licensex.manager.gui.pages.MainGUI;
-import dev.licensex.manager.utils.FilenameUtils;
 import dev.licensex.manager.utils.PathUtil;
 import dev.licensex.manager.utils.ThemesUtil;
-
-import java.net.URISyntaxException;
 
 public final class Launcher {
 

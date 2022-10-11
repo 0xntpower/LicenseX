@@ -6,7 +6,6 @@ import dev.licensex.manager.utils.ThemesUtil;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.JMenuBar;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -15,8 +14,10 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class MainGUI extends JFrame {
 
