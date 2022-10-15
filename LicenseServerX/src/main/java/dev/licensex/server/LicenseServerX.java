@@ -59,16 +59,16 @@ public class LicenseServerX {
 
         managerRequests.registerRequestExecutor("removelicense", new RemoveLicenseRequest());
         managerRequests.registerRequestExecutor("removeproduct", new RemoveProductRequest());
-        managerRequests.registerRequestExecutor("removecategory", new RemoveCollectionRequest());
+        managerRequests.registerRequestExecutor("removecategory", new RemoveCategoryRequest());
 
-        managerRequests.registerRequestExecutor("createcategory", new CreateCollectionRequest());
+        managerRequests.registerRequestExecutor("createcategory", new CreateCategoryRequest());
         managerRequests.registerRequestExecutor("createproduct", new CreateProductRequest());
 
         clientRequests = new RequestsManager();
         clientRequests.registerRequestExecutor("containslicense", new ContainsCheckRequest());
 
-        IOUtil.logInfo("Attempting to connect to database.");
-        sqlInit = new SQLInit(configFile);
+        //IOUtil.logInfo("Attempting to connect to database.");
+        //sqlInit = new SQLInit(configFile);
 
         try {
             startSocketServer();

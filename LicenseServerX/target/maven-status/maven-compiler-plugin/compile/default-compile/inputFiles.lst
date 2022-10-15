@@ -7,7 +7,6 @@ C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\mai
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\database\SQLUtil.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\IOUtil.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\SSLUtil.java
-C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\RemoveCollectionRequest.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\ExampleRequest1.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\jnic.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\style\LetterBlock.java
@@ -16,7 +15,9 @@ C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\mai
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\style\AABanner.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\crypto\AES.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\data\SimpleDate.java
+C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\CreateCategoryRequest.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\RemoveLicenseRequest.java
+C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\RemoveCategoryRequest.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\AddLicenseRequest.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\LicenseServerX.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\exceptions\LicenseServerXException.java
@@ -27,4 +28,3 @@ C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\mai
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\filesys\LicenseXFile.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\filesys\LXConfig.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\Launcher.java
-C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\CreateCollectionRequest.java

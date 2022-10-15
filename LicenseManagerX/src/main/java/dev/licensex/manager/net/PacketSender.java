@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class PacketSender {
 
-    private static final String REMOTE_HOST = "localhost";
+    private static final String REMOTE_HOST = "127.0.0.1";
     private static final int REMOTE_PORT = 1234;
 
     public static String sendPacketToServer(String msg) {

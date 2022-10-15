@@ -1,11 +1,12 @@
-dev\licensex\server\request\requests\CreateCollectionRequest.class
 dev\licensex\server\filesys\LXConfig.class
 dev\licensex\server\request\RequestException.class
 dev\licensex\server\request\RequestExecutor.class
 dev\licensex\server\request\requests\ExampleRequest1.class
+dev\licensex\server\request\requests\RemoveCategoryRequest.class
 dev\licensex\server\request\requests\RemoveProductRequest.class
 dev\licensex\server\request\requests\RemoveLicenseRequest.class
 dev\licensex\server\utils\style\LetterBlock.class
+dev\licensex\server\request\requests\CreateCategoryRequest.class
 dev\licensex\server\utils\jnic.class
 dev\licensex\server\utils\StringUtil.class
 dev\licensex\server\utils\style\AABanner.class
@@ -20,7 +21,6 @@ dev\licensex\server\Launcher.class
 dev\licensex\server\request\requests\ContainsCheckRequest.class
 dev\licensex\server\exceptions\LicenseServerXException.class
 dev\licensex\server\LicenseServerX.class
-dev\licensex\server\request\requests\RemoveCollectionRequest.class
 dev\licensex\server\request\requests\AddLicenseRequest.class
 dev\licensex\server\request\requests\CreateProductRequest.class
 dev\licensex\server\ClientHandler.class

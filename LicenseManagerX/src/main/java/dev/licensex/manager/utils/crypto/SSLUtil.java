@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
+import java.util.Objects;
 
 @UtilityClass
 public class SSLUtil {
@@ -27,8 +28,8 @@ public class SSLUtil {
     public static SSLSocketFactory getSocketFactory() throws Exception {
         // Get the client's keystore
         String clientCertPassword = "fJpo3hC5N7DntUnv3";
-        File clientKeystoreFile = new File(ClassLoader.getSystemClassLoader().getResource("clientCertificate.jks").toURI());
-        KeyStore clientKeyStore = KeyStore.getInstance(clientKeystoreFile, clientCertPassword.toCharArray());
+        KeyStore clientKeyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+        clientKeyStore.load(ClassLoader.getSystemClassLoader().getResourceAsStream("clientCertificate.jks"), clientCertPassword.toCharArray());
 
         TrustManagerFactory tmf = null;
 
