@@ -9,10 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,11 +29,24 @@ public class NewProductGUI extends JFrameX {
 
     private DefaultMutableTreeNode lastProductCreated;
 
+    private JTextField nameTextField;
+    private JTextField idTextField;
+
     public NewProductGUI() {
         if (isRunning) return;
         isRunning = true;
         buildWindow();
         setVisible(true);
+    }
+
+    class CustomKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {}
+        public void keyPressed(KeyEvent e) {}
+        public void keyReleased(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                performSave();
+            }
+        }
     }
 
     @Override
@@ -56,15 +66,17 @@ public class NewProductGUI extends JFrameX {
         productNameLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(productNameLabel);
 
-        JTextField nameTextField = new JTextField();
+        nameTextField = new JTextField();
         nameTextField.setBounds(115, 10, 200, 19);
         nameTextField.setColumns(10);
         panel.add(nameTextField);
+        nameTextField.addKeyListener(new CustomKeyListener());
 
-        JTextField idTextField = new JTextField();
+        idTextField = new JTextField();
         idTextField.setBounds(115, 30, 200, 19);
         idTextField.setColumns(10);
         panel.add(idTextField);
+        idTextField.addKeyListener(new CustomKeyListener());
 
         nameTextField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -89,36 +101,7 @@ public class NewProductGUI extends JFrameX {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (nameTextField.getText().length() == 0 || idTextField.getText().length() == 0) {
-                    showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                final String selectedName = MainGUI.selectedNode.toString();
-                new Thread(new Runnable() {
-                    public void run() {
-                        if (!EventConnector.onProductCreate(selectedName, nameTextField.getText(), idTextField.getText())) {
-                            showDialog("Failed to create database document", "Process failed!", JOptionPane.ERROR_MESSAGE);
-
-                            MainGUI.removeProductFromCategory(lastProductCreated);
-
-                            DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
-                            ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-                            MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
-                        }
-                    }
-                }).start();
-
-                // add node to tree
-                lastProductCreated = new DefaultMutableTreeNode(nameTextField.getText());
-                MainGUI.selectedNode.add(lastProductCreated);
-
-                // refresh and re-expand the tree
-                DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
-                ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-                MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
-
-                dispose();
+                performSave();
             }
         });
 
@@ -134,6 +117,39 @@ public class NewProductGUI extends JFrameX {
         });
 
         setContentPane(panel);
+    }
+
+    private void performSave() {
+        if (nameTextField.getText().length() == 0 || idTextField.getText().length() == 0) {
+            showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        final String selectedName = MainGUI.selectedNode.toString();
+        new Thread(new Runnable() {
+            public void run() {
+                if (!EventConnector.onProductCreate(selectedName, nameTextField.getText(), idTextField.getText())) {
+                    showDialog("Failed to create database document", "Process failed!", JOptionPane.ERROR_MESSAGE);
+
+                    MainGUI.removeProductFromCategory(lastProductCreated);
+
+                    DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
+                    ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+                    MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
+                }
+            }
+        }).start();
+
+        // add node to tree
+        lastProductCreated = new DefaultMutableTreeNode(nameTextField.getText());
+        MainGUI.selectedNode.add(lastProductCreated);
+
+        // refresh and re-expand the tree
+        DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
+        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+        MainGUI.tree.expandPath(new TreePath(lastSelectedNode.getPath()));
+
+        dispose();
     }
 
     private boolean isInstantFullDelete(KeyEvent e) {

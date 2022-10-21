@@ -5,6 +5,7 @@ import com.mongodb.client.model.Filters;
 import dev.licensex.server.Launcher;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.utils.consts.LicenseXProtocol;
 import org.bson.Document;
 
 import javax.net.ssl.SSLSocket;
@@ -15,7 +16,7 @@ public class CreateProductRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
 //        String category = args[0];
-//        String product_name = args[1];
+        String product_name = args[1];
 //        String product_id = args[2];
 //
 //        String reply = "failed";
@@ -42,5 +43,10 @@ public class CreateProductRequest implements RequestExecutor {
 //
 //        output.println(reply);
 //        IOUtil.logInfo(msg);
+
+        // ToDo verify data existence before replying
+        output.println(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
+
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Product ("+product_name+") has been created");
     }
 }

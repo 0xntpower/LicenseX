@@ -1,4 +1,4 @@
-package dev.licensex.server.filesys;
+package dev.licensex.server.filesys.lx;
 
 import dev.licensex.server.exceptions.LicenseServerXException;
 import dev.licensex.server.utils.FilenameUtils;

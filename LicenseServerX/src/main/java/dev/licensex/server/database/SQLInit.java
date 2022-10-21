@@ -1,6 +1,6 @@
 package dev.licensex.server.database;
 
-import dev.licensex.server.filesys.LXConfig;
+import dev.licensex.server.filesys.lx.LXConfig;
 
 import java.sql.*;
 

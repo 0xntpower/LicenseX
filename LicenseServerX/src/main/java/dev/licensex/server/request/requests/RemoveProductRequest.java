@@ -47,5 +47,6 @@ public class RemoveProductRequest implements RequestExecutor {
 //            e.printStackTrace();
 //        }
 
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Product ("+product_id+") has been removed");
     }
 }

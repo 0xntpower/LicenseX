@@ -1,6 +1,8 @@
 package dev.licensex.server.request.requests;
 
 import dev.licensex.server.request.RequestExecutor;
+import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.utils.consts.LicenseXProtocol;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -9,7 +11,7 @@ import java.io.PrintWriter;
 public class CreateCategoryRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
-//        String collectionName = args[0];
+        String collectionName = args[0];
 //
 //        boolean createdCollection = Launcher.licenseServerX.getMongoConnect().createMongoCollection(collectionName);
 //
@@ -23,5 +25,9 @@ public class CreateCategoryRequest implements RequestExecutor {
 //
 //        output.println(reply);
 //        IOUtil.logInfo(msg);
+        // ToDo verify data existence before replying
+        output.println(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
+
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Category ("+collectionName+") has been created");
     }
 }

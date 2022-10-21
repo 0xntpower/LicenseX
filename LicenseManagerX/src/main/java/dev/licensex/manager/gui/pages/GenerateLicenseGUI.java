@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class GenerateLicenseGUI extends JFrameX {
     private static boolean isRunning;
@@ -54,14 +56,22 @@ public class GenerateLicenseGUI extends JFrameX {
 
         if (lastLicenseData.getId().length() == 0)
             idTextField.setText(generateLicenseString());
-        else
-            idTextField.setText(lastLicenseData.getId());
 
         userNameTextField.setText(lastLicenseData.getUsername());
 
         nameInLicenseCheckBox.setSelected(lastLicenseData.isNameInLicense());
 
         dateTextField.setText(lastLicenseData.getExpiration_date());
+    }
+
+    class CustomKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {}
+        public void keyPressed(KeyEvent e) {}
+        public void keyReleased(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                saveLicense();
+            }
+        }
     }
 
     @Override
@@ -147,6 +157,7 @@ public class GenerateLicenseGUI extends JFrameX {
         idTextField.setBounds(115, 10, 200, 19);
         idTextField.setColumns(10);
         panel.add(idTextField);
+        idTextField.addKeyListener(new CustomKeyListener());
 
         JLabel userNameLabel = new JLabel("Username: ");
         userNameLabel.setBounds(-50, 33, 220, 20);
@@ -158,6 +169,7 @@ public class GenerateLicenseGUI extends JFrameX {
         userNameTextField.setBounds(115, 33, 200, 19);
         userNameTextField.setColumns(10);
         panel.add(userNameTextField);
+        userNameTextField.addKeyListener(new CustomKeyListener());
 
         nameInLicenseCheckBox = new JCheckBox("Name in license");
         nameInLicenseCheckBox.setBounds(9, 90, 135, 20);
@@ -210,46 +222,7 @@ public class GenerateLicenseGUI extends JFrameX {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!licenseTypeComboBox.getSelectedItem().toString().equals("Unlimited")
-                        && limitTextField.getText().length() == 0) {
-                    showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                LICENSE_ID_TYPE id_type = (idTypeComboBox.getSelectedItem() + "").equalsIgnoreCase("Groups") ? LICENSE_ID_TYPE.GROUPS : LICENSE_ID_TYPE.NOISE;
-
-                LIMIT_TYPE limit_type = LIMIT_TYPE.PER_MACHINE;
-                String selectedItemStr = licenseTypeComboBox.getSelectedItem() + "";
-                if (selectedItemStr.equalsIgnoreCase("Live-sessions"))
-                    limit_type = LIMIT_TYPE.LIVE_SESSIONS;
-                else if (selectedItemStr.equalsIgnoreCase("Unlimited"))
-                    limit_type = LIMIT_TYPE.UNLIMITED;
-
-                String limitNum = limitTextField.getText();
-                if (!StringUtil.isStringNumber(limitNum)) {
-                    showDialog("Limit most be a number", "Process failed!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                int limit = Integer.parseInt(limitNum);
-
-                lastLicenseData = new LicenseData(idTextField.getText(), userNameTextField.getText(), nameInLicenseCheckBox.isSelected(),
-                        id_type, limit_type, limit, (expiresComboBox.getSelectedItem() + "").equalsIgnoreCase("Expire"), dateTextField.getText());
-
-                new Thread(new Runnable() {
-                    public void run() {
-                        if (!EventConnector.onLicenseAdd(MainGUI.selectedNode.getParent().toString(),
-                                MainGUI.selectedNode.toString(), "", idTextField.getText())) {
-                            showDialog("Failed to add license", "Process failed!", JOptionPane.ERROR_MESSAGE);
-
-                            MainGUI.removeLicenseFromProduct(idTextField.getText());
-                            MainGUI.printLicenses();
-                        }
-                    }
-                }).start();
-
-                MainGUI.saveLicenseToProduct(idTextField.getText());
-                MainGUI.printLicenses();
-                dispose();
+                saveLicense();
             }
         });
 
@@ -265,6 +238,49 @@ public class GenerateLicenseGUI extends JFrameX {
         });
 
         setContentPane(panel);
+    }
+
+    private void saveLicense() {
+        if (!licenseTypeComboBox.getSelectedItem().toString().equals("Unlimited")
+                && limitTextField.getText().length() == 0) {
+            showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        LICENSE_ID_TYPE id_type = (idTypeComboBox.getSelectedItem() + "").equalsIgnoreCase("Groups") ? LICENSE_ID_TYPE.GROUPS : LICENSE_ID_TYPE.NOISE;
+
+        LIMIT_TYPE limit_type = LIMIT_TYPE.PER_MACHINE;
+        String selectedItemStr = licenseTypeComboBox.getSelectedItem() + "";
+        if (selectedItemStr.equalsIgnoreCase("Live-sessions"))
+            limit_type = LIMIT_TYPE.LIVE_SESSIONS;
+        else if (selectedItemStr.equalsIgnoreCase("Unlimited"))
+            limit_type = LIMIT_TYPE.UNLIMITED;
+
+        String limitNum = limitTextField.getText();
+        if (!StringUtil.isStringNumber(limitNum)) {
+            showDialog("Limit most be a number", "Process failed!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int limit = Integer.parseInt(limitNum);
+
+        lastLicenseData = new LicenseData(idTextField.getText(), userNameTextField.getText(), nameInLicenseCheckBox.isSelected(),
+                id_type, limit_type, limit, (expiresComboBox.getSelectedItem() + "").equalsIgnoreCase("Expire"), dateTextField.getText());
+
+        new Thread(new Runnable() {
+            public void run() {
+                if (!EventConnector.onLicenseAdd(MainGUI.selectedNode.getParent().toString(),
+                        MainGUI.selectedNode.toString(), "", idTextField.getText())) {
+                    showDialog("Failed to add license", "Process failed!", JOptionPane.ERROR_MESSAGE);
+
+                    MainGUI.removeLicenseFromProduct(idTextField.getText());
+                    MainGUI.printLicenses();
+                }
+            }
+        }).start();
+
+        MainGUI.saveLicenseToProduct(idTextField.getText());
+        MainGUI.printLicenses();
+        dispose();
     }
 
     private String generateLicenseString() {

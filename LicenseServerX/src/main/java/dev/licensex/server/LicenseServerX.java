@@ -1,7 +1,8 @@
 package dev.licensex.server;
 
 import dev.licensex.server.database.SQLInit;
-import dev.licensex.server.filesys.LXConfig;
+import dev.licensex.server.database.temp.DataFile;
+import dev.licensex.server.filesys.lx.LXConfig;
 import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.request.requests.*;
 import dev.licensex.server.utils.FilenameUtils;
@@ -18,6 +19,7 @@ import java.net.URISyntaxException;
 public class LicenseServerX {
 
     private static final int LISTENING_PORT = 1234;
+    public static DataFile datafile;
 
     final LXConfig licenseFile;
     LXConfig configFile;
@@ -64,11 +66,14 @@ public class LicenseServerX {
         managerRequests.registerRequestExecutor("createcategory", new CreateCategoryRequest());
         managerRequests.registerRequestExecutor("createproduct", new CreateProductRequest());
 
+        managerRequests.registerRequestExecutor("data", new BaseDataRequest());
+
         clientRequests = new RequestsManager();
         clientRequests.registerRequestExecutor("containslicense", new ContainsCheckRequest());
 
         //IOUtil.logInfo("Attempting to connect to database.");
         //sqlInit = new SQLInit(configFile);
+        datafile = new DataFile();
 
         try {
             startSocketServer();
@@ -87,7 +92,7 @@ public class LicenseServerX {
         }
     }
 
-    private String getSelfPath() {
+    public static String getSelfPath() {
         String path = null;
         try {
             path = FilenameUtils.getPath(LXConfig.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());

@@ -2,6 +2,7 @@ package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.files.LXConfig;
+import dev.licensex.manager.gui.EventConnector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +67,7 @@ public class ActivationGUI extends JFrameX {
                     // license approved, after checking with server
                     licenseFile.set("license", licenseId);
                     mainGUI.setEnabled(true);
-                    showDialog("License has been activated", "Activation complete!", JOptionPane.INFORMATION_MESSAGE);
+                    showDialog("License has been activated, loading products data . . .", "Activation complete!", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } else {
                     showDialog("License is not activated", "Activation failed!", JOptionPane.ERROR_MESSAGE);

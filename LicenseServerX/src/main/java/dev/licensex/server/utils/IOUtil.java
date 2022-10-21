@@ -1,6 +1,6 @@
 package dev.licensex.server.utils;
 
-import dev.licensex.server.filesys.LXConfig;
+import dev.licensex.server.filesys.lx.LXConfig;
 import lombok.experimental.UtilityClass;
 
 import java.io.Console;

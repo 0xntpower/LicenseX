@@ -1,19 +1,19 @@
 package dev.licensex.server.request.requests;
 
+import dev.licensex.server.LicenseServerX;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.utils.consts.LicenseXProtocol;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
-public class RemoveCategoryRequest implements RequestExecutor {
+public class BaseDataRequest implements RequestExecutor {
     @Override
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
-        String category = args[0];
+        output.println(LicenseServerX.datafile.getAllData());
 
-        //Launcher.licenseServerX.getMongoConnect().getMongoCollection(product).drop();
-
-        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Category (" + category + ") has been removed.");
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Data has been sent to manager client");
     }
 }

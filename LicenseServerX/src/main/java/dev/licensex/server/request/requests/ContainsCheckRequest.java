@@ -14,7 +14,7 @@ public class ContainsCheckRequest implements RequestExecutor {
 //        String licenseId = args[2];
 //
 //        // ToDo change the reply to something better
-//        result = MongoUtil.containsLicense(product, licenseId) ? "Approved" : "Denied";
+//        //result = MongoUtil.containsLicense(product, licenseId) ? "Approved" : "Denied";
 //
 //        output.println(result);
 //        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> " + result + " activation request for license - " + licenseId);
