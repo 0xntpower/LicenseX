@@ -1,5 +1,7 @@
 package dev.licensex.manager.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,5 +39,125 @@ public final class StringUtil {
             if (!Character.isDigit(c))
                 return false;
         return true;
+    }
+
+    public static String[] split(String input, char separator) {
+        ArrayList<String> args = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (char c : input.toCharArray()) {
+
+            if (c == separator) {
+                args.add(sb.toString());
+                sb = new StringBuilder();
+            } else {
+                sb.append(c);
+            }
+
+        }
+
+        args.add(sb.toString());
+
+        String[] arr = new String[args.size()];
+        args.toArray(arr);
+
+        return arr;
+    }
+
+    public static String splitCategoryName(String input) {
+        StringBuilder sb = new StringBuilder();
+
+        for (char c : input.toCharArray()) {
+
+            if (c != '{') {
+                sb.append(c);
+            } else
+                break;
+
+        }
+
+        return sb.toString();
+    }
+
+    public static ArrayList<String> splitProductsName(String input) {
+        ArrayList<String> products = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder();
+
+        boolean insideBrakets = false;
+
+        for (char c : input.toCharArray()) {
+
+            if (c == '=') {
+                products.add(sb.toString());
+                sb = new StringBuilder();
+                insideBrakets = false;
+            } else {
+                if (c != '{' && c != '|') {
+                    if (insideBrakets)
+                        sb.append(c);
+                } else {
+                    insideBrakets = true;
+                }
+            }
+
+        }
+
+        return products;
+    }
+
+    public static ArrayList<String> splitProductsLine(String input) {
+        ArrayList<String> products = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder();
+
+        boolean insideBrakets = false;
+
+        for (char c : input.toCharArray()) {
+
+            if (c == '}') {
+                products.add(sb.toString());
+                sb = new StringBuilder();
+                insideBrakets = false;
+            } else {
+                if (c != '{' && c != '|') {
+                    if (insideBrakets)
+                        sb.append(c);
+                } else {
+                    insideBrakets = true;
+                }
+            }
+
+        }
+
+        return products;
+    }
+
+    public static List<String> splitProductLicenses(String input) {
+        List<String> licenses = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder();
+
+        boolean insideBrakets = false;
+
+        for (char c : input.toCharArray()) {
+
+            if (c == ',') {
+                licenses.add(sb.toString());
+                sb = new StringBuilder();
+            }
+
+            if (c == '[') {
+                insideBrakets = true;
+            } else {
+                if (insideBrakets && c != ' ' && c != ',') {
+                    sb.append(c);
+                }
+            }
+
+        }
+
+        return licenses;
     }
 }

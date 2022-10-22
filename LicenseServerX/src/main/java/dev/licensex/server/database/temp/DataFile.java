@@ -28,8 +28,12 @@ public class DataFile {
         Map<String, Object> dataMap = yaml.getData();
 
         for (String str : dataMap.keySet()) {
-            data.append(str);
+            data.append(str).append(dataMap.get(str)).append("|");
         }
+
+        data.deleteCharAt(data.length() - 1);
+
+        //System.out.println(data.toString());
 
         return data.toString();
     }

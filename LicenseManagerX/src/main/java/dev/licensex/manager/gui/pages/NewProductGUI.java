@@ -131,7 +131,7 @@ public class NewProductGUI extends JFrameX {
                 if (!EventConnector.onProductCreate(selectedName, nameTextField.getText(), idTextField.getText())) {
                     showDialog("Failed to create database document", "Process failed!", JOptionPane.ERROR_MESSAGE);
 
-                    MainGUI.removeProductFromCategory(lastProductCreated);
+                    MainUtils.removeProductFromCategory(lastProductCreated);
 
                     DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
                     ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);

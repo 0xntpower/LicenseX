@@ -2,6 +2,7 @@ package dev.licensex.manager.gui.actions;
 
 import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.gui.pages.MainGUI;
+import dev.licensex.manager.gui.pages.MainUtils;
 import dev.licensex.manager.gui.pages.NewProductGUI;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class RightClickCategoryMenu extends JPopupMenu {
                         "Action confirmation", JOptionPane.YES_NO_OPTION);
                 if (answerId == JOptionPane.YES_OPTION) {
                     EventConnector.onCategoryDelete(MainGUI.selectedNode.toString(), "");
-                    MainGUI.removeSelectedCategory();
+                    MainUtils.removeSelectedCategory();
                 }
             }
         });

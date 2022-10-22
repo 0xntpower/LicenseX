@@ -3,6 +3,7 @@ package dev.licensex.manager.gui.pages;
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.gui.actions.*;
+import dev.licensex.manager.utils.StringUtil;
 import dev.licensex.manager.utils.ThemesUtil;
 
 import javax.swing.*;
@@ -15,14 +16,12 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class MainGUI extends JFrame {
 
-    private static JLabel contentPaneTitle;
+    public static JLabel contentPaneTitle;
 
     // explorer pane
     public static JPanel leftPanel;
@@ -41,135 +40,52 @@ public class MainGUI extends JFrame {
         setVisible(true);
     }
 
-    public void loadData(String data) {
-        System.out.println(data);
+    public void start() {
+        setEnabled(true);
+        requestAndLoadData();
     }
 
-    @Override
-    public void setEnabled(boolean val) {
-        requestData();
-        super.setEnabled(val);
-    }
+    public void requestAndLoadData() {
+        String data = EventConnector.onRequestData();
 
-    private void requestData() {
-        loadData(EventConnector.onRequestData());
-    }
+        List<String> categories = List.of(StringUtil.split(data, '|'));
 
-    public static void removeSelectedCategory() {
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
+        for (String categoryData : categories) {
+            DefaultMutableTreeNode categoryNode = addCategoryVisually(StringUtil.splitCategoryName(categoryData));
 
-        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-        TreePath path = new TreePath(selectedNode.getPath());
+            ArrayList<String> splitProducts = StringUtil.splitProductsName(categoryData);
+            ArrayList<String> splitProductsLine = StringUtil.splitProductsLine(categoryData);
 
-        // remove all the products that's under it
+            for (int i = 0; i < splitProducts.size(); i++) {
+                String productName = splitProducts.get(i);
+                String productLine = splitProductsLine.get(i);
 
-        // remove the category from database
-
-        // remove the category visually
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-        model.removeNodeFromParent(node);
-
-        selectedNode = parent;
-
-        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-        MainGUI.tree.expandPath(new TreePath(selectedNode.getPath()));
-
-        printLicenses();
-    }
-
-    public static void removeCategory(DefaultMutableTreeNode toDelete) {
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) toDelete.getParent();
-
-        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-        TreePath path = new TreePath(toDelete.getPath());
-
-        // remove all the products that's under it
-
-        // remove the category from database
-
-        // remove the category visually
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-        model.removeNodeFromParent(node);
-
-        selectedNode = parent;
-
-        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-        MainGUI.tree.expandPath(new TreePath(toDelete.getPath()));
-
-        printLicenses();
-    }
-
-    public static void removeSelectedProductFromCategory() {
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
-
-        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-        TreePath path = new TreePath(selectedNode.getPath());
-
-        // delete product
-        productsLicensesData.remove(selectedNode.toString());
-
-        // remove the product visually
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-        model.removeNodeFromParent(node);
-
-        selectedNode = parent;
-
-        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-        MainGUI.tree.expandPath(new TreePath(selectedNode.getPath()));
-
-        printLicenses();
-    }
-
-    public static void removeProductFromCategory(DefaultMutableTreeNode toDelete) {
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) toDelete.getParent();
-
-        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-        TreePath path = new TreePath(toDelete.getPath());
-
-        // delete product
-        productsLicensesData.remove(toDelete.toString());
-
-        // remove the product visually
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-        model.removeNodeFromParent(node);
-
-        selectedNode = parent;
-
-        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
-        MainGUI.tree.expandPath(new TreePath(toDelete.getPath()));
-
-        printLicenses();
-    }
-
-    public static void removeLicenseFromProduct(String license) {
-        if (productsLicensesData.containsKey(selectedNode.toString())) {
-            List<String> list = new LinkedList<>(productsLicensesData.get(selectedNode.toString()));
-            list.remove(license);
-            productsLicensesData.replace(selectedNode.toString(), list);
+                selectedNode = addProductVisually(categoryNode, productName);
+                for (String license : StringUtil.splitProductLicenses(productLine)) {
+                    MainUtils.saveLicenseToProduct(license);
+                    MainGUI.visualLicensesList.addElement(license);
+                }
+            }
         }
+
+        // refresh and re-expand the tree
+        ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);
+        MainGUI.tree.expandPath(new TreePath(MainGUI.rootNode.getPath()));
+
+        selectedNode = rootNode;
+        MainUtils.printLicenses();
     }
 
-    public static void saveLicenseToProduct(String license) {
-        if (!productsLicensesData.containsKey(selectedNode.toString())) {
-            productsLicensesData.put(selectedNode.toString(), List.of(license));
-        } else {
-            List<String> list = new LinkedList<>(productsLicensesData.get(selectedNode.toString()));
-            list.add(license);
-            productsLicensesData.replace(selectedNode.toString(), list);
-        }
+    private DefaultMutableTreeNode addCategoryVisually(String name) {
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(name, true);
+        MainGUI.rootNode.add(node);
+        return node;
     }
 
-    public static void printLicenses() {
-        boolean isProduct = selectedNode != null && selectedNode.getParent() != null && selectedNode.getParent().getParent() != null && selectedNode.getParent().getParent().toString().equals("Database");
-        assert selectedNode != null;
-        String title = selectedNode.toString().equals("Database") || !isProduct ? "No product selected" : selectedNode.toString();
-
-        contentPaneTitle.setText(title);
-        visualLicensesList.clear();
-        if (productsLicensesData.containsKey(selectedNode.toString())) {
-            for (String license : productsLicensesData.get(selectedNode.toString()))
-                visualLicensesList.addElement(license);
-        }
+    private DefaultMutableTreeNode addProductVisually(DefaultMutableTreeNode parent, String productName) {
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(productName);
+        parent.add(node);
+        return node;
     }
 
     private void buildWindow() {
@@ -451,7 +367,7 @@ public class MainGUI extends JFrame {
                     if (selectedNode.getParent().getParent() != null
                             && selectedNode.getParent().getParent().toString().equals("Database")) {
                         // a product has been left-clicked
-                        printLicenses();
+                        MainUtils.printLicenses();
                     }
 
                 }

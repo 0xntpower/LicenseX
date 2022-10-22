@@ -20,9 +20,10 @@ public class ActivationGUI extends JFrameX {
         isRunning = true;
         this.mainGUI = mainGUI;
         mainGUI.setEnabled(false);
-
         this.licenseFile = licenseFile;
+    }
 
+    public void startWindow() {
         buildWindow();
         setVisible(true);
     }
@@ -63,20 +64,24 @@ public class ActivationGUI extends JFrameX {
 
                 String licenseId = licenseInputField.getText();
 
-                if (checkLicenseWithServer(licenseId)) {
-                    // license approved, after checking with server
-                    licenseFile.set("license", licenseId);
-                    mainGUI.setEnabled(true);
-                    showDialog("License has been activated, loading products data . . .", "Activation complete!", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } else {
-                    showDialog("License is not activated", "Activation failed!", JOptionPane.ERROR_MESSAGE);
-                }
+                performActivation(licenseId);
 
             }
         });
 
         setContentPane(panel);
+    }
+
+    public void performActivation(String licenseId) {
+        if (checkLicenseWithServer(licenseId)) {
+            // license approved, after checking with server
+            licenseFile.set("license", licenseId);
+            //showDialog("Loading products data . . .", "Activation complete!", JOptionPane.INFORMATION_MESSAGE);
+            mainGUI.start();
+            dispose();
+        } else {
+            showDialog("License is not activated", "Activation failed!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private boolean checkLicenseWithServer(String licenseId) {

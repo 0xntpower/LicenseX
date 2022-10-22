@@ -18,8 +18,13 @@ public final class Launcher {
 
         mainGUI = new MainGUI();
 
+        ActivationGUI activationGUI = new ActivationGUI(mainGUI, licenseFile);
+
         if (licenseId == null)
-            new ActivationGUI(mainGUI, licenseFile);
+            activationGUI.startWindow();
+        else {
+            activationGUI.performActivation(licenseId);
+        }
     }
 
 
