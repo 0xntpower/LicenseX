@@ -4,11 +4,13 @@ import dev.licensex.manager.net.PacketSender;
 import dev.licensex.manager.utils.consts.LicenseXProtocol;
 import lombok.experimental.UtilityClass;
 
+import java.net.ConnectException;
+
 @UtilityClass
 public final class EventConnector {
 
-    public static String onRequestData() {
-        return PacketSender.sendPacketToServer("manager|data");
+    public static String onRequestData() throws ConnectException {
+        return PacketSender.sendPacketToServerEX("manager|data");
     }
 
     public static boolean onCategoryCreate(String name) {

@@ -16,6 +16,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.ConnectException;
 import java.util.*;
 import java.util.List;
 
@@ -42,10 +43,16 @@ public class MainGUI extends JFrame {
 
     public void start() {
         setEnabled(true);
-        requestAndLoadData();
+
+        try {
+            requestAndLoadData();
+        } catch (ConnectException e) {
+            JOptionPane.showMessageDialog(null, "Can't connect to server", "Process failed!", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
     }
 
-    public void requestAndLoadData() {
+    public void requestAndLoadData() throws ConnectException {
         String data = EventConnector.onRequestData();
 
         List<String> categories = List.of(StringUtil.split(data, '|'));
