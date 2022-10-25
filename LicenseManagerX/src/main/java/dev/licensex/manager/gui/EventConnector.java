@@ -29,19 +29,23 @@ public final class EventConnector {
     }
 
     public static boolean onLicenseContains(String category, String productName, String productId, String licenseId) {
-        String response = PacketSender.sendPacketToServer("manager|containslicense|" + category + "|" + productName + "|" + productId + "|" + licenseId);
-        return response.equalsIgnoreCase("success");
+        String response = PacketSender.sendPacketToServer("client|containslicense|" + category + "|" + productName + "|" + productId + "|" + licenseId);
+        return response.equals(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
     }
 
-    public static void onCategoryDelete(String category, String categoryId) {
-        PacketSender.sendPacketToServerNoResponse("manager|removecategory|" + category + "|" + categoryId);
+    // ToDo implement reverse thread in case deleting fails
+    public static boolean onCategoryDelete(String category, String categoryId) {
+        String response = PacketSender.sendPacketToServer("manager|removecategory|" + category + "|" + categoryId);
+        return response.equals(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
     }
 
-    public static void onProductDelete(String category, String productName, String productId) {
-        PacketSender.sendPacketToServerNoResponse("manager|removeproduct|" + category + "|" + productName + "|" + productId);
+    public static boolean onProductDelete(String category, String productName, String productId) {
+        String response = PacketSender.sendPacketToServer("manager|removeproduct|" + category + "|" + productName + "|" + productId);
+        return response.equals(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
     }
 
-    public static void onLicenseDelete(String category, String productName, String productId, String licenseId) {
-        PacketSender.sendPacketToServerNoResponse("manager|removelicense|" + category + "|" + productName + "|" + productId + "|" + licenseId);
+    public static boolean onLicenseDelete(String category, String productName, String productId, String licenseId) {
+        String response = PacketSender.sendPacketToServer("manager|removelicense|" + category + "|" + productName + "|" + productId + "|" + licenseId);
+        return response.equals(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
     }
 }
