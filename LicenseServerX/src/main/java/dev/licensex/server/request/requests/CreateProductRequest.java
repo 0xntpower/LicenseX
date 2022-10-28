@@ -1,12 +1,8 @@
 package dev.licensex.server.request.requests;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import dev.licensex.server.Launcher;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
-import dev.licensex.server.utils.consts.LicenseXProtocol;
-import org.bson.Document;
+import dev.licensex.server.utils.consts.LXP;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -45,7 +41,7 @@ public class CreateProductRequest implements RequestExecutor {
 //        IOUtil.logInfo(msg);
 
         // ToDo verify data existence before replying
-        output.println(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
+        output.println(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Product ("+product_name+") has been created");
     }

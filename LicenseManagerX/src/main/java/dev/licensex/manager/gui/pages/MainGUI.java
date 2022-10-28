@@ -5,6 +5,7 @@ import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.gui.actions.*;
 import dev.licensex.manager.utils.StringUtil;
 import dev.licensex.manager.utils.ThemesUtil;
+import dev.licensex.manager.utils.consts.LXP;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -52,8 +53,13 @@ public class MainGUI extends JFrame {
         }
     }
 
-    public void requestAndLoadData() throws ConnectException {
+    public void requestAndLoadData() throws ConnectException { // ToDo cache the last data
         String data = EventConnector.onRequestData();
+
+        if (data.equals(LXP.DATA_CHECKS.NO_DATA_TO_SEND)) {
+            // no data to load
+            return;
+        }
 
         List<String> categories = List.of(StringUtil.split(data, '|'));
 

@@ -15,6 +15,8 @@ public class LicenseXFile {
     protected final String name;
     protected final List<String> content;
     protected File file;
+    protected boolean newFile = false;
+    protected boolean encryption = true;
 
     public LicenseXFile(String name_, String path_) {
         this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
@@ -28,7 +30,29 @@ public class LicenseXFile {
         file = new File(path);
         if (!file.exists()) {
             try {
-                file.createNewFile();
+                newFile = file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        readFile();
+    }
+
+    public LicenseXFile(String name_, String path_, boolean encryption_) {
+        this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
+        this.path = (path_.endsWith(".lx") ? path_ : path_ + File.separator + name);
+        this.content = new ArrayList<>();
+        this.encryption = encryption_;
+
+        if (!path.endsWith(".lx")) {
+            System.out.println("can't load none lx file");
+            return;
+        }
+        file = new File(path);
+        if (!file.exists()) {
+            try {
+                newFile = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -49,7 +73,31 @@ public class LicenseXFile {
         file = new File(path);
         if (!file.exists()) {
             try {
-                file.createNewFile();
+                newFile = file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new LicenseManagerXException("File already exists");
+        }
+
+        writeFile();
+    }
+
+    public LicenseXFile(String name_, String path_, List<String> content, boolean encryption_) throws LicenseManagerXException {
+        this.name = (name_.endsWith(".lx") ? name_ : name_ + ".lx");
+        this.path = (path_.endsWith(".lx") ? path_ : path_ + File.separator + name);
+        this.content = content;
+        this.encryption = encryption_;
+
+        if (!path.endsWith(".lx")) {
+            System.out.println("can't load none lx file");
+            return;
+        }
+        file = new File(path);
+        if (!file.exists()) {
+            try {
+                newFile = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -61,11 +109,14 @@ public class LicenseXFile {
     }
 
     private List<String> decryptContent(List<String> content) {
-        List<String> decryptList = new ArrayList<>();
-        String encKey = generateEncryptionKey();
-        for (String line : content)
-            decryptList.add(AES.decrypt(line, encKey));
-        return decryptList;
+        if (encryption) {
+            List<String> decryptList = new ArrayList<>();
+            String encKey = generateEncryptionKey();
+            for (String line : content)
+                decryptList.add(AES.decrypt(line, encKey));
+            return decryptList;
+        }
+        return content;
     }
 
     private List<String> decompressContent(List<String> content) {
@@ -81,7 +132,7 @@ public class LicenseXFile {
             fstream = new FileInputStream(path);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
             String strLine;
-            while ((strLine = br.readLine()) != null)   {
+            while ((strLine = br.readLine()) != null) {
                 initialContent.add(strLine);
             }
             fstream.close();
@@ -96,12 +147,15 @@ public class LicenseXFile {
     }
 
     private List<String> encryptContent(List<String> content) {
-        List<String> encryptedList = new ArrayList<>();
-        String encKey = generateEncryptionKey();
-        for (String line : content)
-            if (line.length() != 0)
-                encryptedList.add(AES.encrypt(line, encKey));
-        return encryptedList;
+        if (encryption) {
+            List<String> encryptedList = new ArrayList<>();
+            String encKey = generateEncryptionKey();
+            for (String line : content)
+                if (line.length() != 0)
+                    encryptedList.add(AES.encrypt(line, encKey));
+            return encryptedList;
+        }
+        return content;
     }
 
     @jnic

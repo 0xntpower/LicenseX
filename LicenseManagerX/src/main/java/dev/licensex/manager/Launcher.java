@@ -16,6 +16,7 @@ public final class Launcher {
         ThemesUtil.setDefaultSystemLookAndFeel();
 
         checksManager.runSystemChecks();
+        checksManager.registerScheduler(5);
 
         LXConfig licenseFile = new LXConfig(PathUtil.getSelfPath() + "license.lx");
         String licenseId = licenseFile.get("license") == null ? null : (licenseFile.get("license") + "");

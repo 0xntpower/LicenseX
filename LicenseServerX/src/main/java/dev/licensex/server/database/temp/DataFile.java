@@ -2,6 +2,8 @@ package dev.licensex.server.database.temp;
 
 import dev.licensex.server.LicenseServerX;
 import dev.licensex.server.filesys.yml.YamlStorage;
+import dev.licensex.server.utils.consts.LXP;
+import lombok.Getter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +33,10 @@ public class DataFile {
             data.append(str).append(dataMap.get(str)).append("|");
         }
 
-        data.deleteCharAt(data.length() - 1);
+        if (data.length() > 0)
+            data.deleteCharAt(data.length() - 1);
+        else
+            return LXP.DATA_CHECKS.NO_DATA_TO_SEND;
 
         //System.out.println(data.toString());
 

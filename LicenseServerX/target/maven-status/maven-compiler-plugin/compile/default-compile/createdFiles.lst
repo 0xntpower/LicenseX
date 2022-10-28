@@ -1,9 +1,10 @@
 dev\licensex\server\filesys\lx\LicenseXFile.class
-dev\licensex\server\utils\consts\LicenseXProtocol.class
+dev\licensex\server\utils\consts\LXP$DATA_CHECKS.class
 dev\licensex\server\request\RequestException.class
 dev\licensex\server\request\RequestExecutor.class
 dev\licensex\server\request\requests\ExampleRequest1.class
 dev\licensex\server\request\requests\RemoveCategoryRequest.class
+dev\licensex\server\utils\consts\LXP$ACKNOWLEDGEMENTS.class
 dev\licensex\server\request\requests\RemoveProductRequest.class
 dev\licensex\server\filesys\yml\YamlStorage.class
 dev\licensex\server\request\requests\RemoveLicenseRequest.class
@@ -21,12 +22,11 @@ dev\licensex\server\utils\style\AsciiUtil.class
 dev\licensex\server\database\SQLUtil.class
 dev\licensex\server\Launcher.class
 dev\licensex\server\request\requests\ContainsCheckRequest.class
-dev\licensex\server\utils\consts\LicenseXProtocol$ACKNOWLEDGEMENTS.class
 dev\licensex\server\exceptions\LicenseServerXException.class
 dev\licensex\server\LicenseServerX.class
 dev\licensex\server\request\requests\AddLicenseRequest.class
+dev\licensex\server\utils\consts\LXP.class
 dev\licensex\server\request\requests\CreateProductRequest.class
-dev\licensex\server\utils\consts\LicenseXProtocol$DATA_CHECKS.class
 dev\licensex\server\request\requests\BaseDataRequest.class
 dev\licensex\server\database\temp\DataFile.class
 dev\licensex\server\ClientHandler.class

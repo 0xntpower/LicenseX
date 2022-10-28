@@ -1,5 +1,7 @@
 package dev.licensex.manager.net;
 
+import dev.licensex.manager.files.ConfigValues;
+import dev.licensex.manager.files.LXConfig;
 import dev.licensex.manager.utils.crypto.SSLUtil;
 
 import javax.net.ssl.SSLSocket;
@@ -11,8 +13,13 @@ import java.net.ConnectException;
 
 public class PacketSender {
 
-    private static final String REMOTE_HOST = "127.0.0.1";
-    private static final int REMOTE_PORT = 1234;
+    private static String REMOTE_HOST;
+    private static int REMOTE_PORT;
+
+    public static void loadConnectionValues(LXConfig config) {
+        REMOTE_HOST = config.getString("Ip-address");
+        REMOTE_PORT = config.getInt("Port");
+    }
 
     public static String sendPacketToServerEX(String msg) throws ConnectException {
         String responseStr = "None";

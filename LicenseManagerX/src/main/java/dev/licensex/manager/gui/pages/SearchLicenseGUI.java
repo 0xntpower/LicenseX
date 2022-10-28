@@ -44,6 +44,7 @@ public class SearchLicenseGUI extends JFrameX {
                     return;
                 }
 
+                new LicenseInfoGUI();
                 // ToDo search a license and expand the explorer and select it
 
                 dispose();

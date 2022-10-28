@@ -2,7 +2,7 @@ package dev.licensex.server.request.requests;
 
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
-import dev.licensex.server.utils.consts.LicenseXProtocol;
+import dev.licensex.server.utils.consts.LXP;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -26,7 +26,7 @@ public class CreateCategoryRequest implements RequestExecutor {
 //        output.println(reply);
 //        IOUtil.logInfo(msg);
         // ToDo verify data existence before replying
-        output.println(LicenseXProtocol.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
+        output.println(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Category ("+collectionName+") has been created");
     }

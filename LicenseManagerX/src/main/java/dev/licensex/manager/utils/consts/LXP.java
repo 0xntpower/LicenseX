@@ -1,6 +1,9 @@
-package dev.licensex.server.utils.consts;
+package dev.licensex.manager.utils.consts;
 
-public final class LicenseXProtocol {
+/**
+ * The LicenseXProtocol
+ */
+public final class LXP {
 
     public static class ACKNOWLEDGEMENTS {
         public static final String CLIENT_REQUEST_PROCESSED_SUCCESSFULLY = "success";
@@ -10,6 +13,7 @@ public final class LicenseXProtocol {
     public static class DATA_CHECKS {
         public static final String DATA_INSIDE_DATABASE = "positive";
         public static final String DATA_NOT_INSIDE_DATABASE = "negative";
+        public static final String NO_DATA_TO_SEND = "empty";
     }
 
 }

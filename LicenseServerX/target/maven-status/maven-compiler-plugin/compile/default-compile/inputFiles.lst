@@ -1,6 +1,7 @@
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\StringUtil.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\FilenameUtils.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\RequestException.java
+C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\consts\LXP.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\ClientHandler.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\requests\RemoveProductRequest.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\filesys\lx\LXConfig.java
@@ -30,5 +31,4 @@ C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\mai
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\RequestExecutor.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\request\RequestsManager.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\database\SQLInit.java
-C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\utils\consts\LicenseXProtocol.java
 C:\fastfiles\java_workspace\active_java_projects\LicenseX\LicenseServerX\src\main\java\dev\licensex\server\Launcher.java

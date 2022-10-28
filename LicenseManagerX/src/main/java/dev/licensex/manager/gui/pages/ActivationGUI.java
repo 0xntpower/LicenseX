@@ -3,6 +3,7 @@ package dev.licensex.manager.gui.pages;
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.files.LXConfig;
 import dev.licensex.manager.gui.EventConnector;
+import dev.licensex.manager.utils.PathUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,9 +77,18 @@ public class ActivationGUI extends JFrameX {
         if (checkLicenseWithServer(licenseId)) {
             // license approved, after checking with server
             licenseFile.set("license", licenseId);
-            //showDialog("Loading products data . . .", "Activation complete!", JOptionPane.INFORMATION_MESSAGE);
-            mainGUI.start();
             dispose();
+
+            LXConfig configFile = new LXConfig(PathUtil.getSelfPath() + "config.lx", false);
+            String ipAddress = configFile.get("Ip-address") == null ? null : (configFile.get("Ip-address") + "");
+            ConfigurationGUI configurationGUI = new ConfigurationGUI(mainGUI, configFile);
+
+            if (ipAddress == null) {
+                configurationGUI.startWindow();
+            } else {
+                configurationGUI.silentlyStartConf();
+            }
+
         } else {
             showDialog("License is not activated", "Activation failed!", JOptionPane.ERROR_MESSAGE);
         }
@@ -92,7 +102,5 @@ public class ActivationGUI extends JFrameX {
     public void dispose() {
         super.dispose();
         isRunning = false;
-        if (!mainGUI.isEnabled())
-            mainGUI.dispose();
     }
 }

@@ -3,7 +3,7 @@ package dev.licensex.server.request.requests;
 import dev.licensex.server.LicenseServerX;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
-import dev.licensex.server.utils.consts.LicenseXProtocol;
+import dev.licensex.server.utils.consts.LXP;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;

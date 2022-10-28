@@ -11,8 +11,8 @@ public class LXConfig extends LicenseXFile {
         super(FilenameUtils.getName(path), FilenameUtils.getFullPathNoEndSeparator(path));
     }
 
-    public LXConfig(String name_, String path_) {
-        super(name_, path_);
+    public LXConfig(String path, boolean encrypt) {
+        super(FilenameUtils.getName(path), FilenameUtils.getFullPathNoEndSeparator(path), encrypt);
     }
 
     public LXConfig(String path, List<String> content) throws LicenseManagerXException {
@@ -44,6 +44,14 @@ public class LXConfig extends LicenseXFile {
             }
         }
         return null;
+    }
+
+    public String getString(String key) {
+        return get(key) + "";
+    }
+
+    public int getInt(String key) {
+        return Integer.parseInt(get(key) + "");
     }
 
     private void setValueForKey(String key, Object value) {
