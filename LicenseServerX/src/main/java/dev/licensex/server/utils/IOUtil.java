@@ -67,29 +67,10 @@ public class IOUtil {
         }
 
         System.out.println();
-        IOUtil.logInfo("Configuring product settings . . .");
-
-        String licenseRule;
-        List<String> options = new LinkedList<>();
-        options.add("idk");
-        options.add("floating");
-        options.add("per-machine");
-
-        while (true) {
-            licenseRule = IOUtil.prompt("Please select what license rule you want to use [Floating/Per-machine/Idk]: ");
-            if (licenseRule.equalsIgnoreCase("idk")) {
-                IOUtil.logInfo("Please visit the LicenseX documentation page \nat https://licensex.webflow.io/documentation to read about license rules\n and find which one fits your usage the best.");
-            } else if (!options.contains(licenseRule.toLowerCase())) {
-                IOUtil.logInfo("unexpected input, please try again.");
-            } else break;
-        }
-
-        System.out.println();
         IOUtil.logInfo("Generating configuration file . . .");
         IOUtil.logInfo("Configuration completed.\n");
 
         configFile.set("MongoDB.database_name", databaseName);
         configFile.set("MongoDB.mongo_string", mongoStr);
-        configFile.set("Product_settings.license_rule", licenseRule);
     }
 }

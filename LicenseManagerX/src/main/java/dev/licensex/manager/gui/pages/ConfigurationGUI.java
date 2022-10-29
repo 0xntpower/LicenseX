@@ -41,7 +41,7 @@ public class ConfigurationGUI extends JFrameX {
     protected void buildWindow() {
         String os = System.getProperty("os.name");
 
-        setTitle("ServerX connection config");
+        setTitle("Configuration");
         setBounds(200, 200, 300, 250);
         setLocationRelativeTo(Launcher.mainGUI);
         setLayout(new BorderLayout());

@@ -43,9 +43,14 @@ public class ClientHandler extends Thread {
 
             // process the request according to its origin
             switch (request[0].toLowerCase()) {
-                case "manager" -> processManagerRequest(StringUtil.removeFirst(request));
-                case "client" -> processClientRequest(StringUtil.removeFirst(request));
-                default -> throw new RequestException("Cannot sort un-flagged request, aborting. content:[" + requestStr + "]");
+                case "manager":
+                    processManagerRequest(StringUtil.removeFirst(request));
+                    break;
+                case "client":
+                    processClientRequest(StringUtil.removeFirst(request));
+                    break;
+                default:
+                    throw new RequestException("Cannot sort un-flagged request, aborting. content:[" + requestStr + "]");
             }
 
         } catch (IOException | RequestException e) {
