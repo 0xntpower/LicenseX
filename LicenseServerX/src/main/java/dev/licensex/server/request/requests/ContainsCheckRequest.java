@@ -1,7 +1,6 @@
 package dev.licensex.server.request.requests;
 
 import dev.licensex.server.request.RequestExecutor;
-import dev.licensex.server.utils.IOUtil;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;

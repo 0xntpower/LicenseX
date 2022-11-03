@@ -3,6 +3,7 @@ package dev.licensex.server.request.requests;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.consts.LXP;
+import dev.licensex.server.utils.crypto.AES;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -41,7 +42,7 @@ public class CreateProductRequest implements RequestExecutor {
 //        IOUtil.logInfo(msg);
 
         // ToDo verify data existence before replying
-        output.println(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
+        output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Product ("+product_name+") has been created");
     }

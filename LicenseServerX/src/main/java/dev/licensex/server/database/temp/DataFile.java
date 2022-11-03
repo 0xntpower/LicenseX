@@ -3,7 +3,6 @@ package dev.licensex.server.database.temp;
 import dev.licensex.server.LicenseServerX;
 import dev.licensex.server.filesys.yml.YamlStorage;
 import dev.licensex.server.utils.consts.LXP;
-import lombok.Getter;
 
 import java.io.File;
 import java.util.ArrayList;

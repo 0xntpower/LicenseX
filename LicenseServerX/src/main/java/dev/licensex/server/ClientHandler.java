@@ -4,6 +4,7 @@ import dev.licensex.server.request.RequestException;
 import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.StringUtil;
+import dev.licensex.server.utils.crypto.AES;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -35,6 +36,7 @@ public class ClientHandler extends Thread {
     public void run() {
         try {
             String requestStr = input.readLine();
+            requestStr = AES.decrypt(requestStr, AES.getEncryptionKey());
 
             // expected request array syntax [originFlag, product, rqName, arg]
             // example request               [client, godseye, contains, licenseId]

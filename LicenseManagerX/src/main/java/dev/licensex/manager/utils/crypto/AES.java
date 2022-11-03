@@ -1,5 +1,6 @@
 package dev.licensex.manager.utils.crypto;
 
+import dev.licensex.manager.utils.jnic;
 import lombok.experimental.UtilityClass;
 
 import javax.crypto.Cipher;
@@ -41,5 +42,10 @@ public class AES {
             System.out.println("Error while decrypting: " + e.toString());
         }
         return null;
+    }
+
+    @jnic
+    public static String getEncryptionKey() {
+        return "wl61DJ1cVddZ1dpJ";
     }
 }

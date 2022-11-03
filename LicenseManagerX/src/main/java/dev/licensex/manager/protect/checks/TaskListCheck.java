@@ -1,6 +1,6 @@
-package dev.licensex.manager.winapi.checks;
+package dev.licensex.manager.protect.checks;
 
-import dev.licensex.manager.winapi.Check;
+import dev.licensex.manager.protect.Check;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

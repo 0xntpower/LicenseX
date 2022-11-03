@@ -1,15 +1,10 @@
 package dev.licensex.server.request.requests;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import dev.licensex.server.Launcher;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
-import org.bson.Document;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 public class RemoveProductRequest implements RequestExecutor {

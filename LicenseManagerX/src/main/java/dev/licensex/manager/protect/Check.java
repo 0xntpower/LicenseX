@@ -1,4 +1,4 @@
-package dev.licensex.manager.winapi;
+package dev.licensex.manager.protect;
 
 public abstract class Check {
     public abstract void check();

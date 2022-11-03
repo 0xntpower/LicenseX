@@ -3,7 +3,6 @@ package dev.licensex.manager.gui.pages;
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.files.ConfigValues;
 import dev.licensex.manager.files.LXConfig;
-import dev.licensex.manager.net.PacketSender;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package dev.licensex.manager.net;
 
-import dev.licensex.manager.files.ConfigValues;
 import dev.licensex.manager.files.LXConfig;
+import dev.licensex.manager.utils.crypto.AES;
 import dev.licensex.manager.utils.crypto.SSLUtil;
 
 import javax.net.ssl.SSLSocket;
@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.net.ConnectException;
 
 public class PacketSender {
+    private static final String SYMMETRIC_KEY = "YecoF0I6M05thxLeokoHuW8iUhTdIUInjkfF";
 
     private static String REMOTE_HOST;
     private static int REMOTE_PORT;
@@ -22,6 +23,7 @@ public class PacketSender {
     }
 
     public static String sendPacketToServerEX(String msg) throws ConnectException {
+        msg = AES.encrypt(msg, AES.getEncryptionKey());
         String responseStr = "None";
 
         try {
@@ -57,6 +59,7 @@ public class PacketSender {
     }
 
     public static String sendPacketToServer(String msg) {
+        msg = AES.encrypt(msg, AES.getEncryptionKey());
         String responseStr = "None";
 
         try {
@@ -90,6 +93,7 @@ public class PacketSender {
     }
 
     public static void sendPacketToServerNoResponse(String msg) {
+        msg = AES.encrypt(msg, AES.getEncryptionKey());
         try {
 
             SSLSocketFactory factory = SSLUtil.getSocketFactory();
@@ -114,5 +118,4 @@ public class PacketSender {
             e.printStackTrace();
         }
     }
-
 }

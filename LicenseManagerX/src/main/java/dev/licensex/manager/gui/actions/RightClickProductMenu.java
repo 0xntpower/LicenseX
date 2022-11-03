@@ -1,13 +1,11 @@
 package dev.licensex.manager.gui.actions;
 
 import dev.licensex.manager.gui.EventConnector;
-import dev.licensex.manager.gui.pages.*;
+import dev.licensex.manager.gui.pages.GenerateLicenseGUI;
+import dev.licensex.manager.gui.pages.MainGUI;
+import dev.licensex.manager.gui.pages.MainUtils;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

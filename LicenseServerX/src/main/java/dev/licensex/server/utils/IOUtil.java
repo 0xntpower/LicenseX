@@ -4,8 +4,6 @@ import dev.licensex.server.filesys.lx.LXConfig;
 import lombok.experimental.UtilityClass;
 
 import java.io.Console;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 @UtilityClass

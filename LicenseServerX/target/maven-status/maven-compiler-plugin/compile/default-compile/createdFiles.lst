@@ -12,6 +12,7 @@ dev\licensex\server\utils\style\LetterBlock.class
 dev\licensex\server\request\requests\CreateCategoryRequest.class
 dev\licensex\server\utils\jnic.class
 dev\licensex\server\utils\StringUtil.class
+dev\licensex\server\utils\crypto\XorUtil.class
 dev\licensex\server\utils\style\AABanner.class
 dev\licensex\server\utils\data\SimpleDate.class
 dev\licensex\server\utils\SSLUtil.class

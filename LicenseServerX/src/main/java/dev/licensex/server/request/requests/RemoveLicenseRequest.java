@@ -4,6 +4,7 @@ import dev.licensex.server.LicenseServerX;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.consts.LXP;
+import dev.licensex.server.utils.crypto.AES;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -21,7 +22,7 @@ public class RemoveLicenseRequest implements RequestExecutor {
         LicenseServerX.datafile.removeLicense(category, productName, licenseId);
 
         // ToDo verify data existence before replying
-        output.println(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY);
+        output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
 
         IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been removed from database");
     }

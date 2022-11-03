@@ -3,7 +3,6 @@ package dev.licensex.manager.utils.crypto;
 import lombok.experimental.UtilityClass;
 
 import javax.net.ssl.*;
-import java.io.File;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.MessageDigest;
@@ -11,7 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
-import java.util.Objects;
 
 @UtilityClass
 public class SSLUtil {

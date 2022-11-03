@@ -1,9 +1,12 @@
-package dev.licensex.manager.winapi;
+package dev.licensex.manager.protect;
 
-import dev.licensex.manager.winapi.checks.TaskListCheck;
-import dev.licensex.manager.winapi.checks.WindowNameCheck;
+import dev.licensex.manager.protect.checks.TaskListCheck;
+import dev.licensex.manager.protect.checks.WindowNameCheck;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ChecksManager {
     private final List<Check> checks = new LinkedList<>();
