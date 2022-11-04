@@ -9,6 +9,9 @@ import dev.licensex.manager.gui.pages.MainUtils;
 import dev.licensex.manager.utils.DialogUtil;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,6 +40,14 @@ public class RightClickLicenseMenu extends JPopupMenu {
                 }
             });
         }
+
+        JMenuItem copyMenuItem = new JMenuItem("Copy");
+        copyMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                copyToClipboard(licenseId);
+            }
+        });
 
         JMenuItem deleteMenuItem = new JMenuItem("Delete");
         deleteMenuItem.addActionListener(new ActionListener() {
@@ -70,10 +81,18 @@ public class RightClickLicenseMenu extends JPopupMenu {
 
         add(blockMenuItem);
         add(new JSeparator());
+        add(copyMenuItem);
+        add(new JSeparator());
         add(deleteMenuItem);
         add(new JSeparator());
         add(infoMenuItem);
         add(new JSeparator());
         add(propertiesMenuItem);
+    }
+
+    private void copyToClipboard(String str) {
+        StringSelection stringSelection = new StringSelection(str);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
     }
 }

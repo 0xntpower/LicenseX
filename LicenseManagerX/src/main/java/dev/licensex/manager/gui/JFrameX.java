@@ -17,5 +17,4 @@ public abstract class JFrameX extends JFrame {
         JOptionPane.showMessageDialog(null, content, title, type);
         //setAlwaysOnTop(true);
     }
-
 }

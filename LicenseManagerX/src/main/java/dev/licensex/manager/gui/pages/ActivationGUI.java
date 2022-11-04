@@ -15,6 +15,7 @@ public class ActivationGUI extends JFrameX {
 
     private MainGUI mainGUI;
     private LXConfig licenseFile;
+    private boolean activated = false;
 
     public ActivationGUI(MainGUI mainGUI, LXConfig licenseFile) {
         if (isRunning) return;
@@ -77,6 +78,7 @@ public class ActivationGUI extends JFrameX {
         if (checkLicenseWithServer(licenseId)) {
             // license approved, after checking with server
             licenseFile.set("license", licenseId);
+            activated = true;
             dispose();
 
             LXConfig configFile = new LXConfig(PathUtil.getSelfPath() + "config.lx", false);
@@ -102,5 +104,8 @@ public class ActivationGUI extends JFrameX {
     public void dispose() {
         super.dispose();
         isRunning = false;
+        if (!activated) {
+            System.exit(0);
+        }
     }
 }

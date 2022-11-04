@@ -167,6 +167,6 @@ public class ConfigurationGUI extends JFrameX {
         super.dispose();
         isRunning = false;
         if (!mainGUI.isEnabled())
-            mainGUI.dispose();
+            System.exit(0);
     }
 }

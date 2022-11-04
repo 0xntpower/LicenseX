@@ -137,7 +137,7 @@ public class GenerateLicenseGUI extends JFrameX {
         dateTextField.setEditable(false);
         panel.add(dateTextField);
 
-        expiresComboBox.addActionListener (new ActionListener () {
+        expiresComboBox.addActionListener(new ActionListener () {
             public void actionPerformed(ActionEvent e) {
                 if ((expiresComboBox.getSelectedItem() + "").equalsIgnoreCase("Lifetime")) {
                     dateTextField.setText("");
