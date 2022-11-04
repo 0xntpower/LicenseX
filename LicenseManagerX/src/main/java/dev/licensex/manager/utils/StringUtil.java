@@ -80,34 +80,21 @@ public final class StringUtil {
         return sb.toString();
     }
 
-    public static ArrayList<String> splitProductsName(String input) {
-        ArrayList<String> products = new ArrayList<>();
-
+    public static String getNameFromLine(String data) {
         StringBuilder sb = new StringBuilder();
 
-        boolean insideBrakets = false;
-
-        for (char c : input.toCharArray()) {
-
+        for (char c : data.toCharArray()) {
             if (c == '=') {
-                products.add(sb.toString());
-                sb = new StringBuilder();
-                insideBrakets = false;
+                break;
             } else {
-                if (c != '{' && c != '|') {
-                    if (insideBrakets)
-                        sb.append(c);
-                } else {
-                    insideBrakets = true;
-                }
+                sb.append(c);
             }
-
         }
 
-        return products;
+        return sb.toString();
     }
 
-    public static ArrayList<String> splitProductsLine(String input) {
+    public static ArrayList<String> processProductsData(String input) {
         ArrayList<String> products = new ArrayList<>();
 
         StringBuilder sb = new StringBuilder();
@@ -117,18 +104,27 @@ public final class StringUtil {
         for (char c : input.toCharArray()) {
 
             if (c == '}') {
+                insideBrakets = false;
+            }
+
+            if (c == ']') {
+                sb.append(']');
+                //System.out.println("adding: " + sb);
                 products.add(sb.toString());
                 sb = new StringBuilder();
-                insideBrakets = false;
             } else {
                 if (c != '{' && c != '|') {
+
+                    if (sb.length() == 0 && (c == ' ' || c == ','))
+                        continue;
+
                     if (insideBrakets)
                         sb.append(c);
-                } else {
+
+                } else if (c == '{') {
                     insideBrakets = true;
                 }
             }
-
         }
 
         return products;

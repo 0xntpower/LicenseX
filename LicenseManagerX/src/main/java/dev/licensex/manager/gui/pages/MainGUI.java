@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainGUI extends JFrame {
+public class MainGUI extends JFrameX {
 
     public static JLabel contentPaneTitle;
 
@@ -55,7 +55,7 @@ public class MainGUI extends JFrame {
         }
     }
 
-    public void requestAndLoadData() throws ConnectException { // ToDo cache the last data
+    public void requestAndLoadData() throws ConnectException {
         String data = EventConnector.onRequestData();
 
         if (data.equals(LXP.DATA_CHECKS.NO_DATA_TO_SEND)) {
@@ -68,12 +68,10 @@ public class MainGUI extends JFrame {
         for (String categoryData : categories) {
             DefaultMutableTreeNode categoryNode = addCategoryVisually(StringUtil.splitCategoryName(categoryData));
 
-            ArrayList<String> splitProducts = StringUtil.splitProductsName(categoryData);
-            ArrayList<String> splitProductsLine = StringUtil.splitProductsLine(categoryData);
+            ArrayList<String> splitProductsLine = StringUtil.processProductsData(categoryData);
 
-            for (int i = 0; i < splitProducts.size(); i++) {
-                String productName = splitProducts.get(i);
-                String productLine = splitProductsLine.get(i);
+            for (String productLine : splitProductsLine) {
+                String productName = StringUtil.getNameFromLine(productLine);
 
                 selectedNode = addProductVisually(categoryNode, productName);
                 for (String license : StringUtil.splitProductLicenses(productLine)) {
@@ -103,7 +101,8 @@ public class MainGUI extends JFrame {
         return node;
     }
 
-    private void buildWindow() {
+    @Override
+    protected void buildWindow() {
         setResizable(false);
         setTitle("LicenseManagerX");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
