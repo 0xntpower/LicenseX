@@ -2,6 +2,7 @@ package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.files.LXConfig;
+import dev.licensex.manager.gui.JFrameX;
 import dev.licensex.manager.utils.PathUtil;
 
 import javax.swing.*;

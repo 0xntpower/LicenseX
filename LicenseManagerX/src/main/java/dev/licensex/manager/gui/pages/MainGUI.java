@@ -2,6 +2,7 @@ package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.gui.EventConnector;
+import dev.licensex.manager.gui.JFrameX;
 import dev.licensex.manager.gui.actions.*;
 import dev.licensex.manager.utils.StringUtil;
 import dev.licensex.manager.utils.ThemesUtil;
@@ -50,7 +51,7 @@ public class MainGUI extends JFrameX {
         try {
             requestAndLoadData();
         } catch (ConnectException e) {
-            JOptionPane.showMessageDialog(null, "Can't connect to server", "Process failed!", JOptionPane.ERROR_MESSAGE);
+            showDialog("Can't connect to server", "Process failed!", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
@@ -120,13 +121,13 @@ public class MainGUI extends JFrameX {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (MainGUI.selectedNode.equals(MainGUI.rootNode)) {
-                    JOptionPane.showMessageDialog(null, "No category selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    showDialog("No category selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 if (MainGUI.selectedNode.getParent() == null) return;
                 if (MainGUI.selectedNode.getParent().getParent() != null
                         && MainGUI.selectedNode.getParent().getParent().toString().equals("Database")) {
-                    JOptionPane.showMessageDialog(null, "Invalid directory, can't create a product inside of a product", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    showDialog("Invalid directory, can't create a product inside of a product", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 new NewProductGUI();
@@ -178,7 +179,7 @@ public class MainGUI extends JFrameX {
                         || MainGUI.selectedNode.equals(MainGUI.rootNode)
                         || selectedNode.getParent() != null
                         && selectedNode.getParent().toString().equals("Database")) {
-                    JOptionPane.showMessageDialog(null, "No product selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    showDialog("No product selected", "Process failed!", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 new GenerateLicenseGUI();

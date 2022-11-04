@@ -2,6 +2,7 @@ package dev.licensex.manager.gui.pages;
 
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.gui.EventConnector;
+import dev.licensex.manager.gui.JFrameX;
 import dev.licensex.manager.utils.LicenseData;
 import dev.licensex.manager.utils.StringUtil;
 import dev.licensex.manager.utils.enums.LICENSE_ID_TYPE;

@@ -3,12 +3,15 @@ package dev.licensex.manager.gui.pages;
 import dev.licensex.manager.Launcher;
 import dev.licensex.manager.files.ConfigValues;
 import dev.licensex.manager.files.LXConfig;
+import dev.licensex.manager.gui.JFrameX;
 import dev.licensex.manager.utils.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class ConfigurationGUI extends JFrameX {
     private static boolean isRunning;
@@ -55,7 +58,7 @@ public class ConfigurationGUI extends JFrameX {
         typeLabel.setFont(new Font(typeLabel.getFont().getName(), Font.PLAIN, typeLabel.getFont().getSize() + 1));
         panel.add(typeLabel);
 
-        String[] typesChoices = { "IP & Port", "Domain" };
+        String[] typesChoices = { "IP", "Domain" };
         typeComboBox = new JComboBox<>(typesChoices);
         typeComboBox.setBounds(110, 10, 100, 25);
         typeComboBox.setVisible(true);
@@ -118,7 +121,7 @@ public class ConfigurationGUI extends JFrameX {
         panel.add(statusField);
         statusField.setColumns(10);
         statusField.setEditable(false);
-        statusField.setText("IDLE");
+        statusField.setText("");
 
         JButton inputBtn = new JButton("ENTER");
         inputBtn.setBounds(10, 180, 80, 22);

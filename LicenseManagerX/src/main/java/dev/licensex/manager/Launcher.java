@@ -7,7 +7,7 @@ import dev.licensex.manager.protect.ChecksManager;
 import dev.licensex.manager.utils.PathUtil;
 import dev.licensex.manager.utils.ThemesUtil;
 
-public final class Launcher {
+public final class Launcher { // ToDo fix bug when exiting license or configuration windows
 
     private static final ChecksManager checksManager = new ChecksManager();
     public static MainGUI mainGUI;
