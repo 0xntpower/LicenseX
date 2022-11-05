@@ -58,7 +58,7 @@ public class YamlStorage {
             try {
                 if (ios != null)
                     ios.close();
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
 
             }
         }

@@ -1,7 +1,10 @@
 package dev.licensex.server.request.requests;
 
+import dev.licensex.server.LicenseServerX;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
+import dev.licensex.server.utils.consts.LXP;
+import dev.licensex.server.utils.crypto.AES;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -12,36 +15,12 @@ public class RemoveProductRequest implements RequestExecutor {
     public void onRequest(SSLSocket socket, BufferedReader input, PrintWriter output, String... args) {
         String category = args[0];
         String product_name = args[1];
-        String product_id = args[2];
 
-//        String msg = socket.getInetAddress().getHostAddress() + " -> Product collection " + category + " doesn't exists, aborting request.";
-//
-//        if (MongoUtil.doesCollectionExist(category)) {
-//
-//            msg = socket.getInetAddress().getHostAddress() + " -> Product " + product_name + " doesn't exists, aborting request.";
-//
-//            MongoCollection<Document> collection = Launcher.licenseServerX.getMongoConnect().getMongoCollection(category);
-//
-//            // ToDo make this also check ids
-//            Document document = collection.find(Filters.eq("product_name", product_name)).first();
-//            if (document != null) {
-//                collection.deleteOne(document);
-//
-//                msg = socket.getInetAddress().getHostAddress() + " -> Product " + product_name + " has been deleted.";
-//            }
-//
-//        }
-//
-//        IOUtil.logInfo(msg);
-//
-//        try {
-//            output.close();
-//            input.close();
-//            socket.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        LicenseServerX.datafile.removeProduct(category, product_name);
 
-        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Product ("+product_id+") has been removed");
+        // ToDo verify data existence before replying
+        output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
+
+        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Product ("+product_name+") has been removed");
     }
 }

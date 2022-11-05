@@ -65,7 +65,7 @@ public class DataFile {
     }
 
     public void removeLicense(String category, String product, String license) {
-        List<String> productLicenses = yaml.getStringList(category + "." + product + ".");;
+        List<String> productLicenses = yaml.getStringList(category + "." + product + ".");
 
         if (productLicenses == null)
             productLicenses = new ArrayList<>();
@@ -73,6 +73,10 @@ public class DataFile {
         productLicenses.remove(license);
         yaml.set(category + "." + product + ".", productLicenses);
 
+        yaml.save();
+    }
+
+    public void removeProduct(String category, String product) {
         yaml.save();
     }
 }

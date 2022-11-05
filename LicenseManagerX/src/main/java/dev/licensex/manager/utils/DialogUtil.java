@@ -9,10 +9,15 @@ import javax.swing.*;
 public class DialogUtil {
 
     public static int showConfirmDialog(String content, String title, int type, JFrameX jFrameX) {
-//        boolean tempOnTop = jFrameX.isAlwaysOnTop();
-//        jFrameX.setAlwaysOnTop(false);
-        int result = JOptionPane.showConfirmDialog(null, content, title, type);
-//        jFrameX.setAlwaysOnTop(tempOnTop);
-        return result;
+        return JOptionPane.showConfirmDialog(jFrameX, content, title, type);
     }
+
+//    public static int showConfirmDialog(String content, String title, int type, JFrameX jFrameX) {
+//        final JOptionPane pane = new JOptionPane(content, type);
+//        final JDialog dialog = pane.createDialog(null, title);
+//        dialog.setLocationRelativeTo(jFrameX);
+//        dialog.setVisible(true);
+//        dialog.dispose();
+//        return (int) pane.getValue();
+//    }
 }

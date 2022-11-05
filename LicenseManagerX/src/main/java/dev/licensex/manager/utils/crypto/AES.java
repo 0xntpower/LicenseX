@@ -41,7 +41,7 @@ public class AES {
         } catch (Exception e) {
             System.out.println("Error while decrypting: " + e.toString());
         }
-        return null;
+        return "bad_enc";
     }
 
     @jnic
