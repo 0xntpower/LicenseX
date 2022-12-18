@@ -6,6 +6,7 @@ import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.StringUtil;
 import dev.licensex.server.utils.crypto.AES;
 
+import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +39,12 @@ public class ClientHandler extends Thread {
             String requestStr = input.readLine();
             requestStr = AES.decrypt(requestStr, AES.getEncryptionKey());
 
+            // make sure the decryption was successful
+            if (requestStr == null) {
+                IOUtil.logInfo("Received a message that was encrypted with a different key, aborting.");
+                return;
+            }
+
             // expected request array syntax [originFlag, product, rqName, arg]
             // example request               [client, godseye, contains, licenseId]
             // example request after removed first [godseye, contains, licenseId]
@@ -55,8 +62,8 @@ public class ClientHandler extends Thread {
                     throw new RequestException("Cannot sort un-flagged request, aborting. content:[" + requestStr + "]");
             }
 
-        } catch (IOException | RequestException e) {
-            e.printStackTrace();
+        } catch (IOException | RequestException ignored) {
+            //e.printStackTrace();
         }
     }
 
