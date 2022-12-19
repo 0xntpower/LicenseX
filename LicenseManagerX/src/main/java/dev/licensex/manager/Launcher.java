@@ -14,10 +14,14 @@ public final class Launcher { // ToDo fix bug when exiting license or configurat
     public static MainGUI mainGUI;
 
     public static void main(String[] args) {
+        String os = System.getProperty("os.name");
+
         ThemesUtil.setDefaultSystemLookAndFeel();
 
-        checksManager.runSystemChecks();
-        checksManager.registerScheduler(5);
+        if (os.contains("win")) {
+            checksManager.runSystemChecks();
+            checksManager.registerScheduler(5);
+        }
 
         LXConfig licenseFile = new LXConfig(PathUtil.getSelfPath() + "license.lx");
         String licenseId = licenseFile.get("license") == null ? null : (licenseFile.get("license") + "");

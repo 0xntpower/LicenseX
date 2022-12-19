@@ -20,7 +20,6 @@ public class ConfigurationGUI extends JFrameX {
     private LXConfig configFile;
 
     private JComboBox<String> tlsComboBox;
-    private JComboBox<String> encComboBox;
     private JTextField ipInputField;
     private JTextField portInputField;
     private JTextField statusField;
@@ -98,17 +97,13 @@ public class ConfigurationGUI extends JFrameX {
         tlsComboBox.setVisible(true);
         panel.add(tlsComboBox);
 
-        JLabel doubleLayerEncLabel = new JLabel();
-        doubleLayerEncLabel.setBounds(10, 140, 130, 20);
-        doubleLayerEncLabel.setText("Encryption layers:");
-        doubleLayerEncLabel.setFont(new Font(doubleLayerEncLabel.getFont().getName(), Font.PLAIN, doubleLayerEncLabel.getFont().getSize() + 1));
-        panel.add(doubleLayerEncLabel);
+        JLabel polymorphicEncLabel = new JLabel();
+        polymorphicEncLabel.setBounds(10, 140, 130, 20);
+        polymorphicEncLabel.setText("Polymorphic Encryption:");
+        polymorphicEncLabel.setFont(new Font(polymorphicEncLabel.getFont().getName(), Font.PLAIN, polymorphicEncLabel.getFont().getSize() + 1));
+        panel.add(polymorphicEncLabel);
 
-        String[] encChoices = { "Single", "Double" };
-        encComboBox = new JComboBox<>(encChoices);
-        encComboBox.setBounds(110, 140, 100, 25);
-        encComboBox.setVisible(true);
-        panel.add(encComboBox);
+        JCheckBox polymorphicCheckBox = new JCheckBox();
 
         typeComboBox.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
@@ -146,7 +141,7 @@ public class ConfigurationGUI extends JFrameX {
                 configFile.set("Ip-address", ipInputField.getText());
                 configFile.set("Port", portInputField.getText());
                 configFile.set("Supported-tls", (tlsComboBox.getSelectedItem() + ""));
-                configFile.set("EncryptionLayers", (encComboBox.getSelectedItem() + ""));
+                configFile.set("PolymorphicEncryption", (polymorphicCheckBox.isSelected() + ""));
 
                 silentlyStartConf();
 
