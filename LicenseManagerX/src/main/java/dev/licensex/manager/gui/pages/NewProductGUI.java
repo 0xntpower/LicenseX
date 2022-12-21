@@ -85,7 +85,7 @@ public class NewProductGUI extends JFrameX {
                         || isInstantFullDelete(e))
                     idTextField.setText("");
                 else if (!specialKeys.contains(e.getKeyCode()))
-                    idTextField.setText(StringUtil.generateString(6));
+                    idTextField.setText(StringUtil.randomString(6));
             }
         });
 

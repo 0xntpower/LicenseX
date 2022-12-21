@@ -1,5 +1,6 @@
 package dev.licensex.manager.utils;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +11,16 @@ public final class StringUtil {
 
     private static final char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
 
-    public static String generateString(int length) {
+    public static String randomSecureString(int length) {
+        SecureRandom secureRandom = new SecureRandom();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append(chars[secureRandom.nextInt(chars.length)]);
+        }
+        return sb.toString();
+    }
+
+    public static String randomString(int length) {
         return IntStream.range(0, length)
                 .mapToObj(i -> Character.toString(chars[ThreadLocalRandom.current().nextInt(chars.length)]))
                 .collect(Collectors.joining());

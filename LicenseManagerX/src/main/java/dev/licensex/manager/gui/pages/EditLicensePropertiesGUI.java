@@ -203,9 +203,9 @@ public class EditLicensePropertiesGUI extends JFrameX {
     }
 
     private String generateLicenseString() {
-        return (idTypeComboBox.getSelectedItem() + "").equals("Groups") ? StringUtil.generateString(4) + '-' +
-                StringUtil.generateString(4) + '-' + StringUtil.generateString(4) +
-                '-' + StringUtil.generateString(4) : StringUtil.generateString(19);
+        return (idTypeComboBox.getSelectedItem() + "").equals("Groups") ? StringUtil.randomSecureString(4) + '-' +
+                StringUtil.randomSecureString(4) + '-' + StringUtil.randomSecureString(4) +
+                '-' + StringUtil.randomSecureString(4) : StringUtil.randomSecureString(19);
     }
 
     @Override

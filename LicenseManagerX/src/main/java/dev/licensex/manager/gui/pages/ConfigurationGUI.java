@@ -59,7 +59,7 @@ public class ConfigurationGUI extends JFrameX {
 
         String[] typesChoices = { "IP", "Domain" };
         typeComboBox = new JComboBox<>(typesChoices);
-        typeComboBox.setBounds(110, 10, 100, 25);
+        typeComboBox.setBounds(110 - (os.contains("Mac OS X") ? 10 : 0), 10, 100, 25);
         typeComboBox.setVisible(true);
         panel.add(typeComboBox);
 
@@ -69,8 +69,10 @@ public class ConfigurationGUI extends JFrameX {
         ipLabel.setFont(new Font(ipLabel.getFont().getName(), Font.PLAIN, ipLabel.getFont().getSize() + 1));
         panel.add(ipLabel);
 
+        int ipX = os.contains("Mac OS X") ? 90 : 80;
+
         ipInputField = new JTextField();
-        ipInputField.setBounds(80, 45, 135, 20);
+        ipInputField.setBounds(ipX, 45, 135, 20);
         panel.add(ipInputField);
         ipInputField.setColumns(10);
 
@@ -81,7 +83,7 @@ public class ConfigurationGUI extends JFrameX {
         panel.add(portLabel);
 
         portInputField = new JTextField();
-        portInputField.setBounds(80, 72, 135, 20);
+        portInputField.setBounds(ipX, 72, 135, 20);
         panel.add(portInputField);
         portInputField.setColumns(10);
 
@@ -93,17 +95,19 @@ public class ConfigurationGUI extends JFrameX {
 
         String[] tlsChoices = { "TLSv3", "TLSv2 & TLSv3" };
         tlsComboBox = new JComboBox<>(tlsChoices);
-        tlsComboBox.setBounds(110, 105, 100, 25);
+        tlsComboBox.setBounds(110 + (os.contains("Mac OS X") ? 5 : 0), 105, 100, 25);
         tlsComboBox.setVisible(true);
         panel.add(tlsComboBox);
 
         JLabel polymorphicEncLabel = new JLabel();
-        polymorphicEncLabel.setBounds(10, 140, 130, 20);
-        polymorphicEncLabel.setText("Polymorphic Encryption:");
+        polymorphicEncLabel.setBounds(10, 140, 150, 20);
+        polymorphicEncLabel.setText("Polymorphic Enc:");
         polymorphicEncLabel.setFont(new Font(polymorphicEncLabel.getFont().getName(), Font.PLAIN, polymorphicEncLabel.getFont().getSize() + 1));
         panel.add(polymorphicEncLabel);
 
         JCheckBox polymorphicCheckBox = new JCheckBox();
+        polymorphicCheckBox.setBounds(125, 139, 25, 25);
+        panel.add(polymorphicCheckBox);
 
         typeComboBox.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
@@ -141,7 +145,7 @@ public class ConfigurationGUI extends JFrameX {
                 configFile.set("Ip-address", ipInputField.getText());
                 configFile.set("Port", portInputField.getText());
                 configFile.set("Supported-tls", (tlsComboBox.getSelectedItem() + ""));
-                configFile.set("PolymorphicEncryption", (polymorphicCheckBox.isSelected() + ""));
+                configFile.set("Polymorphic-Encryption", (polymorphicCheckBox.isSelected() + ""));
 
                 silentlyStartConf();
 
