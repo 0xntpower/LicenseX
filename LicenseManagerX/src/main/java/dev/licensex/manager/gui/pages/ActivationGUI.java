@@ -9,12 +9,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class ActivationGUI extends JFrameX {
     private static boolean isRunning;
 
     private MainGUI mainGUI;
     private LXConfig licenseFile;
+    private JPasswordField licenseInputField;
     private boolean activated = false;
 
     public ActivationGUI(MainGUI mainGUI, LXConfig licenseFile) {
@@ -28,6 +31,16 @@ public class ActivationGUI extends JFrameX {
     public void startWindow() {
         buildWindow();
         setVisible(true);
+    }
+
+    class CustomKeyListener implements KeyListener {
+        public void keyTyped(KeyEvent e) {}
+        public void keyPressed(KeyEvent e) {}
+        public void keyReleased(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                performActivation(licenseInputField.getText());
+            }
+        }
     }
 
     @Override
@@ -47,10 +60,11 @@ public class ActivationGUI extends JFrameX {
         licenseLabel.setFont(new Font(licenseLabel.getFont().getName(), Font.PLAIN, licenseLabel.getFont().getSize() + 1));
         panel.add(licenseLabel);
 
-        JPasswordField licenseInputField = new JPasswordField();
+        licenseInputField = new JPasswordField();
         licenseInputField.setBounds(10, 25, 250, 20);
         panel.add(licenseInputField);
         licenseInputField.setColumns(10);
+        licenseInputField.addKeyListener(new CustomKeyListener());
 
         JButton inputBtn = new JButton("ENTER");
         inputBtn.setBounds(270, 24, 80, 22);
@@ -59,15 +73,7 @@ public class ActivationGUI extends JFrameX {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (licenseInputField.getText().length() < 19) {
-                    showDialog("Syntax error, license is too short", "Process failed!", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                String licenseId = licenseInputField.getText();
-
-                performActivation(licenseId);
-
+                performActivation(licenseInputField.getText());
             }
         });
 
@@ -75,6 +81,11 @@ public class ActivationGUI extends JFrameX {
     }
 
     public void performActivation(String licenseId) {
+        if (licenseId.length() < 19) {
+            showDialog("Syntax error, license is too short", "Process failed!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (checkLicenseWithServer(licenseId)) {
             // license approved, after checking with server
             licenseFile.set("license", licenseId);

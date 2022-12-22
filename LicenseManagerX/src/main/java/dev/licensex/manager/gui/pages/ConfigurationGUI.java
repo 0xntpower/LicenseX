@@ -106,7 +106,7 @@ public class ConfigurationGUI extends JFrameX {
         panel.add(polymorphicEncLabel);
 
         JCheckBox polymorphicCheckBox = new JCheckBox();
-        polymorphicCheckBox.setBounds(125, 139, 25, 25);
+        polymorphicCheckBox.setBounds(os.contains("Mac OS X") ? 125 : 106, 139, 25, 25);
         panel.add(polymorphicCheckBox);
 
         typeComboBox.addActionListener (new ActionListener () {
