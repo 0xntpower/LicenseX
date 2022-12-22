@@ -106,6 +106,9 @@ public class MainGUI extends JFrameX {
     protected void buildWindow() {
         setResizable(false);
         setTitle("LicenseManagerX");
+        // ToDo make setting icon's work
+        java.net.URL url = ClassLoader.getSystemResource("icon.png");
+        Toolkit.getDefaultToolkit().getImage(url);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(200, 200, 1100, 680);
         setLayout(new BorderLayout());

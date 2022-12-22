@@ -7,12 +7,15 @@ import dev.licensex.manager.protect.ChecksManager;
 import dev.licensex.manager.utils.PathUtil;
 import dev.licensex.manager.utils.ThemesUtil;
 
+import java.awt.*;
+
 public final class Launcher { // ToDo fix bug when exiting license or configuration windows
     // ToDo limit the kind of characters that can be used in a license (so it can't mess up functions in StringUtil)
 
     private static final ChecksManager checksManager = new ChecksManager();
     public static MainGUI mainGUI;
 
+    // 188.166.110.239
     public static void main(String[] args) {
         String os = System.getProperty("os.name");
 
