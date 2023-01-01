@@ -98,13 +98,13 @@ public class GenerateLicenseGUI extends JFrameX {
         panel.add(licenseTypeComboBox);
 
         JLabel limitLabel = new JLabel("Limit: ");
-        limitLabel.setBounds(os.contains("Mac OS X") ? 134 : 129, 90, 80, 20);
+        limitLabel.setBounds(licenseTypeComboBox.getX() - (os.contains("Mac OS X") ? 17 : 23), licenseTypeComboBox.getY() + 30, 80, 20);
         limitLabel.setFont(new Font(limitLabel.getFont().getName(), Font.PLAIN, 12));
         limitLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(limitLabel);
 
         limitTextField = new JTextField();
-        limitTextField.setBounds(os.contains("Mac OS X") ? 190 : 187, 90, 65, 19);
+        limitTextField.setBounds( licenseTypeComboBox.getX() + (os.contains("Mac OS X") ? 39 : 35), limitLabel.getY(), 65, 19);
         limitTextField.setColumns(4);
         panel.add(limitTextField);
 
@@ -126,13 +126,13 @@ public class GenerateLicenseGUI extends JFrameX {
         panel.add(expiresComboBox);
 
         JLabel dateLabel = new JLabel("Date: ");
-        dateLabel.setBounds(os.contains("Mac OS X") ? 274 : 269, 90, 80, 20);
+        dateLabel.setBounds((int) (expiresComboBox.getX() - (os.contains("Mac OS X") ? 17 : 23)), expiresComboBox.getY() + 30, 80, 20);
         dateLabel.setFont(new Font(dateLabel.getFont().getName(), Font.PLAIN, 12));
         dateLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(dateLabel);
 
         dateTextField = new JTextField();
-        dateTextField.setBounds(os.contains("Mac OS X") ? 334 : 327, 90, 65, 19);
+        dateTextField.setBounds((int) (expiresComboBox.getX() + (os.contains("Mac OS X") ? 43 : 35)), dateLabel.getY(), 65, 19);
         dateTextField.setColumns(4);
         dateTextField.setEditable(false);
         panel.add(dateTextField);
@@ -149,31 +149,31 @@ public class GenerateLicenseGUI extends JFrameX {
         });
 
         JLabel licenseIdLabel = new JLabel("License-id: ");
-        licenseIdLabel.setBounds(-50, 10, 220, 20);
+        licenseIdLabel.setBounds(5, 10, 100, 20);
         licenseIdLabel.setFont(new Font(licenseIdLabel.getFont().getName(), Font.PLAIN, 12));
         licenseIdLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(licenseIdLabel);
 
         idTextField = new JTextField();
-        idTextField.setBounds(115, 10, 200, 19);
+        idTextField.setBounds(licenseIdLabel.getWidth(), licenseIdLabel.getY(), 200, 19);
         idTextField.setColumns(10);
         panel.add(idTextField);
         idTextField.addKeyListener(new CustomKeyListener());
 
         JLabel userNameLabel = new JLabel("Username: ");
-        userNameLabel.setBounds(-50, 33, 220, 20);
+        userNameLabel.setBounds((int) licenseIdLabel.getX(), 33, 100, 20);
         userNameLabel.setFont(new Font(userNameLabel.getFont().getName(), Font.PLAIN, 12));
         userNameLabel.setHorizontalAlignment(JLabel.CENTER);
         panel.add(userNameLabel);
 
         userNameTextField = new JTextField();
-        userNameTextField.setBounds(115, 33, 200, 19);
+        userNameTextField.setBounds(userNameLabel.getWidth(), userNameLabel.getY(), 200, 19);
         userNameTextField.setColumns(10);
         panel.add(userNameTextField);
         userNameTextField.addKeyListener(new CustomKeyListener());
 
         nameInLicenseCheckBox = new JCheckBox("Name in license");
-        nameInLicenseCheckBox.setBounds(9, 90, 135, 20);
+        nameInLicenseCheckBox.setBounds(idTypeComboBox.getX() - 3, idTypeComboBox.getY() + 30, 100, 20);
         panel.add(nameInLicenseCheckBox);
         nameInLicenseCheckBox.addActionListener(new ActionListener() {
             @Override
@@ -192,7 +192,7 @@ public class GenerateLicenseGUI extends JFrameX {
         });
 
         JButton btnGenerate = new JButton("generate");
-        btnGenerate.setBounds(320, 10, os.contains("Mac OS X") ? 70 : 80, 19);
+        btnGenerate.setBounds(idTextField.getWidth() + 105, idTextField.getY(), os.contains("Mac OS X") ? 70 : 80, 19);
         panel.add(btnGenerate);
         btnGenerate.addActionListener(new ActionListener() {
 
@@ -228,7 +228,7 @@ public class GenerateLicenseGUI extends JFrameX {
         });
 
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(110, 143, 180, 20);
+        btnCancel.setBounds(btnSave.getX(), btnSave.getY() + 23, btnSave.getWidth(), btnSave.getHeight());
         panel.add(btnCancel);
         btnCancel.addActionListener(new ActionListener() {
 

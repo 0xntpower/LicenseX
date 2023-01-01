@@ -61,20 +61,26 @@ public class NewProductCategoryGUI extends JFrameX {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JLabel productNameLabel = new JLabel("category name: ");
-        productNameLabel.setBounds(-50, 10, 220, 20);
-        productNameLabel.setFont(new Font(productNameLabel.getFont().getName(), Font.PLAIN, 12));
-        productNameLabel.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(productNameLabel);
+        JLabel categoryNameLabel = new JLabel("category name: ");
+        categoryNameLabel.setBounds(10, 10, 100, 20);
+        categoryNameLabel.setFont(new Font(categoryNameLabel.getFont().getName(), Font.PLAIN, 12));
+        categoryNameLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(categoryNameLabel);
 
         nameTextField = new JTextField();
-        nameTextField.setBounds(115, 10, 200, 19);
+        nameTextField.setBounds(categoryNameLabel.getWidth() + 15, categoryNameLabel.getY(), 200, 19);
         nameTextField.setColumns(10);
         panel.add(nameTextField);
         nameTextField.addKeyListener(new CustomKeyListener());
 
+        JLabel productIdLabel = new JLabel("category id: ");
+        productIdLabel.setBounds(categoryNameLabel.getX() + 10, categoryNameLabel.getY() + 20, 100, 20);
+        productIdLabel.setFont(new Font(productIdLabel.getFont().getName(), Font.PLAIN, 12));
+        productIdLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(productIdLabel);
+
         idTextField = new JTextField();
-        idTextField.setBounds(115, 30, 200, 19);
+        idTextField.setBounds(productIdLabel.getWidth() + 15, productIdLabel.getY(), 200, 19);
         idTextField.setColumns(10);
         panel.add(idTextField);
         idTextField.addKeyListener(new CustomKeyListener());
@@ -89,12 +95,6 @@ public class NewProductCategoryGUI extends JFrameX {
             }
         });
 
-        JLabel productIdLabel = new JLabel("category id: ");
-        productIdLabel.setBounds(-50, 30, 240, 20);
-        productIdLabel.setFont(new Font(productIdLabel.getFont().getName(), Font.PLAIN, 12));
-        productIdLabel.setHorizontalAlignment(JLabel.CENTER);
-        panel.add(productIdLabel);
-
         JButton btnSave = new JButton("Save");
         btnSave.setBounds(90, 63, 180, 20);
         panel.add(btnSave);
@@ -107,7 +107,7 @@ public class NewProductCategoryGUI extends JFrameX {
         });
 
         JButton btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(90, os.contains("Mac OS X") ? 86 : 83, 180, 20);
+        btnCancel.setBounds(btnSave.getX(), os.contains("Mac OS X") ? 86 : 83, btnSave.getWidth(), btnSave.getHeight());
         panel.add(btnCancel);
         btnCancel.addActionListener(new ActionListener() {
 
