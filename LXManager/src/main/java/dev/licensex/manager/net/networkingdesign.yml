@@ -1,0 +1,37 @@
+
+# category(collection) --
+#                       |
+#                       |---Product(Document)---|--license(Text)
+#                       |                       |
+#                       |                       |--license(Text)
+#                       |---Product(Document)
+#                       |
+#                       |
+#                       |---Product(Document)
+#                       |
+
+requests:
+  load_data:
+    - actual_string: LOAD_DATA
+    - action: request from the server all the licenses data
+  add_category:
+    - actual_string: ADD_CATEGORY
+    - action: create a collection with that name and id
+  remove_category:
+    - actual_string: REMOVE_CATEGORY
+    - action: delete the collection with matching name and id
+  add_product:
+    - actual_string: ADD_PRODUCT
+    - action: create a document under the parent collection with that name and id
+  remove_product:
+    - actual_string: REMOVE_PRODUCT
+    - action: delete a document thats under that parent with that name and id
+  add_license:
+    - actual_string: ADD_LICENSE
+    - action: add the license to the document with all the license data
+  remove_license:
+    - actual_string: REMOVE_LICENSE
+    - action: remove the license from the document
+  edit_license:
+    - actual_string: EDIT_LICENSE
+    - action: edit the license data
