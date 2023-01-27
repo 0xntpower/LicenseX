@@ -1,4 +1,4 @@
-package dev.licensex.server.database.temp;
+package dev.licensex.server.database.yaml;
 
 import dev.licensex.server.LXServer;
 import dev.licensex.server.filesys.yml.YamlStorage;

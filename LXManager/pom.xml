@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.licensex</groupId>
-    <artifactId>LicenseManagerX</artifactId>
+    <artifactId>LXManager</artifactId>
     <version>1.0.0</version>
 
     <properties>

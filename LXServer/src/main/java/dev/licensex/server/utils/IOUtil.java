@@ -9,15 +9,16 @@ import java.util.Scanner;
 @UtilityClass
 public class IOUtil {
     static final Scanner in = new Scanner(System.in);
+    static final String PREFIX = "LXServer -> ";
 
     public static void logInfo(String msg) {
-        System.out.println("LicenseServerX -> " + msg);
+        System.out.println(PREFIX + msg);
     }
     public static void logErr(String msg) {
-        System.err.println("LicenseServerX -> " + msg);
+        System.err.println(PREFIX + msg);
     }
     public static String prompt(String msg) {
-        System.out.print("LicenseServerX -> " + msg);
+        System.out.print(PREFIX + msg);
         return in.nextLine();
     }
 
@@ -50,25 +51,37 @@ public class IOUtil {
     public static void promptSetupInput(LXConfig configFile) {
         IOUtil.logInfo("No configuration file found, Initializing setup process . . .\n");
 
-        IOUtil.logInfo("Configuring mongoDB settings . . .");
+        String storage_type = IOUtil.prompt("Data storage type mongodb/yaml: ");
 
-        String databaseName = IOUtil.prompt("Please enter database name: ");
-        while (databaseName.length() < 3) {
-            IOUtil.prompt("The provided database name is too short, please provide a longer one.");
-            databaseName = IOUtil.prompt("Please enter database name: ");
+        while (!(storage_type.equalsIgnoreCase("mongodb")
+                || storage_type.equalsIgnoreCase("yaml"))) {
+            IOUtil.prompt("The provided storage type is not supported.");
+            storage_type = IOUtil.prompt("Data storage type mongodb/yaml: ");
         }
 
-        String mongoStr = IOUtil.prompt("Please enter a mongo connection string: ");
-        while (mongoStr.length() < 3) {
-            IOUtil.prompt("The provided connection string is too short, please provide a proper one.");
-            mongoStr = IOUtil.prompt("Please enter a mongo connection string: ");
+        if (storage_type.equalsIgnoreCase("mongodb")) {
+            IOUtil.logInfo("Configuring mongoDB settings . . .");
+
+            String databaseName = IOUtil.prompt("Please enter database name: ");
+            while (databaseName.length() < 3) {
+                IOUtil.prompt("The provided database name is too short, please provide a longer one.");
+                databaseName = IOUtil.prompt("Please enter database name: ");
+            }
+
+            String mongoStr = IOUtil.prompt("Please enter a mongo connection string: ");
+            while (mongoStr.length() < 3) {
+                IOUtil.prompt("The provided connection string is too short, please provide a proper one.");
+                mongoStr = IOUtil.prompt("Please enter a mongo connection string: ");
+            }
+
+            configFile.set("MongoDB.database_name", databaseName);
+            configFile.set("MongoDB.mongo_string", mongoStr);
         }
 
         System.out.println();
         IOUtil.logInfo("Generating configuration file . . .");
         IOUtil.logInfo("Configuration completed.\n");
 
-        configFile.set("MongoDB.database_name", databaseName);
-        configFile.set("MongoDB.mongo_string", mongoStr);
+        configFile.set("storage_type", storage_type);
     }
 }

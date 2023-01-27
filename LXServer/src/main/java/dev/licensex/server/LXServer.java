@@ -1,7 +1,7 @@
 package dev.licensex.server;
 
-import dev.licensex.server.database.SQLInit;
-import dev.licensex.server.database.temp.DataFile;
+import dev.licensex.server.database.sql.SQLInit;
+import dev.licensex.server.database.yaml.DataFile;
 import dev.licensex.server.filesys.lx.LXConfig;
 import dev.licensex.server.request.RequestsManager;
 import dev.licensex.server.request.requests.*;

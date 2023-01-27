@@ -1,4 +1,4 @@
-package dev.licensex.server.database;
+package dev.licensex.server.database.sql;
 
 import lombok.experimental.UtilityClass;
 
