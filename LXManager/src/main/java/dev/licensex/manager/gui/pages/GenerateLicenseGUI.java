@@ -273,14 +273,14 @@ public class GenerateLicenseGUI extends JFrameX {
                         MainGUI.selectedNode.toString(), "", idTextField.getText())) {
                     showDialog("Failed to add license", "Process failed!", JOptionPane.ERROR_MESSAGE);
 
-                    MainUtils.removeLicenseFromProduct(idTextField.getText());
-                    MainUtils.printLicenses();
+                    MainUtil.removeLicenseFromProduct(idTextField.getText());
+                    MainUtil.printLicenses();
                 }
             }
         }).start();
 
-        MainUtils.saveLicenseToProduct(idTextField.getText());
-        MainUtils.printLicenses();
+        MainUtil.saveLicenseToProduct(idTextField.getText());
+        MainUtil.printLicenses();
         dispose();
     }
 

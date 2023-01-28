@@ -6,7 +6,7 @@ import javax.swing.tree.TreePath;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainUtils {
+public class MainUtil {
     public static void removeSelectedCategory() {
         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) MainGUI.selectedNode.getParent();
 

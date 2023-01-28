@@ -3,7 +3,7 @@ package dev.licensex.manager.gui.actions;
 import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.gui.pages.GenerateLicenseGUI;
 import dev.licensex.manager.gui.pages.MainGUI;
-import dev.licensex.manager.gui.pages.MainUtils;
+import dev.licensex.manager.gui.pages.MainUtil;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,7 @@ public class RightClickProductMenu extends JPopupMenu {
                 int answerId = JOptionPane.showConfirmDialog(null, "This action is irreversible, are you sure you want to delete this product?", "Action confirmation", JOptionPane.YES_NO_OPTION);
                 if (answerId == JOptionPane.YES_OPTION) {
                     EventConnector.onProductDelete(MainGUI.selectedNode.getParent().toString(), MainGUI.selectedNode.toString(), "");
-                    MainUtils.removeSelectedProductFromCategory();
+                    MainUtil.removeSelectedProductFromCategory();
                 }
             }
         });

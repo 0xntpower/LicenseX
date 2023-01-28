@@ -5,7 +5,7 @@ import dev.licensex.manager.gui.EventConnector;
 import dev.licensex.manager.gui.pages.EditLicensePropertiesGUI;
 import dev.licensex.manager.gui.pages.LicenseInfoGUI;
 import dev.licensex.manager.gui.pages.MainGUI;
-import dev.licensex.manager.gui.pages.MainUtils;
+import dev.licensex.manager.gui.pages.MainUtil;
 import dev.licensex.manager.utils.DialogUtil;
 
 import javax.swing.*;
@@ -57,8 +57,8 @@ public class RightClickLicenseMenu extends JPopupMenu {
 
                 if (answerId == JOptionPane.YES_OPTION) {
                     EventConnector.onLicenseDelete(MainGUI.selectedNode.getParent().toString(), MainGUI.selectedNode.toString(), "", licenseId);
-                    MainUtils.removeLicenseFromProduct(licenseId);
-                    MainUtils.printLicenses();
+                    MainUtil.removeLicenseFromProduct(licenseId);
+                    MainUtil.printLicenses();
                 }
             }
         });

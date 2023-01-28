@@ -52,8 +52,16 @@ public class DataFile {
         yaml.save();
     }
 
+    public boolean isCategoryExists(String category) {
+        return yaml.getStringList(category + ".") != null;
+    }
+
+    public boolean isProductExists(String category, String product) {
+        return yaml.getStringList(category + "." + product + ".") != null;
+    }
+
     public void addLicense(String category, String product, String license) {
-        List<String> productLicenses = yaml.getStringList(category + "." + product + ".");;
+        List<String> productLicenses = yaml.getStringList(category + "." + product + ".");
 
         if (productLicenses == null)
             productLicenses = new ArrayList<>();

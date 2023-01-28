@@ -129,9 +129,9 @@ public class NewProductCategoryGUI extends JFrameX {
         new Thread(new Runnable() {
             public void run() {
                 if (!EventConnector.onCategoryCreate(nameTextField.getText())) {
-                    showDialog("Failed to create database collection", "Process failed!", JOptionPane.ERROR_MESSAGE);
+                    showDialog("Failed to create category", "Process failed!", JOptionPane.ERROR_MESSAGE);
 
-                    MainUtils.removeCategory(lastCategoryCreated);
+                    MainUtil.removeCategory(lastCategoryCreated);
 
                     DefaultMutableTreeNode lastSelectedNode = MainGUI.selectedNode;
                     ((DefaultTreeModel)MainGUI.tree.getModel()).nodeStructureChanged(MainGUI.rootNode);

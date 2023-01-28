@@ -76,7 +76,7 @@ public class MainGUI extends JFrameX {
 
                 selectedNode = addProductVisually(categoryNode, productName);
                 for (String license : StringUtil.splitProductLicenses(productLine)) {
-                    MainUtils.saveLicenseToProduct(license);
+                    MainUtil.saveLicenseToProduct(license);
                     MainGUI.visualLicensesList.addElement(license);
                 }
             }
@@ -87,7 +87,7 @@ public class MainGUI extends JFrameX {
         MainGUI.tree.expandPath(new TreePath(MainGUI.rootNode.getPath()));
 
         selectedNode = rootNode;
-        MainUtils.printLicenses();
+        MainUtil.printLicenses();
     }
 
     private DefaultMutableTreeNode addCategoryVisually(String name) {
@@ -385,7 +385,7 @@ public class MainGUI extends JFrameX {
                     if (selectedNode.getParent().getParent() != null
                             && selectedNode.getParent().getParent().toString().equals("Database")) {
                         // a product has been left-clicked
-                        MainUtils.printLicenses();
+                        MainUtil.printLicenses();
                     }
 
                 }

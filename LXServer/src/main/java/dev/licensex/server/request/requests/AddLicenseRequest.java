@@ -18,12 +18,18 @@ public class AddLicenseRequest implements RequestExecutor {
         String productId = args[2];
         String licenseId = args[3];
 
-        //MongoUtil.addLicenseToDatabase(category, productName, productId, licenseId);
-        LXServer.datafile.addLicense(category, productName, licenseId);
 
-        // ToDo verify data existence before replying
-        output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
+        if (LXServer.datafile.isCategoryExists(category) && LXServer.datafile.isProductExists(category, productName)) {
+            LXServer.datafile.addLicense(category, productName, licenseId);
 
-        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been added to database");
+            output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
+
+            IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> License ("+licenseId+") has been added to database");
+        } else {
+            output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSING_FAILED, AES.getEncryptionKey()));
+            IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Failed to add license ("+licenseId+") to database");
+        }
+
     }
+
 }
