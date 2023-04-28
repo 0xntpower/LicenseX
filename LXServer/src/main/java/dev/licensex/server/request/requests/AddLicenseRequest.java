@@ -19,7 +19,7 @@ public class AddLicenseRequest implements RequestExecutor {
         String licenseId = args[3];
 
 
-        if (LXServer.datafile.isCategoryExists(category) && LXServer.datafile.isProductExists(category, productName)) {
+        if (LXServer.datafile.isCategoryExists(category)) {
             LXServer.datafile.addLicense(category, productName, licenseId);
 
             output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));

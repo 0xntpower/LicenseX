@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainGUI extends JFrameX {
-
+    private static int BASE_DATA_REQUESTS_COUNT = 0;
     public static JLabel contentPaneTitle;
 
     // explorer pane
@@ -59,10 +59,19 @@ public class MainGUI extends JFrameX {
     public void requestAndLoadData() throws ConnectException {
         String data = EventConnector.onRequestData();
 
-        if (data.equals(LXP.DATA_CHECKS.NO_DATA_TO_SEND)) {
-            // no data to load
-            return;
-        }
+        BASE_DATA_REQUESTS_COUNT++;
+//        String server_count = data.substring(0, StringUtil.getLastIndexOf(data, '|') + 1);
+//        if (BASE_DATA_REQUESTS_COUNT != Integer.parseInt(server_count)) {
+//            // means client might be out of sync with server backwards
+//            System.exit(0);
+//        }
+//
+//        data = data.substring(StringUtil.getLastIndexOf(data, '|'));
+//
+//        if (data.equals(LXP.DATA_CHECKS.NO_DATA_TO_SEND)) {
+//            // no data to load
+//            return;
+//        }
 
         List<String> categories = List.of(StringUtil.split(data, '|'));
 

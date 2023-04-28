@@ -32,7 +32,7 @@ public class CreateCategoryRequest implements RequestExecutor {
             output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSING_FAILED, AES.getEncryptionKey()));
             IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Failed to create category ("+collectionName+") [Name taken]");
         } else {
-            LXServer.datafile.addCategory(collectionName);
+            LXServer.datafile.addProduct(collectionName, "none");
             output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
             IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Category ("+collectionName+") has been created");
         }

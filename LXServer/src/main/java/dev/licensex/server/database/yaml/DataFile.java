@@ -53,11 +53,11 @@ public class DataFile {
     }
 
     public boolean isCategoryExists(String category) {
-        return yaml.getStringList(category + ".") != null;
+        return yaml.get(category + ".none.") != null;
     }
 
     public boolean isProductExists(String category, String product) {
-        return yaml.getStringList(category + "." + product + ".") != null;
+        return yaml.get(category + product + ".none") != null;
     }
 
     public void addLicense(String category, String product, String license) {
@@ -85,6 +85,7 @@ public class DataFile {
     }
 
     public void removeProduct(String category, String product) {
+        yaml.set(category + "." + product, "");
         yaml.save();
     }
 }
