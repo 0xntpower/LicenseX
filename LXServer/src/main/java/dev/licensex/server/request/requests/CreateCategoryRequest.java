@@ -1,5 +1,6 @@
 package dev.licensex.server.request.requests;
 
+import dev.licensex.server.LXServer;
 import dev.licensex.server.request.RequestExecutor;
 import dev.licensex.server.utils.IOUtil;
 import dev.licensex.server.utils.consts.LXP;
@@ -26,9 +27,14 @@ public class CreateCategoryRequest implements RequestExecutor {
 //
 //        output.println(reply);
 //        IOUtil.logInfo(msg);
-        // ToDo verify data existence before replying
-        output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
 
-        IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Category ("+collectionName+") has been created");
+        if (LXServer.datafile.isCategoryExists(collectionName)) {
+            output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSING_FAILED, AES.getEncryptionKey()));
+            IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Failed to create category ("+collectionName+") [Name taken]");
+        } else {
+            LXServer.datafile.addCategory(collectionName);
+            output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
+            IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Category ("+collectionName+") has been created");
+        }
     }
 }

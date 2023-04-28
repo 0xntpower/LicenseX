@@ -21,7 +21,7 @@ public class CreateProductRequest implements RequestExecutor {
         // if category was deleted while creating a product under it
         if (!LXServer.datafile.isCategoryExists(category)) {
             output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSING_FAILED, AES.getEncryptionKey()));
-            IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Failed to create product ("+product_name+")");
+            IOUtil.logInfo(socket.getInetAddress().getHostAddress() + " -> Failed to create product ("+product_name+") [Cat doesn't exist]");
         } else {
             LXServer.datafile.addProduct(category, product_name);
             output.println(AES.encrypt(LXP.ACKNOWLEDGEMENTS.CLIENT_REQUEST_PROCESSED_SUCCESSFULLY, AES.getEncryptionKey()));
