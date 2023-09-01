@@ -72,10 +72,13 @@ public class MainGUI extends JFrameX {
 //            // no data to load
 //            return;
 //        }
-
-        List<String> categories = List.of(StringUtil.split(data, '|'));
+        
+        List<String> categories = new ArrayList<>(List.of(StringUtil.split(data, '|')));
+        if (data.equals("empty"))
+            categories.clear();
 
         for (String categoryData : categories) {
+
             DefaultMutableTreeNode categoryNode = addCategoryVisually(StringUtil.splitCategoryName(categoryData));
 
             ArrayList<String> splitProductsLine = StringUtil.processProductsData(categoryData);
@@ -96,6 +99,7 @@ public class MainGUI extends JFrameX {
         MainGUI.tree.expandPath(new TreePath(MainGUI.rootNode.getPath()));
 
         selectedNode = rootNode;
+
         MainUtil.printLicenses();
     }
 

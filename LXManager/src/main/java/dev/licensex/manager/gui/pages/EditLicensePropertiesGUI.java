@@ -23,6 +23,7 @@ public class EditLicensePropertiesGUI extends JFrameX {
         isRunning = true;
         this.id = id;
         buildWindow();
+        setLocationRelativeTo(Launcher.mainGUI);
         setVisible(true);
     }
 

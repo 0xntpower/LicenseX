@@ -37,6 +37,7 @@ public class NewProductCategoryGUI extends JFrameX {
         if (isRunning) return;
         isRunning = true;
         buildWindow();
+        setLocationRelativeTo(Launcher.mainGUI);
         setVisible(true);
     }
 
@@ -121,7 +122,7 @@ public class NewProductCategoryGUI extends JFrameX {
     }
 
     private void performSave() {
-        if (nameTextField.getText().length() == 0 || idTextField.getText().length() == 0) {
+        if (nameTextField.getText().isEmpty() || idTextField.getText().isEmpty()) {
             showDialog("Please fill all fields", "Process failed!", JOptionPane.ERROR_MESSAGE);
             return;
         }

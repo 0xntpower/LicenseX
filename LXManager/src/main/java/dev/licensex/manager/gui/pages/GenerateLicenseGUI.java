@@ -34,6 +34,7 @@ public class GenerateLicenseGUI extends JFrameX {
         isRunning = true;
         buildWindow();
         loadLast();
+        setLocationRelativeTo(Launcher.mainGUI);
         setVisible(true);
     }
 

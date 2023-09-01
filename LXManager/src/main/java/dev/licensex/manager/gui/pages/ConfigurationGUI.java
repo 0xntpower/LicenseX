@@ -35,6 +35,7 @@ public class ConfigurationGUI extends JFrameX {
 
     public void startWindow() {
         buildWindow();
+        setLocationRelativeTo(Launcher.mainGUI);
         setVisible(true);
     }
 

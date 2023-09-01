@@ -30,6 +30,7 @@ public class ActivationGUI extends JFrameX {
 
     public void startWindow() {
         buildWindow();
+        setLocationRelativeTo(Launcher.mainGUI);
         setVisible(true);
     }
 

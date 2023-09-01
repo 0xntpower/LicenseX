@@ -37,6 +37,7 @@ public class NewProductGUI extends JFrameX {
         if (isRunning) return;
         isRunning = true;
         buildWindow();
+        setLocationRelativeTo(Launcher.mainGUI);
         setVisible(true);
     }
 
