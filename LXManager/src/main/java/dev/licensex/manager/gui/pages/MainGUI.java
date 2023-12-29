@@ -72,7 +72,7 @@ public class MainGUI extends JFrameX {
 //            // no data to load
 //            return;
 //        }
-        
+
         List<String> categories = new ArrayList<>(List.of(StringUtil.split(data, '|')));
         if (data.equals("empty"))
             categories.clear();

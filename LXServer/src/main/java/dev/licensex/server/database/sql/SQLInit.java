@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class SQLInit {
 
     static final String DB_URL = "jdbc:sqlserver://localhost\\(localdb)/Test_local";
-    static final String USERNAME = "DESKTOP-IJL24AC\\Nort";
+    static final String USERNAME = "Nort";
     static final String PASSWORD = "";
 
     // ToDo change those to only create the tables only if they do not exist yet
